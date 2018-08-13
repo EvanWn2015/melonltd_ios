@@ -77,7 +77,7 @@ PODS:
   - Protobuf (3.6.1)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.7)
+  - Alamofire
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Messaging
@@ -122,6 +122,6 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: 963f62bf9f993fcf23218e55958e5b1761b9504c
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
 
-PODFILE CHECKSUM: 67e00c5515941ba4d98ee22f59539476399051b9
+PODFILE CHECKSUM: cc3c9ad29a69ba08637c283a3d357030ca11d109
 
 COCOAPODS: 1.5.3
