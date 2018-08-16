@@ -27,7 +27,7 @@ class ForgotPasswordVC: UIViewController {
             reqDate.email = self.email.text
             reqDate.phone = self.phone.text
             ApiManager.forgetPassword(req: reqDate, ui: self, onSuccess: {
-                let alert = UIAlertController(title: "", message: "密碼已經傳送至於您的手機，請於簡訊功能查看！" , preferredStyle: .alert)
+                let alert = UIAlertController(title: Optional.none, message: "密碼已經傳送至於您的手機，請於簡訊功能查看！", preferredStyle: .alert)
                 alert.addAction(UIAlertAction.init(title: "關閉", style: .default, handler: { _ in
                     if let vc = UIStoryboard(name: UIIdentifier.MAIN.rawValue, bundle: nil).instantiateViewController(withIdentifier: "LoginHomeRoot") as? LoginHomeRootUINC {
                         self.present(vc, animated: false, completion: nil)
@@ -35,7 +35,7 @@ class ForgotPasswordVC: UIViewController {
                 }))
                 self.present(alert, animated: false)
             }) { err_msg in
-                let alert = UIAlertController(title: "", message: err_msg , preferredStyle: .alert)
+                let alert = UIAlertController(title: Optional.none, message: err_msg, preferredStyle: .alert)
                 alert.addAction(UIAlertAction.init(title: "cancel", style: .cancel, handler: { _ in
                     
                 }))
@@ -46,7 +46,7 @@ class ForgotPasswordVC: UIViewController {
 //    找回密碼判斷
         func judgmentInput() -> Bool {
             var msg: String = ""
-            var email: String = ""
+//            var email: String = ""
             if(!ValidateHelper.shared.isVaildTelPhone(withCellPhone: self.phone.text!) ){
                 msg = "請輸入正確的手機號碼"
             }
@@ -54,7 +54,7 @@ class ForgotPasswordVC: UIViewController {
                 msg = "手機號碼不可為空"
             }
             if msg != "" {
-                let alert = UIAlertController(title: "", message: msg,   preferredStyle: .alert)
+                let alert = UIAlertController(title: Optional.none, message: msg, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "關閉", style: .cancel, handler: { _ in
                 }))
                 self.present(alert, animated: false)

@@ -84,7 +84,7 @@ class ShoppingCarMainVC: UIViewController, UITableViewDataSource, UITableViewDel
         if Model.USER_CACHE_SHOPPING_CART[rootIndex].orders.count > 1 {
             Model.USER_CACHE_SHOPPING_CART[rootIndex].orders.remove(at: subIndex)
         }else {
-            let alert = UIAlertController(title: "", message: "剩下最後一筆菜單，無法刪除。\n若要刪除，請直接點選 \"取消訂單\"", preferredStyle: .alert)
+            let alert = UIAlertController(title: Optional.none, message: "剩下最後一筆菜單，無法刪除。\n若要刪除，請直接點選 \"取消訂單\"", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "我知道了", style: .default))
             self.present(alert, animated: false)
         }
@@ -107,8 +107,8 @@ class ShoppingCarMainVC: UIViewController, UITableViewDataSource, UITableViewDel
         })
         // 訂單種額大於 5000 不給提交
         if price > 5000 {
-            let alert = UIAlertController(title: "", message:"單筆訂單不可超過 5000，\n請從重新調整您的訂單內容！", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "我知道了", style: .cancel))
+            let alert = UIAlertController(title: Optional.none, message:"單筆訂單不可超過 5000，\n請從重新調整您的訂單內容！", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "我知道了", style: .default))
             self.present(alert, animated: false)
         }else {
             if let vc = UIStoryboard(name: UIIdentifier.USER.rawValue, bundle: nil).instantiateViewController(withIdentifier: "SubmitOrder") as? SubmitOrderVC {
@@ -119,8 +119,8 @@ class ShoppingCarMainVC: UIViewController, UITableViewDataSource, UITableViewDel
     }
 
     @objc func cancelOrder(_ sender: UIButton){
-        let alert = UIAlertController(title: "", message: "確定是否刪除此訂單!!", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "返回", style: .cancel))
+        let alert = UIAlertController(title: Optional.none, message: "確定是否刪除此訂單!!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "返回", style: .default))
         alert.addAction(UIAlertAction(title: "刪除", style: .default){_ in
             Model.USER_CACHE_SHOPPING_CART.remove(at: sender.tag)
             UserSstorage.setShoppingCartDatas(datas: Model.USER_CACHE_SHOPPING_CART)

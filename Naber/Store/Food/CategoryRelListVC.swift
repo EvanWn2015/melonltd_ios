@@ -87,7 +87,7 @@ class CategoryRelListVC: UIViewController, UITableViewDelegate, UITableViewDataS
     
     @IBAction func addCategoryAction(_ sender: UIButton) {
         if self.categoryName.text == "" {
-            let alert = UIAlertController(title: "", message: "請輸入種類名稱", preferredStyle: .alert)
+            let alert = UIAlertController(title: Optional.none, message: "請輸入種類名稱", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "我知道了", style: .default))
             self.present(alert, animated: false)
         }else {
@@ -105,7 +105,7 @@ class CategoryRelListVC: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     @IBAction func deleteCategoryAction(_ sender: UIButton) {
-        let alert = UIAlertController(title: "", message: "請注意刪除種類\n，將會影響種類下的產品!", preferredStyle: .alert)
+        let alert = UIAlertController(title: Optional.none, message: "請注意刪除種類\n，將會影響種類下的產品!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "取消", style: .destructive))
         alert.addAction(UIAlertAction(title: "確定刪除", style: .default, handler: { _ in
             let reqData: ReqData = ReqData()

@@ -42,27 +42,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="QKe-gB-oly">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="QKe-gB-oly">
                                 <rect key="frame" x="4" y="104" width="367" height="36"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="離我最近" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FhG-Gn-GBL">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="0ZB-nz-GEE"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FqS-J6-1Ra" customClass="DesignableButton" customModule="Naber">
-                                        <rect key="frame" x="124" y="0.0" width="75" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="88.666666666666671" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="iNg-Ff-4Ah"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="kjL-lf-qc2"/>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="75" id="xT8-Yf-Beb"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="依照類別">
+                                        <state key="normal" title="店名搜索">
                                             <color key="titleColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -77,18 +67,42 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="searchForCategory:" destination="xiK-JR-oF8" eventType="touchUpInside" id="tkn-kC-wd3"/>
+                                            <action selector="searchForStoreName:" destination="xiK-JR-oF8" eventType="touchUpInside" id="u3F-Pb-XXK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wll-Nx-Hum" customClass="DesignableButton" customModule="Naber">
+                                        <rect key="frame" x="92.666666666666686" y="0.0" width="89" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="Syk-t8-7QB"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="hk6-ro-hEg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="類別搜索">
+                                            <color key="titleColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="searchForCategory:" destination="xiK-JR-oF8" eventType="touchUpInside" id="0gY-3W-w34"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2J-o2-y6Y" customClass="DesignableButton" customModule="Naber">
-                                        <rect key="frame" x="203" y="0.0" width="80" height="36"/>
+                                        <rect key="frame" x="185.66666666666666" y="0.0" width="88.666666666666657" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="BV0-FB-yho"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="EGH-71-wW1"/>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="80" id="l8M-oG-3iH"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="依照區域">
+                                        <state key="normal" title="區域搜索">
                                             <color key="titleColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -107,14 +121,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnV-Mf-E8k" customClass="DesignableButton" customModule="Naber">
-                                        <rect key="frame" x="287" y="0.0" width="80" height="36"/>
+                                        <rect key="frame" x="278.33333333333331" y="0.0" width="88.666666666666686" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="8LS-up-byj"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="Zuc-fZ-CIG"/>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="80" id="mzM-Y0-H0t"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="依照距離">
+                                        <state key="normal" title="離我最近">
                                             <color key="titleColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -312,7 +325,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="訂餐" id="IMW-Jm-cvQ"/>
                     <connections>
-                        <outlet property="filterName" destination="FhG-Gn-GBL" id="RyU-7q-huH"/>
+                        <outlet property="areaBtn" destination="w2J-o2-y6Y" id="iCk-Kt-Hug"/>
+                        <outlet property="categoryBtn" destination="Wll-Nx-Hum" id="EQp-V8-Wtc"/>
+                        <outlet property="distanceBtn" destination="hnV-Mf-E8k" id="roh-V2-Rra"/>
+                        <outlet property="storeNameBtn" destination="FqS-J6-1Ra" id="ZHP-Z8-WRF"/>
                         <outlet property="tableView" destination="thE-HF-eG3" id="Eq5-rm-SSU"/>
                     </connections>
                 </viewController>
@@ -770,30 +786,26 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EHA-TG-kL5">
-                                                    <rect key="frame" x="220" y="6" width="60" height="24"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 40" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EHA-TG-kL5">
+                                                    <rect key="frame" x="256.66666666666669" y="6" width="30.333333333333314" height="24"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="JyG-lG-JQ0"/>
                                                         <constraint firstAttribute="height" constant="24" id="YiK-nU-1QD"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DmC-8F-Y5x">
-                                                    <rect key="frame" x="16" y="6" width="200" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="npz-FJ-AN6"/>
-                                                    </constraints>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="珍珠奶茶" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DmC-8F-Y5x">
+                                                    <rect key="frame" x="16.000000000000004" y="6" width="57.333333333333343" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hct-tk-z55">
-                                                    <rect key="frame" x="328" y="6" width="31" height="24"/>
+                                                    <rect key="frame" x="335" y="6" width="24" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="98u-V2-v2X"/>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="y45-8s-xnw"/>
+                                                        <constraint firstAttribute="width" constant="24" id="y45-8s-xnw"/>
                                                     </constraints>
                                                     <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="4"/>
@@ -1409,6 +1421,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NjW-hp-5Ve">
                                                     <rect key="frame" x="312" y="14" width="49" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="changeSound:" destination="SG6-F4-dlK" eventType="valueChanged" id="NnR-cZ-fra"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -1431,6 +1446,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7lu-oQ-Qk8">
                                                     <rect key="frame" x="312" y="14" width="49" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="changeShake:" destination="SG6-F4-dlK" eventType="valueChanged" id="sDy-Td-BhK"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -1553,6 +1571,8 @@
                         <outlet property="accunt" destination="uxK-NE-foi" id="zQT-9d-03W"/>
                         <outlet property="bonus" destination="fcE-iO-X6R" id="aad-ZS-f6N"/>
                         <outlet property="photo" destination="kTA-Hz-NHh" id="aCG-ot-6Vi"/>
+                        <outlet property="shake" destination="7lu-oQ-Qk8" id="OgJ-QC-iWD"/>
+                        <outlet property="sound" destination="NjW-hp-5Ve" id="6bG-cw-cEl"/>
                         <outlet property="version" destination="31K-Oa-Whc" id="6r1-Pw-KgB"/>
                     </connections>
                 </tableViewController>
@@ -2160,8 +2180,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNt-N7-Nu0">
-                                                    <rect key="frame" x="-1" y="37" width="376" height="48"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNt-N7-Nu0">
+                                                    <rect key="frame" x="-0.66666666666665719" y="36" width="375.33333333333326" height="48"/>
                                                     <color key="backgroundColor" red="0.95686274510000002" green="0.90980392160000001" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="375" id="Nwy-d9-MMJ"/>
@@ -2657,6 +2677,7 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="須為現在時間20分鐘後" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XPK-EJ-cmb" customClass="CustomSearchTextField" customModule="Naber" customModuleProvider="target">
                                 <rect key="frame" x="8" y="129" width="359" height="30"/>
+                                <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -3681,6 +3702,6 @@
         <image name="黃底NABER白字" width="674" height="477"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="VUG-v7-N3B"/>
+        <segue reference="xMS-ZR-voG"/>
     </inferredMetricsTieBreakers>
 </document>

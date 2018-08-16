@@ -16,12 +16,17 @@ class UserSettingMainPageTVC: UITableViewController {
     @IBOutlet weak var accunt: UILabel!
     @IBOutlet weak var bonus: UILabel!
     @IBOutlet weak var version: UILabel!
+    @IBOutlet weak var sound: UISwitch!
+    @IBOutlet weak var shake: UISwitch!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.sound.isOn = UserSstorage.getSound()!;
+        self.shake.isOn = UserSstorage.getShake()!;
         if let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")! as? String {
              self.version.text = "V." + version
         }
@@ -55,5 +60,14 @@ class UserSettingMainPageTVC: UITableViewController {
         super.didReceiveMemoryWarning()
         
         // Dispose of any resources that can be recreated.
+    }
+    
+
+     @IBAction func changeSound(_ sender: UISwitch) {
+        UserSstorage.setSound(sender.isOn)
+    }
+    
+    @IBAction func changeShake(_ sender: UISwitch) {
+        UserSstorage.setShake(sender.isOn)
     }
 }

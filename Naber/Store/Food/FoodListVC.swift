@@ -151,7 +151,7 @@ class FoodListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     @IBAction func deleteFoodAction(_ sender: UIButton) {
-        let alert = UIAlertController( title: "", message: "刪除後將無法找回，\n您確定要刪除嗎？", preferredStyle: .alert)
+        let alert = UIAlertController( title: Optional.none, message: "刪除後將無法找回，\n您確定要刪除嗎？", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "取消", style: .destructive, handler:nil))
         alert.addAction(UIAlertAction(title: "確定刪除", style: .default, handler: { _ in
             let reqData: ReqData = ReqData()

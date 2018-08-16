@@ -203,10 +203,20 @@ class HomeMainVC: UIViewController,UITableViewDataSource, UITableViewDelegate ,F
     
     public func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index)
-        if let photo: String? = Model.ADVERTISEMENTS[index].photo {
-            cell.imageView?.setImage(with: URL(string: photo!), transformer: TransformerHelper.transformer(identifier: photo!))
-        }else {
-           cell.imageView?.image = UIImage(named: "naber_default_image.png")
+        
+        // isPad insert pad_photo
+        if UIDevice.current.model.range(of: "iPad") != nil{
+            if let pad_photo: String? = Model.ADVERTISEMENTS[index].pad_photo {
+                cell.imageView?.setImage(with: URL(string: pad_photo!), transformer: TransformerHelper.transformer(identifier: pad_photo!))
+            }else {
+                cell.imageView?.image = UIImage(named: "naber_pad_default_image.png")
+            }
+        } else {
+            if let photo: String? = Model.ADVERTISEMENTS[index].photo {
+                cell.imageView?.setImage(with: URL(string: photo!), transformer: TransformerHelper.transformer(identifier: photo!))
+            }else {
+                cell.imageView?.image = UIImage(named: "naber_default_image.png")
+            }
         }
         cell.imageView?.contentMode = .scaleAspectFill
         cell.imageView?.clipsToBounds = true

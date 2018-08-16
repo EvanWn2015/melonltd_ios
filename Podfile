@@ -3,7 +3,7 @@ platform :ios, '11.4'
 use_frameworks!
 
 target 'Naber' do
-    pod 'Alamofire' 
+    pod 'Alamofire'
 #    pod 'SwiftyJSON', '~> 4.0'
     pod 'NVActivityIndicatorView'
     pod 'Firebase/Core'

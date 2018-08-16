@@ -66,10 +66,8 @@ class RegisterUserDetailVC: UIViewController, UIPickerViewDelegate, UIPickerView
                 }))
                 self.present(alert, animated: false)
             }) { err_msg in
-                let alert = UIAlertController(title: "", message: err_msg , preferredStyle: .alert)
-                alert.addAction(UIAlertAction.init(title: "cancel", style: .cancel, handler: { _ in
-                    
-                }))
+                let alert = UIAlertController(title: Optional.none, message: err_msg , preferredStyle: .alert)
+                alert.addAction(UIAlertAction.init(title: "我知道了", style: .default))
                 self.present(alert, animated: false)
             }
         }
@@ -104,8 +102,8 @@ class RegisterUserDetailVC: UIViewController, UIPickerViewDelegate, UIPickerView
         }
         
         if msg != "" {
-            let alert = UIAlertController(title: "", message: msg,   preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "關閉", style: .cancel, handler: { _ in
+            let alert = UIAlertController(title: Optional.none, message: msg,   preferredStyle: .alert)
+            alert.addAction(UIAlertAction.init(title: "我知道了", style: .default, handler: { _ in
                 self.passwordCheck.text = ""
             }
             ))

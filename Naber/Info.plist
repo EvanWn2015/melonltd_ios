@@ -26,11 +26,11 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>NABER 將使用GPS功能</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

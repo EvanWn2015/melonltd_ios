@@ -13,6 +13,8 @@
 		2036B845210760190081FE92 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2036B844210760190081FE92 /* BaseVC.swift */; };
 		2036B8472107621C0081FE92 /* DateTimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2036B8462107621C0081FE92 /* DateTimeHelper.swift */; };
 		204C2560210A33830000D3EE /* PageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204C255F210A33830000D3EE /* PageType.swift */; };
+		204FF8A42122C1CB00F7ECA5 /* naber_pad_default_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 204FF8A32122C1CB00F7ECA5 /* naber_pad_default_image.png */; };
+		204FF8A62122C5AD00F7ECA5 /* ApiUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204FF8A52122C5AD00F7ECA5 /* ApiUrl.swift */; };
 		205015F4210B84D500FDE2E8 /* ValidateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205015F3210B84D500FDE2E8 /* ValidateHelper.swift */; };
 		205015F6210B8C8A00FDE2E8 /* StringsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205015F5210B8C8A00FDE2E8 /* StringsHelper.swift */; };
 		205015F8210CB7B300FDE2E8 /* UIIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205015F7210CB7B300FDE2E8 /* UIIdentifier.swift */; };
@@ -65,7 +67,6 @@
 		20E65E8020FF0ABE00F9A252 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF8C2A520B1CC2A00BF8904 /* MapKit.framework */; };
 		20E65E8220FF17F100F9A252 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E65E8120FF17F100F9A252 /* Loading.swift */; };
 		20E65E8720FF2F7200F9A252 /* Bulletin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E65E8620FF2F7200F9A252 /* Bulletin.swift */; };
-		20E65E8920FF316600F9A252 /* ApiUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E65E8820FF316600F9A252 /* ApiUrl.swift */; };
 		20EF6E2F2119474700787F4C /* FoodEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EF6E2E2119474700787F4C /* FoodEditVC.swift */; };
 		20EF6E312119582800787F4C /* FoodMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EF6E302119582800787F4C /* FoodMainCell.swift */; };
 		20EF6E33211958B300787F4C /* FoodSubCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EF6E32211958B300787F4C /* FoodSubCell.swift */; };
@@ -157,6 +158,8 @@
 		2036B844210760190081FE92 /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		2036B8462107621C0081FE92 /* DateTimeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeHelper.swift; sourceTree = "<group>"; };
 		204C255F210A33830000D3EE /* PageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageType.swift; sourceTree = "<group>"; };
+		204FF8A32122C1CB00F7ECA5 /* naber_pad_default_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = naber_pad_default_image.png; sourceTree = "<group>"; };
+		204FF8A52122C5AD00F7ECA5 /* ApiUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiUrl.swift; sourceTree = "<group>"; };
 		205015F3210B84D500FDE2E8 /* ValidateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateHelper.swift; sourceTree = "<group>"; };
 		205015F5210B8C8A00FDE2E8 /* StringsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsHelper.swift; sourceTree = "<group>"; };
 		205015F7210CB7B300FDE2E8 /* UIIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIdentifier.swift; sourceTree = "<group>"; };
@@ -186,7 +189,6 @@
 		20BD64842108BFE600023033 /* LLPillPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLPillPageControl.swift; sourceTree = "<group>"; };
 		20BD648C2108E84000023033 /* CustomSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchTextField.swift; sourceTree = "<group>"; };
 		20D9DBD12102563D00D643FE /* HomeMainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMainVC.swift; sourceTree = "<group>"; };
-		20D9DBD3210259A300D643FE /* FSPagerView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FSPagerView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20D9DBD521025AC700D643FE /* Pods_Naber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Naber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20D9DBFD21025F4600D643FE /* FSPagerViewLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerViewLayoutAttributes.swift; sourceTree = "<group>"; };
 		20D9DBFE21025F4600D643FE /* FSPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageControl.swift; sourceTree = "<group>"; };
@@ -210,7 +212,6 @@
 		20E65E7E20FF0AB300F9A252 /* Pods_Naber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Naber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20E65E8120FF17F100F9A252 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		20E65E8620FF2F7200F9A252 /* Bulletin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bulletin.swift; sourceTree = "<group>"; };
-		20E65E8820FF316600F9A252 /* ApiUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUrl.swift; sourceTree = "<group>"; };
 		20EF6E2E2119474700787F4C /* FoodEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodEditVC.swift; sourceTree = "<group>"; };
 		20EF6E302119582800787F4C /* FoodMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodMainCell.swift; sourceTree = "<group>"; };
 		20EF6E32211958B300787F4C /* FoodSubCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSubCell.swift; sourceTree = "<group>"; };
@@ -327,8 +328,8 @@
 		20B477772101976C007F6EA8 /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				204FF8A52122C5AD00F7ECA5 /* ApiUrl.swift */,
 				20E65E7C20FF0A4400F9A252 /* ApiManager.swift */,
-				20E65E8820FF316600F9A252 /* ApiUrl.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -357,6 +358,7 @@
 		20D9DC0B21025F9200D643FE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				204FF8A32122C1CB00F7ECA5 /* naber_pad_default_image.png */,
 				20D9DC2021038E2000D643FE /* naber_default_image.png */,
 				DDF8C27C20B1CA4600BF8904 /* Assets.xcassets */,
 			);
@@ -663,7 +665,6 @@
 			isa = PBXGroup;
 			children = (
 				20D9DBD521025AC700D643FE /* Pods_Naber.framework */,
-				20D9DBD3210259A300D643FE /* FSPagerView.framework */,
 				20E65E7E20FF0AB300F9A252 /* Pods_Naber.framework */,
 				DDFEA7DF20B7808E00170222 /* UserNotifications.framework */,
 				DDF8C2A520B1CC2A00BF8904 /* MapKit.framework */,
@@ -817,6 +818,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				204FF8A42122C1CB00F7ECA5 /* naber_pad_default_image.png in Resources */,
 				20758A1921188D1F007A3ABC /* Store.storyboard in Resources */,
 				DDF8C28020B1CA4600BF8904 /* LaunchScreen.storyboard in Resources */,
 				20AF37272100447400D73F79 /* GoogleService-Info.plist in Resources */,
@@ -935,6 +937,7 @@
 				DD51D20820C359A5002C5940 /* RestaurantStoreSelectTVCellFoot.swift in Sources */,
 				2017D8E6210CC52B00E2376D /* OrderStatus.swift in Sources */,
 				20D9DBD22102563E00D643FE /* HomeMainVC.swift in Sources */,
+				204FF8A62122C5AD00F7ECA5 /* ApiUrl.swift in Sources */,
 				20AF3731210082A600D73F79 /* Advertisement.swift in Sources */,
 				20AF372520FF98BA00D73F79 /* NaberConstant.swift in Sources */,
 				DD3FA0C620C8A2DF006BAA51 /* LeftSideMenuTVCell.swift in Sources */,
@@ -994,7 +997,6 @@
 				DD161D0D20CAEBF40080CFE2 /* FoodTVCell.swift in Sources */,
 				204C2560210A33830000D3EE /* PageType.swift in Sources */,
 				DDFECA0320BBF98A00E253B6 /* ShoppingCarMainTVCell.swift in Sources */,
-				20E65E8920FF316600F9A252 /* ApiUrl.swift in Sources */,
 				20BD648D2108E84000023033 /* CustomSearchTextField.swift in Sources */,
 				DD51D1FC20C0CC1E002C5940 /* RestaurantStoreItemVC.swift in Sources */,
 				20E65E7D20FF0A4400F9A252 /* ApiManager.swift in Sources */,

@@ -28,4 +28,6 @@ class Model {
     
 //    public static var HONE_ADIMAGES : [UIImageView] = []
     
+    public static var SELLER_ORDERS_TIME: String = ""
+    
 }

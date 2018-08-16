@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import UserNotifications
 
-
-class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UNUserNotificationCenterDelegate{
     
+
     var orders: [OrderVo] = []
     var uiButtons: [UIButton] = []
     var timer: Timer!
@@ -48,11 +49,11 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
             self.dateSelect.text = DateTimeHelper.getNow(from: "yyyy年 MM月 dd日")
         }
     }
+    
     @IBOutlet weak var liveBtn: UIButton!
     @IBOutlet weak var unfinishBtn: UIButton!
     @IBOutlet weak var processingBtn: UIButton!
     @IBOutlet weak var canFetchBtn: UIButton!
-    
     
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var table: UITableView! {
@@ -103,6 +104,13 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         self.uiButtons.append(contentsOf: [self.liveBtn, self.unfinishBtn, self.processingBtn, self.canFetchBtn])
         // 第一次進入使用即時訂單
 //        self.callLiveOrders()
+        
+        
+        if #available(iOS 10, *) {
+            UNUserNotificationCenter.current().delegate = self
+            UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
+        }
+
     }
 
     func loadData(refresh: Bool){
@@ -125,7 +133,7 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
                 self.reqData.loadingMore = orders.count % NaberConstant.PAGE == 0 && orders.count != 0
                 self.table.reloadData()
             }) { err_msg in
-                print(err_msg)
+                // print(err_msg)
             }
         }
     }
@@ -155,10 +163,10 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
                 o.order_detail = OrderDetail.parse(src: o.order_data)!
                 return o
             }))
-            print(Date())
+            // print(Date())
             self.table.reloadData()
         }) { err_msg in
-            print(err_msg)
+            // print(err_msg)
         }
     }
     
@@ -171,16 +179,16 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     func startTimer(){
         self.stopTimer()
         if self.timer == nil {
-            print("call start timer ok")
+//            // print("call start timer ok")
             self.callLiveOrders()
-            timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(scheduledLiveOrder), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: NaberConstant.SELLER_LIVE_ORDER_REFRESH_TIMER, target: self, selector: #selector(scheduledLiveOrder), userInfo: nil, repeats: true)
         }
     }
     
     // 將timer的執行緒停止
     func stopTimer(){
         if self.timer != nil {
-            print("call stop timer ok")
+//            // print("call stop timer ok")
             self.timer.invalidate()
             self.timer = nil
         }
@@ -212,6 +220,7 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         cell.count.text = "(" + self.orders[indexPath.row].order_detail.orders.count.description + ")"
         cell.price.text = "$" + self.orders[indexPath.row].order_price
         cell.name.text = self.orders[indexPath.row].order_detail.user_name
+        cell.phone.text = self.orders[indexPath.row].order_detail.user_phone
         cell.fetchTime.text = DateTimeHelper.formToString(date: self.orders[indexPath.row].fetch_date, from: "dd日 HH時 mm分")
         cell.userMessage.text = self.orders[indexPath.row].user_message
         
@@ -235,6 +244,7 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
             content += "\n------------------------------------------\n\n"
         }
         
+        
         cell.foodDatas.text = content
         
         cell.finishBtn.isHidden = true
@@ -242,6 +252,7 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         cell.processingBtn.isHidden = true
         cell.canFetchBtn.isHidden = true
         cell.cancelBtn.isHidden = false
+        
         
         let status: OrderStatus = OrderStatus.of(name: self.orders[indexPath.row].status)
         switch status {
@@ -275,6 +286,7 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         self.queryStatus = OrderStatus.LIVE
         self.loadData(refresh: true)
     }
+
     
     // 未處理 Tab
     @IBAction func unfinishSelect(_ sender: UIButton) {
@@ -365,11 +377,12 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         }
         
         alert.addAction(UIAlertAction(title: "使用自訂內容", style: .default, handler: { _ in
+            text.text = StringsHelper.replace(str: text.text! , of: " ", with: "")
             self.changeToCancelHandler(dataIndex: sender.tag, message: text.text!)
         }))
         
-        alert.addAction(UIAlertAction(title: "我現在忙不過來，抱歉!", style: .default, handler: { _ in
-            self.changeToCancelHandler(dataIndex: sender.tag, message: "我現在忙不過來，抱歉!")
+        alert.addAction(UIAlertAction(title: "我現在忙不過來，抱歉", style: .default, handler: { _ in
+            self.changeToCancelHandler(dataIndex: sender.tag, message: "我現在忙不過來，抱歉")
         }))
         
         alert.addAction(UIAlertAction(title: "產品賣完了，很抱歉請改選其他產品", style: .default,  handler: { _ in
@@ -417,7 +430,7 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         if self.queryStatus == OrderStatus.LIVE {
             self.stopTimer()
         }
-        let alert = UIAlertController(title: "", message:"確定客戶跑單嗎？\n會影響客戶點餐的權益以及紅利點數", preferredStyle: .alert)
+        let alert = UIAlertController(title: Optional.none, message:"確定客戶跑單嗎？\n會影響客戶點餐的權益以及紅利點數", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "返回", style: .destructive, handler:{ _ in
             if self.queryStatus == OrderStatus.LIVE {
                 self.startTimer()
@@ -438,7 +451,7 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         ApiManager.sellerChangeOrder(req: reqData, ui: self, onSuccess: {
             self.loadData(refresh: true)
         }, onFail: { err_msg in
-            print(err_msg)
+            // print(err_msg)
            self.loadData(refresh: true)
         })
     }
@@ -467,8 +480,8 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         reqData.uuid = self.orders[dataIndex].order_uuid
         reqData.type = status.get().name
         
-        let alert = UIAlertController(title: "", message: alertMsg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "返回", style: .cancel, handler:{ _ in
+        let alert = UIAlertController(title: Optional.none, message: alertMsg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "返回", style: .destructive, handler:{ _ in
             if self.queryStatus == OrderStatus.LIVE {
                 self.startTimer()
             }
@@ -477,7 +490,7 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
             ApiManager.sellerChangeOrder(req: reqData, ui: self, onSuccess: {
                 self.loadData(refresh: true)
             }, onFail: { err_msg in
-                print(err_msg)
+                // print(err_msg)
             })
         }))
         self.present(alert, animated: false)
@@ -497,7 +510,24 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         let minDate: Date = calendar.date(byAdding: components, to: currentDate)!
         picker.minimumDate = minDate
     }
+    
+    
+    @available(iOS 10, *)
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Swift.Void) {
+        completionHandler( [.alert, .badge, .sound])
+        if self.queryStatus == OrderStatus.LIVE {
+            self.stopTimer()
+            self.startTimer()
+        }
+    }
+    @available(iOS 10, *)
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        // print("Do what ever you want")
+        
+    }
 
 }
+
+
 
 

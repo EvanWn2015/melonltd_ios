@@ -36,10 +36,7 @@ class LoginVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let deviceID = UIDevice.current.identifierForVendor!.uuidString
-        print("device token : " + deviceID)
-        
+  
         if UserSstorage.getRememberMe() {
             self.rememberMeImage.setImage(UIImage(named:"cbSelect"), for: .normal)
             self.account_text.text = UserSstorage.getAccount()
@@ -79,10 +76,13 @@ class LoginVC: UIViewController {
             reqData.phone = self.account_text.text
             reqData.password = self.password_text.text
             reqData.device_category = "IOS"
-            reqData.device_token = Messaging.messaging().fcmToken
+            reqData.device_token = (UIApplication.shared.delegate as! AppDelegate).token
+            
             ApiManager.login(structs: reqData, ui: self, onSuccess: { account in
                 if account != nil {
                     let now: Int = DateTimeHelper.getNowMilliseconds()
+                    account?.device_token = reqData.device_token
+                    account?.device_category = "IOS"
                     UserSstorage.setLoginTime(now)
                     UserSstorage.setAccountInfo(account!)
                     let remember: Bool = (self.rememberMeImage.currentImage?.isEqual(UIImage(named: "cbSelect")))!

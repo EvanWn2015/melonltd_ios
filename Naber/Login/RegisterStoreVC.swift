@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseMessaging
 
 class RegisterStoreVC: UIViewController {
     @IBOutlet weak var restaurantName: UITextField!
@@ -34,9 +32,9 @@ class RegisterStoreVC: UIViewController {
         account.address = StringsHelper.replace(str: self.restaurantAddress.text!, of: " ", with: "")
         account.name = StringsHelper.replace(str: self.contactPersonName.text!, of: " ", with: "")
         account.phone = self.contactPhone.text
-        account.device_id = Messaging.messaging().fcmToken
+        account.device_id = (UIApplication.shared.delegate as! AppDelegate).token
         ApiManager.sellerRegistered(structs: account, ui: self, onSuccess:  {
-            let alert = UIAlertController(title: "", message: "感謝你註冊成為商家你，\n您的信息已經提交成功，\n請待客服與您聯繫!!" , preferredStyle: .alert)
+            let alert = UIAlertController(title: Optional.none, message: "感謝你註冊成為商家你，\n您的信息已經提交成功，\n請待客服與您聯繫!!" , preferredStyle: .alert)
             alert.addAction(UIAlertAction.init(title: "返回登入畫面", style: .default, handler: { _ in
                 if let vc = UIStoryboard(name: UIIdentifier.MAIN.rawValue, bundle: nil).instantiateViewController(withIdentifier: "LoginHomeRoot") as? LoginHomeRootUINC {
                     self.present(vc, animated: false, completion: nil)
@@ -44,10 +42,8 @@ class RegisterStoreVC: UIViewController {
             }))
             self.present(alert, animated: false)
         }) { err_msg in
-            let alert = UIAlertController(title: "", message: err_msg , preferredStyle: .alert)
-            alert.addAction(UIAlertAction.init(title: "cancel", style: .cancel, handler: { _ in
-                
-            }))
+            let alert = UIAlertController(title: Optional.none, message: err_msg , preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "我知道了", style: .default))
             self.present(alert, animated: false)
             }
         }
@@ -71,9 +67,8 @@ class RegisterStoreVC: UIViewController {
             msg = "請輸入商店名稱"
         }
         if msg != "" {
-            let alert = UIAlertController(title: "", message: msg,   preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "關閉", style: .cancel, handler: { _ in
-            }))
+            let alert = UIAlertController(title: Optional.none, message: msg, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "我知道了", style: .default))
             self.present(alert, animated: false)
         }
         return msg == ""

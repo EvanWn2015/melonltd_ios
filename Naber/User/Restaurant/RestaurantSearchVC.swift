@@ -17,7 +17,14 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
     var reqData: ReqData! = Optional.none
     var templates: [[String]] = []
     
-    @IBOutlet weak var filterName: UILabel!
+    
+    @IBOutlet weak var areaBtn: UIButton!
+    @IBOutlet weak var distanceBtn: UIButton!
+    @IBOutlet weak var categoryBtn: UIButton!
+    @IBOutlet weak var storeNameBtn: UIButton!
+    var uiButtons: [UIButton] = []
+    
+//    @IBOutlet weak var filterName: UILabel!
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             self.tableView.dataSource = self
@@ -71,7 +78,6 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
                 }
                 self.tableView.reloadData()
             }) { err_msg in
-                print(err_msg)
                 self.tableView.reloadData()
             }
         }
@@ -81,14 +87,20 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         self.reqData = ReqData()
         self.enableBasicLocationServices()
-        self.searchForDistance(UIButton.init())
+        
+        self.searchForDistance(self.distanceBtn)
+        self.uiButtons.append(contentsOf: [self.distanceBtn, self.areaBtn, self.categoryBtn, self.storeNameBtn])
     }
     
+    
+    // 依照店家地理位置模板排序後分頁查找
     @IBAction func searchForDistance (_ sender: UIButton){
-        self.filterName.text = "離我最近"
+        self.setButtonsDefaultColor(sender: sender)
+//        self.filterName.text = "離我最近"
         self.reqData.search_type = "DISTANCE";
         self.reqData.category = ""
         self.reqData.area = ""
+        self.reqData.name = ""
         self.reqData.loadingMore = false
         self.reqData.uuids = []
         self.templates = []
@@ -123,50 +135,91 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
                 self.reqData.uuids.append(contentsOf: self.templates[0])
                 self.loadData(refresh: true)
             }) { err_msg in
-                print(err_msg)
+
             }
         }
     }
     
+    // 依照選取區域名稱查找
     @IBAction func searchForArea (_ sender: UIButton){
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: Optional.none, message: Optional.none, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "請選擇區域", style: .destructive))
         NaberConstant.FILTER_AREAS.forEach{ name in
             let itemAction = UIAlertAction(title: name, style: .default) { itemAction in
+                self.setButtonsDefaultColor(sender: sender)
                 self.reqData.search_type = "AREA"
                 self.reqData.area = name
+                self.reqData.name = ""
                 self.reqData.category = ""
                 self.reqData.uuids = []
-                self.filterName.text = name
+//                self.filterName.text = name
                 self.loadData(refresh: true)
             }
             alert.addAction(itemAction)
         }
-        alert.addAction(UIAlertAction(title: "取消", style: .cancel))
+        alert.addAction(UIAlertAction(title: "取消", style: .destructive))
         alert.popoverPresentationController?.sourceView = self.view
         alert.popoverPresentationController?.sourceRect = CGRect.init(x: self.view.bounds.width/2 ,y: self.view.bounds.height , width: 1.0, height: 1.0)
         
         self.present(alert, animated: false, completion: nil)
     }
     
+    
+    // 依照選取種類名稱查找
     @IBAction func searchForCategory (_ sender: UIButton){
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: Optional.none, message: Optional.none, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "請選擇種類", style: .destructive))
         NaberConstant.FILTER_CATEGORYS.forEach{ name in
             let itemAction = UIAlertAction(title: name, style: .default) { itemAction in
+                self.setButtonsDefaultColor(sender: sender)
                 self.reqData.search_type = "CATEGORY";
                 self.reqData.category = name
-                self.filterName.text = name
+                self.reqData.name = ""
+//                self.filterName.text = name
                 self.reqData.area = ""
                 self.reqData.uuids = []
                 self.loadData(refresh: true)
             }
             alert.addAction(itemAction)
         }
-        alert.addAction(UIAlertAction(title: "取消", style: .cancel))
+        alert.addAction(UIAlertAction(title: "取消", style: .destructive))
         alert.popoverPresentationController?.sourceView = self.view
         alert.popoverPresentationController?.sourceRect = CGRect.init(x: self.view.bounds.width/2 ,y: self.view.bounds.height , width: 1.0, height: 1.0)
         self.present(alert, animated: false, completion: nil)
+    }
+    
+    
+    // 依照輸入店家名稱查找
+    @IBAction func searchForStoreName (_ sender: UIButton){
+        var foodName: UITextField!
+        
+        let alert = UIAlertController( title: Optional.none, message: "請輸入查詢店家名稱", preferredStyle: .alert)
+        alert.addTextField{ textField in
+            textField.placeholder = "店家名稱"
+            textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+            textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 36))
+            textField.font?.withSize(30)
+            foodName = textField
+        }
+        
+        alert.addAction(UIAlertAction(title: "取消", style: .destructive, handler:nil))
+        alert.addAction(UIAlertAction(title: "確定", style: .default, handler: { _ in
+            self.setButtonsDefaultColor(sender: sender)
+            self.reqData.search_type = "STORE_NAME";
+            self.reqData.name = foodName.text
+            self.reqData.category = ""
+            self.reqData.area = ""
+            self.reqData.uuids = []
+            if !self.reqData.name.elementsEqual("") {
+                self.loadData(refresh: true)
+            }else {
+                Model.TMPE_RESTAURANT_LIST.removeAll()
+                self.tableView.reloadData()
+            }
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -228,7 +281,6 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         if Model.TMPE_RESTAURANT_LIST.count - 1 == indexPath.row  && self.reqData.loadingMore {
-            print("load mode")
             self.loadData(refresh: false)
         }
         
@@ -267,6 +319,17 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-
+    
+    func setButtonsDefaultColor(sender: UIButton){
+        self.uiButtons.forEach { b in
+            b.borderColor = UIColor.darkGray
+            b.backgroundColor = UIColor.white
+            b.setTitleColor(UIColor.darkGray, for: .normal)
+        }
+        
+        sender.borderColor = NaberConstant.COLOR_BASIS
+        sender.setTitleColor(UIColor.white, for: .normal)
+        sender.backgroundColor = NaberConstant.COLOR_BASIS
+    }
 }
 

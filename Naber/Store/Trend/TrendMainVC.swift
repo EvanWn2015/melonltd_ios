@@ -78,9 +78,9 @@ class TrendMainVC: UIViewController {
             self.unFinishCount.text = stat?.unfinish_count
             self.statusDate.text = DateTimeHelper.formToString(date: (stat?.status_dates[0])!, from: "yyyy-MM-dd") +
                 " ~ " + DateTimeHelper.formToString(date: (stat?.status_dates[1])!, from: "yyyy-MM-dd")
-            print(Date())
+            // print(Date())
         }) { err_msg in
-            print(err_msg)
+            // print(err_msg)
         }
     }
     
@@ -88,10 +88,9 @@ class TrendMainVC: UIViewController {
     func startTimer(){
         self.stopTimer()
         if self.timer == nil {
-            print("call start timer ok")
+            // print("call start timer ok")
             self.callStat()
-//            timer = Timer.scheduledTimer(timeInterval: NaberConstant.SELLER_STAT_REFRESH_TIMER, target: self, selector: #selector(scheduledStat), userInfo: nil, repeats: true)
-            timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(scheduledStat), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: NaberConstant.SELLER_STAT_REFRESH_TIMER, target: self, selector: #selector(scheduledStat), userInfo: nil, repeats: true)
         }
     }
     
@@ -103,7 +102,7 @@ class TrendMainVC: UIViewController {
     // 將timer的執行緒停止
     func stopTimer(){
         if self.timer != nil {
-            print("call stop timer ok")
+            // print("call stop timer ok")
             self.timer.invalidate()
             self.timer = nil
         }

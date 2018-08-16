@@ -33,10 +33,23 @@ class RestaurantStoreSelectTVCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        let color: UIColor = UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1)
-        self.contentView.layer.addBorder(edge: UIRectEdge.left, color: color, thickness: 0.5)
-        self.contentView.layer.addBorder(edge: UIRectEdge.right, color: color, thickness: 0.5)
+//        let color: UIColor = UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1)
+//        self.layer.addBorder(edge: UIRectEdge.left, color: color, thickness: 0.5)
+//        self.layer.addBorder(edge: UIRectEdge.right, color: color, thickness: 0.5)
         
+        let borderLeft: UIView = UIView.init()
+        borderLeft.backgroundColor = UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1)
+        borderLeft.frame = CGRect(x:0, y:0, width:0.5, height:self.frame.size.height)
+        borderLeft.autoresizingMask = .flexibleRightMargin
+        self.addSubview(borderLeft)
+        
+        
+        let borderRight: UIView = UIView.init()
+        borderRight.backgroundColor = UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1)
+        borderRight.frame = CGRect(x:self.frame.size.width - 0.5, y:0, width:0.5, height:self.frame.size.height)
+        borderRight.autoresizingMask = .flexibleLeftMargin
+        self.addSubview(borderRight)
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

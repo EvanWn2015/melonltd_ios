@@ -11,8 +11,8 @@ import Foundation
 class NaberConstant {
     static let IS_DEBUG : Bool = false
     static let REMEMBER_DAY : Int = 1000 * 60 * 60 * 24 * 7 * 2;
-    static let SELLER_STAT_REFRESH_TIMER : Int =  1000 * 60 * 10;
-    static let SELLER_LIVE_ORDER_REFRESH_TIMER : Int = 1000 * 60 * 5;
+    static let SELLER_STAT_REFRESH_TIMER : Double =  1000 * 60 * 10;
+    static let SELLER_LIVE_ORDER_REFRESH_TIMER : Double = 1000 * 60 * 5;
     static let PAGE : Int = 10
     
     static let FILTER_CATEGORYS : [String] = ["早午餐", "西式/牛排", "中式", "日式", "冰飲"]
@@ -47,4 +47,5 @@ class NaberConstant {
     static let COLOR_BASIS_ORANGE = UIColor(red:0.94, green:0.44, blue:0.29, alpha:1.0)
     static let COLOR_BASIS_PURPLE = UIColor(red:0.52, green:0.49, blue:0.76, alpha:1.0)
     static let COLOR_BASIS_GRAY = UIColor(red:0.67, green:0.67, blue:0.67, alpha:1.0)
+    
 }

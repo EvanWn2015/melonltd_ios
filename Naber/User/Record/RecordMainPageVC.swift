@@ -48,7 +48,7 @@ class RecordMainPageVC: UIViewController ,UITableViewDataSource, UITableViewDele
             self.reqData.loadingMore = orders.count % NaberConstant.PAGE == 0 && orders.count != 0
             self.tableView.reloadData()
         }) { err_msg in
-            print(err_msg)
+            
         }
     }
     

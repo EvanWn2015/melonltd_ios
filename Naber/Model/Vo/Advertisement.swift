@@ -37,6 +37,7 @@ class AdvertisementVo: Codable {
     var title: String!
     var content_text: String!
     var photo: String!
+    var pad_photo: String!
     
     public static func toJson(structs: AdvertisementVo) -> String {
         do {

@@ -27,17 +27,15 @@ class UserSettingAcountRPTVC: UITableViewController {
             ApiManager.reseatPassword(req: resetpassword, ui: self, onSuccess: {
                 let alert = UIAlertController(title: "", message: "重設成功！" , preferredStyle: .alert)
                 alert.addAction(UIAlertAction.init(title: "返回登入畫面", style: .default, handler: { _ in
-                    if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginHomeRoot") as? LoginHomeRootUINC {
+                    if let vc = UIStoryboard(name: UIIdentifier.MAIN.rawValue, bundle: nil).instantiateViewController(withIdentifier: "LoginHomeRoot") as? LoginHomeRootUINC {
                         UserSstorage.clearUserLoginTime()
                         self.present(vc, animated: false, completion: nil)
                     }
                 }))
                 self.present(alert, animated: false)
             }) { err_msg in
-                let alert = UIAlertController(title: "", message: err_msg , preferredStyle: .alert)
-                alert.addAction(UIAlertAction.init(title: "cancel", style: .cancel, handler: { _ in
-                    
-                }))
+                let alert = UIAlertController(title: Optional.none, message: err_msg , preferredStyle: .alert)
+                alert.addAction(UIAlertAction.init(title: "我知道了", style: .default))
                 self.present(alert, animated: false)
             }
         }
@@ -63,9 +61,8 @@ class UserSettingAcountRPTVC: UITableViewController {
             msg =  "請輸入舊密碼"
         }
         if msg != "" {
-            let alert = UIAlertController(title: "", message: msg,   preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "關閉", style: .cancel, handler: { _ in
-            }))
+            let alert = UIAlertController(title: Optional.none, message: msg, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "我知道了", style: .default))
             self.present(alert, animated: false)
         }
         return msg == ""

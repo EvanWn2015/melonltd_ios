@@ -9,56 +9,43 @@
 import UIKit
 import UserNotifications
 import Firebase
+//import FirebaseInstanceID
+//import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    public var token: String = ""
+    let USER_TYPES: [Identity] = Identity.getUserValues()
     var window: UIWindow?
-    let gcmMessageIDKey = "gcm.message_id"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
+//        if UIDevice.current.model.range(of: "iPad") != nil{
+//            print("I AM IPAD")
+//        } else {
+//            print("I AM IPHONE")
+//        }
+       
+        
         FirebaseApp.configure()
-        Messaging.messaging().delegate = self
-        if UIDevice.current.model.range(of: "iPad") != nil{
-            print("I AM IPAD")
-        } else {
-            print("I AM IPHONE")
-        }
         
         Auth.auth().signIn(withEmail: "naber_android@gmail.com", password: "melonltd1102") { (user, error) in
             print(user?.user.email ?? "")
             print(error?.localizedDescription ?? "")
-            
-            let token = Messaging.messaging().fcmToken
-            print("FCM token: \(token ?? "")")
         }
         
-        
-        // iOS 10 support
         if #available(iOS 10, *) {
+            UNUserNotificationCenter.current().delegate = self
             UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
             application.registerForRemoteNotifications()
-        }
-            
-//            // iOS 9 support
-//        else if #available(iOS 9, *) {
-//            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
-//            UIApplication.shared.registerForRemoteNotifications()
-//        }
-//            // iOS 8 support
-//        else if #available(iOS 8, *) {
-//            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
-//            UIApplication.shared.registerForRemoteNotifications()
-//        }
-            // iOS 7 support
-        else {
+        } else {
             application.registerForRemoteNotifications(matching: [.badge, .sound, .alert])
         }
 
+    
         return true
     }
-
+    
     // Called when APNs has assigned the device a unique token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // Convert token to string
@@ -66,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Print it to console
         print("APNs device token: \(deviceTokenString)")
-        
+        self.token = deviceTokenString
         // Persist it in your backend in case it's new
     }
     
@@ -81,12 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification data: [AnyHashable : Any]) {
         // Print notification payload data
         print("Push notification received: \(data)")
+
     }
     
-    
-    
-    
-    
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -115,63 +100,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // [START ios_10_message_handling]
 @available(iOS 10, *)
 extension AppDelegate : UNUserNotificationCenterDelegate {
-    
+
     // Receive displayed notifications for iOS 10 devices.
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
+        let currentId: Identity = UserSstorage.getCurrentId()!
         
-        // With swizzling disabled you must let Messaging know about the message, for Analytics
-        // Messaging.messaging().appDidReceiveMessage(userInfo)
-        // Print message ID.
-        if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
+        if let identity: Identity = Identity(rawValue: userInfo["identity"] as! String) {
+            if USER_TYPES.contains(identity) && USER_TYPES.contains(currentId) {
+                if UserSstorage.getSound()!{
+                    completionHandler([.alert, .badge, .sound])
+                }else {
+                    completionHandler([.alert, .badge])
+                }
+            }
+            
+            if identity == Identity.SELLERS  && currentId == Identity.SELLERS {
+                completionHandler([.alert, .badge, .sound])
+
+            }
         }
-        
-        // Print full message.
-        print(userInfo)
-        
-        // Change this to your preferred presentation option
-        completionHandler([])
+
     }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         // Print message ID.
-        if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
-        }
-        
+//        if let messageID = userInfo[gcmMessageIDKey] {
+//            print("Message ID: \(messageID)")
+//        }
+
         // Print full message.
         print(userInfo)
-        
+
         completionHandler()
     }
-}
-// [END ios_10_message_handling]
-
-
-extension AppDelegate : MessagingDelegate {
-    // [START refresh_token]
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print("Firebase registration token: \(fcmToken)")
-        
-        let dataDict:[String: String] = ["token": fcmToken]
-        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-        // TODO: If necessary send token to application server.
-        // Note: This callback is fired at each app startup and whenever a new token is generated.
-    }
-    // [END refresh_token]
-    // [START ios_10_data_message]
-    // Receive data messages on iOS 10+ directly from FCM (bypassing APNs) when the app is in the foreground.
-    // To enable direct data messages, you can set Messaging.messaging().shouldEstablishDirectChannel to true.
-    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        print("Received data message: \(remoteMessage.appData)")
-    }
-    // [END ios_10_data_message]
 }
 
 

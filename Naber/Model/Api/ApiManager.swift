@@ -10,11 +10,12 @@ import Foundation
 import Alamofire
 
 class ApiManager {
+    
     private static let SESSION_MANAGER: SessionManager = {
-        let manager = Alamofire.SessionManager.default
-        manager.session.configuration.timeoutIntervalForRequest = 3
-        manager.session.configuration.timeoutIntervalForResource = 3
-        return manager
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 15 // seconds
+        configuration.timeoutIntervalForResource = 15 //seconds
+        return Alamofire.SessionManager(configuration: configuration)
     }()
 
     private static let HTTP_HEADERS: HTTPHeaders = ["Content-Type": "application/x-www-form-urlencoded"]
@@ -137,9 +138,9 @@ class ApiManager {
         })
     }
     
-    //Category=種類,Detail=細節,Area=區域
+    //Category=種類,Detail=細節,Area=區域, STORE_NAME=店家名稱
     //3.取得餐館列表(TOP,列表無分頁) 4.餐館頁面取得(AREA,CATEGORY)
-    // 餐館列表 TOP, AREA, CATEGORY, DISTANCE(測試OK)
+    // 餐館列表 TOP, AREA, CATEGORY, DISTANCE(測試OK), STORE_NAME
     public static func restaurantList (req: ReqData, ui: UIViewController, onSuccess: @escaping ([RestaurantInfoVo]) -> (), onFail: @escaping (String) -> ()) {
         self.postAutho(url: ApiUrl.RESTAURANT_LIST, data: ReqData.toJson(structs: req) , ui:ui, complete: { response in
             let resp: RestaurantListResp = RestaurantListResp.parse(src: base64Decoding(decode: response.result.value!))!
@@ -514,15 +515,16 @@ class ApiManager {
     private static func post(url: URLConvertible, parameter: Parameters, header: HTTPHeaders, ui: UIViewController, complete: @escaping (DataResponse<String>) -> ()) {
         Loading.show()
         SESSION_MANAGER.request(url, method: HTTPMethod.post, parameters:parameter, headers:header).validate().responseString{ response in
+            
             if response.result.isSuccess {
                 complete(response)
             }else if (response.result.error != nil) {
                 let alert = UIAlertController(title: "系統提示", message: "請確認裝置有連結網路！", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "確認", style: .default))
+                alert.addAction(UIAlertAction(title: "我知道了", style: .default))
                 ui.present(alert, animated: false)
             }else if response.result.isFailure {
                 let alert = UIAlertController(title: "系統提示", message: "資料請求失敗，\n可能現在網路處於不穩定狀態，\n請稍後再試！", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "確認", style: .default))
+                alert.addAction(UIAlertAction(title: "我知道了", style: .default))
                 ui.present(alert, animated: false)
             }
             Loading.hide()

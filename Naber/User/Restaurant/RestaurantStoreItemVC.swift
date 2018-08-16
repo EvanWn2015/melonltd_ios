@@ -83,16 +83,17 @@ class RestaurantStoreItemVC: UIViewController, UITableViewDelegate, UITableViewD
         let vc = storyBoard.instantiateViewController(withIdentifier: "RestaurantStoreSelect") as! RestaurantStoreSelectVC
         
         ApiManager.restaurantFoodDetail(uuid: (self.foodList[indexPath.row]?.food_uuid)!, ui: self, onSuccess: { food in
-            food?.food_data.opts.forEach{ opt in
-                print(opt.name + " : " + opt.price)
-            }
+//            food?.food_data.opts.forEach{ opt in
+//                print(opt.name + " : " + opt.price)
+//            }
+            
             self.foodList[indexPath.row] = food
             vc.food = self.foodList[indexPath.row]
             vc.restaurantInfo = self.restaurantInfo
             vc.categoryRel = self.categoryRel
             self.navigationController?.pushViewController(vc, animated: true)            
         }) { err_msg in
-            print(err_msg)
+            
         }
         
 //        self.navigationController?.pushViewController(vc, animated: true)

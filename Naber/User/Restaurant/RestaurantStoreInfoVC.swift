@@ -64,15 +64,8 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
         case .NONE:
             break
         }
- 
-//        self.loadData(refresh: true)
     }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("viewWillAppear")
-    }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         
         if self.restaurantInfo != nil {
@@ -128,12 +121,12 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
             self.workStatus.isHidden = true
             if self.restaurantInfo.not_business.count > 0 {
                 self.workStatus.isHidden = false
-                let alert = UIAlertController(title: "", message: "該商家今日不營業", preferredStyle: .alert)
+                let alert = UIAlertController(title: Optional.none, message: "該商家今日不營業", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "我知道了", style: .default))
                 self.present(alert, animated: false)
             } else if self.restaurantInfo.is_store_now_open.uppercased().elementsEqual("FALSE") {
                 self.workStatus.isHidden = false
-                let alert = UIAlertController(title: "", message: "目前時間該商家尚未營業", preferredStyle: .alert)
+                let alert = UIAlertController(title: Optional.none, message: "目前時間該商家尚未營業", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "我知道了", style: .default))
                 self.present(alert, animated: false)
             }
@@ -142,7 +135,6 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        print("viewWillDisappear")
     }
     
     func loadData(refresh: Bool){
@@ -156,7 +148,7 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
                 self.categoryList.append(contentsOf: restaurantCategorys)
                 self.tableView.reloadData()
             }, onFail: { err_msg in
-                print(err_msg)
+
             })
         }
     }

@@ -123,13 +123,6 @@ class ShoppingCarMainTVCell: UITableViewCell, UITableViewDataSource, UITableView
         UserSstorage.setShoppingCartDatas(datas: Model.USER_CACHE_SHOPPING_CART)
     }
     
-//    @objc func deleteFoodByIndex(sender : UIButton!) {
-//        print(sender.titleLabel?.text ,":", sender.tag)
-//        if Model.USER_CACHE_SHOPPING_CART[self.tag].orders.count > 1 {
-//            Model.USER_CACHE_SHOPPING_CART[self.tag].orders.remove(at: sender.tag)
-//            UserSstorage.setShoppingCartDatas(datas: Model.USER_CACHE_SHOPPING_CART)
-//        }
-//    }
 }
 
 

@@ -98,7 +98,6 @@ class RestaurantStoreSelectVC: UIViewController {
         UserSstorage.setShoppingCartDatas(datas: shoppingCartDatas)
  
         alert.addAction(UIAlertAction(title: "前往購物車", style: .default){ _ in
-            print("前往購物車")
             // 使用 tabbar 控制到 購物車頁面
             // 並把當前頁面返回
             self.tabBarController?.selectedIndex = 2
@@ -106,7 +105,6 @@ class RestaurantStoreSelectVC: UIViewController {
         })
         
         alert.addAction(UIAlertAction(title: "繼續購物", style: .default){ _ in
-            print("繼續購物")
             // 反回上兩層定義
             // vcs = Main餐館列表 or Main首頁 >> 餐館細節（種類列表）>> 品項列表 >> 品項細節
             // vcs.count == 4
