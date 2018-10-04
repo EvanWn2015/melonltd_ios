@@ -14,8 +14,6 @@ class ActivitiesSendSubmitVC: UIViewController, UIPickerViewDelegate, UIPickerVi
     var account: AccountInfoVo!
     var regions: [SubjectionRegionVo] = []
     
-    
-    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             let gestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(hideKeyboard))
@@ -29,18 +27,15 @@ class ActivitiesSendSubmitVC: UIViewController, UIPickerViewDelegate, UIPickerVi
         self.view.endEditing(true)
     }
     
-    
     @IBOutlet weak var photo: UIImageView!
-    
-    
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var userBonus: UILabel!
     @IBOutlet weak var phone : UITextField!
     @IBOutlet weak var email : UITextField!
     @IBOutlet weak var city : UITextField!
     @IBOutlet weak var area : UITextField!
-    @IBOutlet weak var address : UITextField!
     
+    @IBOutlet weak var address : UITextField!
     
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var needBonusText: UILabel!
@@ -75,6 +70,9 @@ class ActivitiesSendSubmitVC: UIViewController, UIPickerViewDelegate, UIPickerVi
             self.area.text = self.regions[self.cityIndex].areas[self.areaIndex].area
         }
         
+        self.addsPicker.reloadComponent(0)
+        self.addsPicker.reloadInputViews()
+        self.addsPicker.reloadAllComponents()
         self.area.isHidden = false
         self.view.endEditing(true)
     }
@@ -218,6 +216,7 @@ class ActivitiesSendSubmitVC: UIViewController, UIPickerViewDelegate, UIPickerVi
         return 1
     }
     
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if self.city.isEditing {
             return self.regions.count
@@ -236,6 +235,11 @@ class ActivitiesSendSubmitVC: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if self.city.isEditing {
+            if self.cityIndex != row {
+                self.area.text = ""
+                self.areaIndex = 0
+                self.area.inputView = self.addsPicker
+            }
             self.cityIndex = row
         }else {
             self.areaIndex = row

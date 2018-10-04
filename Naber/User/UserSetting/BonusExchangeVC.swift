@@ -10,14 +10,23 @@
 import UIKit
 
 
-class BonusExchangeVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BonusExchangeVC: UIViewController, UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate {
     
-    var datas : [[String]] = []
     var activities: [ActivitiesVo] = []
     
 //    @IBOutlet var eventDescription: UILabel!
     
-    @IBOutlet var serial: UITextField!
+    @IBOutlet var serial: UITextField! {
+        didSet {
+            self.serial.delegate = self
+            self.serial.addTarget(self, action: #selector(uppercased), for: .editingChanged)
+        }
+    }
+    
+    @objc func uppercased (sender: UITextField){
+        sender.text = sender.text?.uppercased()
+    }
+    
     @IBOutlet var eventContent: UILabel!
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -28,7 +37,15 @@ class BonusExchangeVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
             refreshControl.tintColor = UIColor.clear
             self.tableView.addSubview(refreshControl)
+            
+            let gestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(hideKeyboard))
+            gestureRecognizer.numberOfTapsRequired = 1
+            gestureRecognizer.cancelsTouchesInView = false
+            self.tableView.addGestureRecognizer(gestureRecognizer)
         }
+    }
+    @objc func hideKeyboard(sender: Any){
+        self.view.endEditing(true)
     }
     
     @objc func refresh(sender: UIRefreshControl){
@@ -43,15 +60,6 @@ class BonusExchangeVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         if refresh {
             self.activities.removeAll()
             self.tableView.reloadData()
-        }
-        
-        let test: [SubjectionRegionVo] = SubjectionRegionVo.parseArray(src: NaberConstant.SUBJECTION_REGIONS)
-        print(test.description)
-        
-        ApiManager.getSubjectionRegions(ui: self, onSuccess: { regions in
-            print(regions)
-        }) { err_msg in
-            print(err_msg)
         }
         
         ApiManager.getAllActivities(ui: self, onSuccess: { activities in
@@ -82,12 +90,13 @@ class BonusExchangeVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     @IBAction func submitSerialAction(_ sender: UIButton){
         
-        if (self.serial.text?.isEmpty)! {
+        if (self.serial.text?.isEmpty)! || self.serial.text?.count != 8 {
             let alert = UIAlertController(title: "系統提示", message: "請正確輸入8碼兌換序號", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "我知道了", style: .default))
             self.present(alert, animated: false)
         }else {
             let req: ReqData = ReqData()
+            req.data = self.serial.text?.uppercased()
             ApiManager.serialSubmit(req: req, ui: self, onSuccess: { msg in
                 let alert = UIAlertController(title: "兌換成功", message: msg, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "我知道了", style: .default) {_ in
@@ -109,16 +118,16 @@ class BonusExchangeVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         "* 10月起 開放兌換獎勵及現金折抵\n" +
         "* 消費10元獲得1點紅利點數\n"
 
-        self.datas.append(contentsOf:[["10點", "下次消費折抵3元" ,"(無上限)"],
-                                ["500點", "KKBOX 30天","(點數卡)"],
-                                ["667點", "中壢威尼斯","(電影票)"],
-                                ["767點", "桃園IN89統領","(電影票)"],
-                                ["767點", "美麗華影城","(電影票)"],
-                                ["800點", "LINE 240P","(點數卡)"],
-                                ["834點", "SBC星橋","(電影票)"],
-                                ["834點", "威秀影城","(電影票)"],
-                                ["1000點", "SOGO 300","(禮卷)"],
-                                ["1000點", "MYCARD 300P","(點數卡)"]])
+//        self.datas.append(contentsOf:[["10點", "下次消費折抵3元" ,"(無上限)"],
+//                                ["500點", "KKBOX 30天","(點數卡)"],
+//                                ["667點", "中壢威尼斯","(電影票)"],
+//                                ["767點", "桃園IN89統領","(電影票)"],
+//                                ["767點", "美麗華影城","(電影票)"],
+//                                ["800點", "LINE 240P","(點數卡)"],
+//                                ["834點", "SBC星橋","(電影票)"],
+//                                ["834點", "威秀影城","(電影票)"],
+//                                ["1000點", "SOGO 300","(禮卷)"],
+//                                ["1000點", "MYCARD 300P","(點數卡)"]])
     }
     
     
@@ -148,6 +157,17 @@ class BonusExchangeVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             vc.act = self.activities[indexPath.row]
             self.navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    
+    // 限制輸入長度
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        let newLength: Int = text.count + string.count - range.length
+//        if !CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: string)) {
+//            return false
+//        }
+        return newLength <= 8
     }
     
 }

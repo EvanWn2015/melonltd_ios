@@ -122,12 +122,12 @@ class RegisterUserVC: UIViewController, UIAlertViewDelegate {
 
     @IBAction func nextRegister (_ sender: UIButton){
         
-        // TODO tset
-        if let vc = UIStoryboard(name: UIIdentifier.MAIN.rawValue, bundle: nil).instantiateViewController(withIdentifier: "RegisterUserDetail") as? RegisterUserDetailVC {
-            vc.phone = "12132423"
-            self.navigationController?.pushViewController(vc, animated: true)
-            return
-        }
+        // TODO debug
+//        if let vc = UIStoryboard(name: UIIdentifier.MAIN.rawValue, bundle: nil).instantiateViewController(withIdentifier: "RegisterUserDetail") as? RegisterUserDetailVC {
+//            vc.phone = "12132423"
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            return
+//        }
         
         self.smsCode.phone = self.phone.text
         self.smsCode.code = self.verifyCode.text

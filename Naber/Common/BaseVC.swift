@@ -34,8 +34,8 @@ class BaseVC: UIViewController{
                 self.intro.setImage(with: URL(string: url), transformer: TransformerHelper.transformer(identifier: url),  completion: { image in
                     self.btn.isEnabled = true
                     self.btn.isHidden = false
-                    // TODO debug
-                    self.checkLoginAccount()
+//                    // TODO debug
+//                    self.checkLoginAccount()
                 })
             }) { err_msg in
                     self.btn.isEnabled = true

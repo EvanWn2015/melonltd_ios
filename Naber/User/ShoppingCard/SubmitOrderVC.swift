@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource  {
+class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource ,UITextFieldDelegate {
 
     var orderIndex: Int!
     var orderDetail: OrderDetail!
@@ -28,14 +28,14 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
     var selectDate: String = ""
     var datePicker: UIDatePicker {
         get {
-            let datePicker = UIDatePicker()
-            datePicker.datePickerMode = .dateAndTime
-            datePicker.locale = Locale.init(identifier: "zh_TW")
-            datePicker.timeZone = TimeZone.init(identifier: "Asia/Taipei")
-            self.reTimeRange(picker: datePicker)
-            datePicker.addTarget(self, action: #selector(onDateChanged), for: .valueChanged)
-            datePicker.backgroundColor = UIColor.white
-            return datePicker
+            let picker = UIDatePicker()
+            picker.datePickerMode = .dateAndTime
+            picker.locale = Locale.init(identifier: "zh_TW")
+            picker.timeZone = TimeZone.init(identifier: "Asia/Taipei")
+            picker.addTarget(self, action: #selector(onDateChanged), for: .valueChanged)
+            picker.backgroundColor = UIColor.white
+            self.reTimeRange(picker: picker, isInit: true)
+            return picker
         }
     }
     
@@ -51,7 +51,11 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
         }
     }
     
-    @IBOutlet weak var dateSelect: UITextField! 
+    @IBOutlet weak var dateSelect: UITextField! {
+        didSet{
+            self.dateSelect.delegate = self
+        }
+    }
     
     @IBOutlet weak var placeHolder: UILabel! {
         didSet {
@@ -159,7 +163,7 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
     
     @IBOutlet weak var readRuleBtn: UIButton!
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dateSelect.inputView = self.datePicker
@@ -175,7 +179,7 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.reTimeRange(picker: self.datePicker)
+        self.reTimeRange(picker: self.datePicker, isInit: false)
         self.dateSelect.text = ""
         self.bnonusDate = -1
         self.selectBnonus.text = ""
@@ -241,7 +245,6 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
     
     // 確定選取時間事件
     @objc func doneTimePick(sender: UIBarButtonItem){
-        // TODO
         self.dateSelect.text = self.selectDate
         self.view.endEditing(true)
     }
@@ -252,7 +255,6 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
     }
     
     @IBAction func readRuleAction(_ sender: UIButton) {
-//        print(sender.isSelected)
         let msg: String = "1.您同意無論任何理由，您都會在所填選擇之取餐時間到場取餐。\n" +
         "2.您非常同意，取餐時間、外送地址是由您本人自行填寫。\n" +
         "3.當您使用外送服務時，您全權擔保您所填寫的地址，可以聯繫到您本人。\n" +
@@ -336,8 +338,8 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
         }
     }
     
-    func reTimeRange (picker: UIDatePicker){
-        
+    func reTimeRange (picker: UIDatePicker, isInit: Bool){
+
         let currentDate: Date = Date()
         var calendar: Calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         calendar.timeZone = TimeZone.init(identifier: "Asia/Taipei")!
@@ -351,19 +353,31 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
         components.minute = 20
         let minDate: Date = calendar.date(byAdding: components, to: currentDate)!
         picker.minimumDate = minDate
+
         self.selectDate = DateTimeHelper.dateToStringForm(date: minDate, form: "yyyy-MM-dd HH:mm")
+
+        if !isInit {
+            self.dateSelect.inputView = picker
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    
     func textViewDidChange(_ textView: UITextView) {
         if textView.text.count == 0 {
             self.placeHolder.isHidden = false
         } else {
             self.placeHolder.isHidden = true
+        }
+    }
+    
+    // 攔截 input view open
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if self.dateSelect.isEditing {
+            self.reTimeRange(picker: self.datePicker, isInit: false)
+            self.dateSelect.text = self.selectDate
         }
     }
     
@@ -379,7 +393,6 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
         }else {
             return self.canBnonusDates.count
         }
-//        return self.canBnonusDates.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -389,7 +402,6 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
         }else {
             return self.canBnonusDates[row]
         }
-//        return self.canBnonusDates[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -398,7 +410,6 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
         }else {
             self.bnonusDate = row
         }
-//        self.bnonusDate = row
     }
     
     // 鍵盤點擊背景縮放

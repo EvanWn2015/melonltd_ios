@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -160,7 +159,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RUQ-X5-1gO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3967.5" y="-1296.1267605633802"/>
+            <point key="canvasLocation" x="-4622" y="-1295"/>
         </scene>
         <!--首頁控制NC-->
         <scene sceneID="z9i-9W-oVE">
@@ -181,7 +180,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sjS-9N-Aby" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3101" y="-1295"/>
+            <point key="canvasLocation" x="-3718" y="-1295"/>
         </scene>
         <!--首頁-註冊-驗證碼-->
         <scene sceneID="Hth-2c-ieH">
