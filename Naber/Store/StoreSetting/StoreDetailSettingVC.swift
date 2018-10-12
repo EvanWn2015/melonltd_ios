@@ -152,23 +152,41 @@ class StoreDetailSettingVC : UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     @IBAction func changeDateStatus(_ sender: UISwitch){
-        let reqData: ReqData = ReqData()
-        reqData.date = self.threeBusinessDate[sender.tag]
-        reqData.status = sender.isOn ? "OPEN" : "CLOSE"
-        ApiManager.sellerRestaurantSettingBusiness(req: reqData, ui: self, onSuccess: {
+        
+        let req: ReqData = ReqData()
+        req.date = self.threeBusinessDate[sender.tag]
+        req.status = sender.isOn ? "OPEN" : "CLOSE"
+        
+        if !sender.isOn {
+            let alert = UIAlertController(title: Optional.none, message: "關閉營業時段，請先確認該日有無訂單，若有訂單請記得告知使用者。", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "確定", style: .default){ _ in
+                self.changeStoerOpenDate(sender: sender, req: req)
+            })
+            alert.addAction(UIAlertAction(title: "取消", style: .destructive){ _ in
+                sender.isOn = !sender.isOn
+            })
+            
+            self.present(alert, animated: false)
+        } else {
+            self.changeStoerOpenDate(sender: sender, req: req)
+        }
+    }
+    
+    func changeStoerOpenDate (sender: UISwitch, req: ReqData){
+        ApiManager.sellerRestaurantSettingBusiness(req: req, ui: self, onSuccess: {
             if !sender.isOn {
-                self.restaurant.not_business.append(reqData.date)
+                self.restaurant.not_business.append(req.date)
             }else {
-                if let index = self.restaurant.not_business.index(of: reqData.date) {
+                if let index = self.restaurant.not_business.index(of: req.date) {
                     self.restaurant.not_business.remove(at: index)
                 }
             }
             self.tableView.reloadData()
         }) { err_msg in
-            print(err_msg)
             sender.isOn = !sender.isOn
         }
     }
+    
 
     // table View
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -9,11 +9,34 @@
 import Foundation
 
 
-class ActivitiesResp: Codable {
+class ActivitiesListResp: Codable {
     var status : String!
     var err_code : String!
     var err_msg : String!
     var data: [ActivitiesVo] = []
+    
+    public static func toJson(structs : ActivitiesListResp) -> String {
+        do {
+            return String(data: try JSONEncoder().encode(structs), encoding: .utf8)!
+        } catch {
+            return ""
+        }
+    }
+    
+    public static func parse(src : String) -> ActivitiesListResp? {
+        do {
+            return try JSONDecoder().decode(ActivitiesListResp.self, from: src.data(using:.utf8)!)
+        }catch {
+            return nil
+        }
+    }
+}
+
+class ActivitiesResp: Codable {
+    var status : String!
+    var err_code : String!
+    var err_msg : String!
+    var data: ActivitiesVo!
     
     public static func toJson(structs : ActivitiesResp) -> String {
         do {

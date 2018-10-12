@@ -18,6 +18,17 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
 //    var username: String = ""
     var restaurantInfo: RestaurantInfoVo! = Optional.none
     
+    @IBOutlet weak var loyaltyBtn: UIButton! {
+        didSet {
+            self.loyaltyBtn.alpha = 0.0
+            self.loyaltyBtn.isEnabled = false
+        }
+    }
+    @IBOutlet weak var loyaltyImage: UIImageView! {
+        didSet{
+            self.loyaltyImage.alpha = 0.0
+        }
+    }
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var address: UILabel!
@@ -34,7 +45,6 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
             self.tableView.delegate = self
             let refreshControl: UIRefreshControl = UIRefreshControl()
             refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0)])
-//            refreshControl.addTarget(self, action:, for: .valueChanged)
             refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
             refreshControl.tintColor = UIColor.clear
             self.tableView.addSubview(refreshControl)
@@ -76,6 +86,15 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
         
         if self.restaurantInfo != nil {
             self.loadData(refresh: true)
+            
+            // TODO 
+            // 判斷該餐館有無集點功能
+//            if true {
+//                self.loyaltyBtn.alpha = 1.0
+//                self.loyaltyBtn.isEnabled = true
+//                self.loyaltyImage.alpha = 1.0
+//            }
+            
             self.address.text = self.restaurantInfo.address
             self.name.text = self.restaurantInfo.name
             self.bulletin.text = self.restaurantInfo.bulletin
@@ -166,6 +185,14 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
 
     override func show(_ vc: UIViewController, sender: Any?) {
         
+    }
+    
+    // 到集點內容頁面
+    @IBAction func loyaltyCardAction (_ sender: UIButton){
+        if let vc = UIStoryboard(name: UIIdentifier.USER.rawValue, bundle: nil).instantiateViewController(withIdentifier: "LoyaltyCardAction") as? LoyaltyCardActionVC {
+        
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     override func didReceiveMemoryWarning() {

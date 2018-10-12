@@ -29,6 +29,7 @@ class ApiUrl{
     public static var CHECK_APP_VERSION: String = DOMAIN + "/common/check/app/version"
     public static var ACT_LIST: String = DOMAIN + "/common/activities/list"
     public static var SUBJECTION_REGIONS: String = DOMAIN + "/common/subjection/region/list"
+    public static var SCHOOL_DIVIDED: String = DOMAIN + "/common/school/divided/list"
     
     // user
     public static var ADVERTISEMENT: String = DOMAIN + "/naber/advertisement"
@@ -47,7 +48,7 @@ class ApiUrl{
     public static var IMAGE_UPLOAD: String = DOMAIN + "/image/upload"
     public static var ACT_SUBMIT: String = DOMAIN + "/activities/submit"
     public static var SERIAL_SUBMIT: String = DOMAIN + "/serial/number/submit"
-    
+    public static var RES_EVENT_SUBMIT: String = DOMAIN + "/serial/res/event/submit"
     
     
     

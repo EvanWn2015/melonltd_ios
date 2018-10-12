@@ -156,7 +156,7 @@ class ApiManager {
     // 5.取得全部營消活動列表
     public static func getAllActivities (ui: UIViewController, onSuccess: @escaping ([ActivitiesVo]) -> (), onFail: @escaping (String) -> ()) {
         self.postAutho(url: ApiUrl.ACT_LIST, data: "", ui:ui, complete: { response in
-            let resp: ActivitiesResp = ActivitiesResp.parse(src: base64Decoding(decode: response.result.value!))!
+            let resp: ActivitiesListResp = ActivitiesListResp.parse(src: base64Decoding(decode: response.result.value!))!
             if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
                 onSuccess(resp.data)
             }else {
@@ -170,6 +170,19 @@ class ApiManager {
     public static func getSubjectionRegions (ui: UIViewController, onSuccess: @escaping ([SubjectionRegionVo]) -> (), onFail: @escaping (String) -> ()) {
         self.postAutho(url: ApiUrl.SUBJECTION_REGIONS, data: "", ui:ui, complete: { response in
             let resp: SubjectionRegionResp = SubjectionRegionResp.parse(src: base64Decoding(decode: response.result.value!))!
+            if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
+                onSuccess(resp.data)
+            }else {
+                onFail(resp.err_msg)
+            }
+        })
+    }
+    
+    
+    // 7.取得學校選單
+    public static func getSchoolDivides (ui: UIViewController, onSuccess: @escaping ([SchoolDividedVo]) -> (), onFail: @escaping (String) -> ()) {
+        self.postData(url: ApiUrl.SCHOOL_DIVIDED, data: "", ui:ui, complete: { response in
+            let resp: SchoolDividedResp = SchoolDividedResp.parse(src: base64Decoding(decode: response.result.value!))!
             if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
                 onSuccess(resp.data)
             }else {
@@ -359,11 +372,24 @@ class ApiManager {
     }
     
     //提交兌換序號
-    public static func serialSubmit (req: ReqData, ui: UIViewController, onSuccess: @escaping (String) -> (), onFail: @escaping (String) -> ()) {
+    public static func serialSubmit (req: ReqData, ui: UIViewController, onSuccess: @escaping (ActivitiesVo) -> (), onFail: @escaping (String) -> ()) {
         self.postAutho(url: ApiUrl.SERIAL_SUBMIT, data: ReqData.toJson(structs: req) , ui:ui, complete: { response in
+            let resp: ActivitiesResp = ActivitiesResp.parse(src: base64Decoding(decode: response.result.value!))!
+            if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
+                onSuccess(resp.data)
+            }else {
+                onFail(resp.err_msg)
+            }
+        })
+    }
+    
+    
+    // 商家活動兌換品項提交， 搶紅包，數量限制
+    public static func resEventSubmit (req: ReqData, ui: UIViewController, onSuccess: @escaping () -> (), onFail: @escaping (String) -> ()) {
+        self.postAutho(url: ApiUrl.RES_EVENT_SUBMIT, data: ReqData.toJson(structs: req) , ui:ui, complete: { response in
             let resp: RespData = RespData.parse(src: base64Decoding(decode: response.result.value!))!
             if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
-                onSuccess("")
+                onSuccess()
             }else {
                 onFail(resp.err_msg)
             }
@@ -626,7 +652,7 @@ class ApiManager {
     
     
     //要 Data的,但是沒有header
-    private static func postData(url: URLConvertible, data: String, ui: UIViewController, complete: @escaping (DataResponse<String>) -> ()) {
+    private static func postData(url: String, data: String, ui: UIViewController, complete: @escaping (DataResponse<String>) -> ()) {
         let parameter: Parameters =  ["data": base64Encoding(encod: data)]
         self.post(url: url, parameter: parameter, header: self.HTTP_HEADERS, ui: ui) { response in
             complete(response)
@@ -634,7 +660,7 @@ class ApiManager {
     }
     //傳header的POST,不要Data傳空字串
     //header的key=Authorization,Value=acount_uuid
-    private static func postAutho(url: URLConvertible, data: String, ui: UIViewController, complete: @escaping (DataResponse<String>) -> ()) {
+    private static func postAutho(url: String, data: String, ui: UIViewController, complete: @escaping (DataResponse<String>) -> ()) {
         let autho: String = UserSstorage.getAutho()
         let parameter: Parameters =  ["data": base64Encoding(encod: data)]
         let header: HTTPHeaders = ["Authorization" : autho, "Content-Type": "application/x-www-form-urlencoded"]
@@ -645,7 +671,7 @@ class ApiManager {
     }
     
     //主要的POST Method
-    private static func post(url: URLConvertible, parameter: Parameters, header: HTTPHeaders, ui: UIViewController, complete: @escaping (DataResponse<String>) -> ()) {
+    private static func post(url: String, parameter: Parameters, header: HTTPHeaders, ui: UIViewController, complete: @escaping (DataResponse<String>) -> ()) {
         Loading.show()
         SESSION_MANAGER.request(url, method: HTTPMethod.post, parameters:parameter, headers:header).validate().responseString{ response in
             

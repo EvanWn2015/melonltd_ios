@@ -127,6 +127,7 @@ class ActivitiesSendSubmitVC: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     override func show(_ vc: UIViewController, sender: Any?) {
+        print(vc)
     }
     
     override func didReceiveMemoryWarning() {

@@ -72,24 +72,27 @@ class BonusExchangeVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.textData()
         self.loadData(refresh: true) {
             self.tableView.reloadData()
         }
     }
 //
-//    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        self.serial.text = ""
 //        ApiManager.getAllActivities(ui: self, onSuccess: { activities in
 //            self.activities.append(contentsOf: activities)
 //            self.tableView.reloadData()
 //        }) { err_msg in
 //            print(err_msg)
 //        }
-//    }
+    }
 //
     
+    override func show(_ vc: UIViewController, sender: Any?) {
+    }
+    
     @IBAction func submitSerialAction(_ sender: UIButton){
-        
+
         if (self.serial.text?.isEmpty)! || self.serial.text?.count != 8 {
             let alert = UIAlertController(title: "系統提示", message: "請正確輸入8碼兌換序號", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "我知道了", style: .default))
@@ -97,12 +100,27 @@ class BonusExchangeVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         }else {
             let req: ReqData = ReqData()
             req.data = self.serial.text?.uppercased()
-            ApiManager.serialSubmit(req: req, ui: self, onSuccess: { msg in
-                let alert = UIAlertController(title: "兌換成功", message: msg, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "我知道了", style: .default) {_ in
-                    self.serial.text = ""
-                })
-                self.present(alert, animated: false)
+            ApiManager.serialSubmit(req: req, ui: self, onSuccess: { activities in
+                if activities.act_category == "RES_EVENT" {
+                    if let order: OrderDetail = OrderDetail.parse(src: activities.data) {
+                        if let vc = UIStoryboard(name: UIIdentifier.USER.rawValue, bundle: nil).instantiateViewController(withIdentifier: "ActRESItemSubmit") as? ActRESItemSubmitVC {
+                            vc.orderDetail = order
+                            vc.activities = activities
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    }else {
+                        let alert = UIAlertController(title: "兌換失敗", message: "該項目已結束兌換。", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "我知道了", style: .default))
+                        self.present(alert, animated: false)
+                    }
+                }else if activities.act_category == "TICKET" {
+                    let alert = UIAlertController(title: "兌換成功", message: activities.data + "紅利兌換成功。" , preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "我知道了", style: .default) {_ in
+                        self.serial.text = ""
+                    })
+                    self.present(alert, animated: false)
+                }
+                
             }) { err_msg in
                 let alert = UIAlertController(title: "兌換失敗", message: err_msg, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "我知道了", style: .default))
@@ -117,19 +135,7 @@ class BonusExchangeVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         "，並能兌換NABER所提供之獎勵。\n\n" +
         "* 10月起 開放兌換獎勵及現金折抵\n" +
         "* 消費10元獲得1點紅利點數\n"
-
-//        self.datas.append(contentsOf:[["10點", "下次消費折抵3元" ,"(無上限)"],
-//                                ["500點", "KKBOX 30天","(點數卡)"],
-//                                ["667點", "中壢威尼斯","(電影票)"],
-//                                ["767點", "桃園IN89統領","(電影票)"],
-//                                ["767點", "美麗華影城","(電影票)"],
-//                                ["800點", "LINE 240P","(點數卡)"],
-//                                ["834點", "SBC星橋","(電影票)"],
-//                                ["834點", "威秀影城","(電影票)"],
-//                                ["1000點", "SOGO 300","(禮卷)"],
-//                                ["1000點", "MYCARD 300P","(點數卡)"]])
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

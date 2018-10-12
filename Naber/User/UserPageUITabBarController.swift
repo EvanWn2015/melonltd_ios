@@ -13,19 +13,19 @@ class UserPageUITabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        ApiManager.storeCategoryList(ui: self, onSuccess: { categorys in
-            NaberConstant.FILTER_CATEGORYS.removeAll()
-            NaberConstant.FILTER_CATEGORYS.append(contentsOf: categorys)
-        }) { err_msg in
-            print(err_msg)
-        }
-        
-        ApiManager.storeAreaList(ui: self, onSuccess: { categorys in
-            NaberConstant.FILTER_AREAS.removeAll()
-            NaberConstant.FILTER_AREAS.append(contentsOf: categorys)
-        }) { err_msg in
-            print(err_msg)
-        }
+//        ApiManager.storeCategoryList(ui: self, onSuccess: { categorys in
+//            NaberConstant.FILTER_CATEGORYS.removeAll()
+//            NaberConstant.FILTER_CATEGORYS.append(contentsOf: categorys)
+//        }) { err_msg in
+//            print(err_msg)
+//        }
+//
+//        ApiManager.storeAreaList(ui: self, onSuccess: { categorys in
+//            NaberConstant.FILTER_AREAS.removeAll()
+//            NaberConstant.FILTER_AREAS.append(contentsOf: categorys)
+//        }) { err_msg in
+//            print(err_msg)
+//        }
     }
 
     override func didReceiveMemoryWarning() {

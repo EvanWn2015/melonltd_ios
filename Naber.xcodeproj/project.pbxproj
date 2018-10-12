@@ -9,8 +9,12 @@
 /* Begin PBXBuildFile section */
 		2010EF0B21558E2600FD3379 /* SubjectionRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2010EF0A21558E2600FD3379 /* SubjectionRegion.swift */; };
 		2012D76F2118460A00E7068D /* TableViewHeadControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012D76E2118460A00E7068D /* TableViewHeadControl.swift */; };
+		201723092170509600936216 /* LoyaltyCardActionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201723082170509600936216 /* LoyaltyCardActionVC.swift */; };
+		2017230B21705FF600936216 /* LoyaltyCardActionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2017230A21705FF600936216 /* LoyaltyCardActionTVCell.swift */; };
+		2017230D217079C200936216 /* NaberUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2017230C217079C200936216 /* NaberUILabel.swift */; };
 		2017D8E6210CC52B00E2376D /* OrderStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2017D8E5210CC52B00E2376D /* OrderStatus.swift */; };
 		2017D8E8210CF09100E2376D /* RecordInfoOrderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2017D8E7210CF09100E2376D /* RecordInfoOrderTVCell.swift */; };
+		2032E8F8216BA9E900413ECC /* ActRESItemSubmitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2032E8F7216BA9E900413ECC /* ActRESItemSubmitVC.swift */; };
 		2036B845210760190081FE92 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2036B844210760190081FE92 /* BaseVC.swift */; };
 		2036B8472107621C0081FE92 /* DateTimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2036B8462107621C0081FE92 /* DateTimeHelper.swift */; };
 		20441B8D21429C24005D72AF /* StoreAreaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20441B8C21429C24005D72AF /* StoreAreaList.swift */; };
@@ -22,6 +26,8 @@
 		205015F6210B8C8A00FDE2E8 /* StringsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205015F5210B8C8A00FDE2E8 /* StringsHelper.swift */; };
 		205015F8210CB7B300FDE2E8 /* UIIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205015F7210CB7B300FDE2E8 /* UIIdentifier.swift */; };
 		20603EEA210A260E00F2BCAB /* RespStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20603EE9210A260E00F2BCAB /* RespStatus.swift */; };
+		20669A52216EE09100D712DE /* DailyOpenScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20669A51216EE09100D712DE /* DailyOpenScheduleVC.swift */; };
+		20669A54216EE35F00D712DE /* DailyOpenScheduleCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20669A53216EE35F00D712DE /* DailyOpenScheduleCVCell.swift */; };
 		206AECDE211028C2005E64E6 /* SubmitOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206AECDD211028C2005E64E6 /* SubmitOrderVC.swift */; };
 		20758A1921188D1F007A3ABC /* Store.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20758A1821188D1F007A3ABC /* Store.storyboard */; };
 		20758A1B2118A1FC007A3ABC /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20758A1A2118A1FC007A3ABC /* User.storyboard */; };
@@ -29,6 +35,7 @@
 		207CC06B2154BC65002BF83F /* Activities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207CC06A2154BC65002BF83F /* Activities.swift */; };
 		207CC06E2154C69D002BF83F /* ActivitiesSendSubmitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207CC06D2154C69D002BF83F /* ActivitiesSendSubmitVC.swift */; };
 		207F12CA215CB0C10081D85C /* ContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F12C9215CB0C10081D85C /* ContactInfo.swift */; };
+		208071D421674CA500EA8093 /* SchoolDivided.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208071D321674CA500EA8093 /* SchoolDivided.swift */; };
 		20834B152114BFFA0031AC0A /* TrendOrderLogDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20834B142114BFFA0031AC0A /* TrendOrderLogDetailVC.swift */; };
 		209F05F2211B352800E66397 /* StoreDetailSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209F05F1211B352800E66397 /* StoreDetailSettingVC.swift */; };
 		209F05F4211B420500E66397 /* StoreDetailSettingDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209F05F3211B420500E66397 /* StoreDetailSettingDateCell.swift */; };
@@ -51,6 +58,7 @@
 		20BD648A2108BFE600023033 /* LLCycleScrollViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BD64832108BFE600023033 /* LLCycleScrollViewCell.swift */; };
 		20BD648B2108BFE600023033 /* LLPillPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BD64842108BFE600023033 /* LLPillPageControl.swift */; };
 		20BD648D2108E84000023033 /* CustomSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BD648C2108E84000023033 /* CustomSearchTextField.swift */; };
+		20C57293216C5012002C73ED /* ActRESItemSubmitTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C57292216C5012002C73ED /* ActRESItemSubmitTVCell.swift */; };
 		20D9DBD22102563E00D643FE /* HomeMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D9DBD12102563D00D643FE /* HomeMainVC.swift */; };
 		20D9DBD621025AC700D643FE /* Pods_Naber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D9DBD521025AC700D643FE /* Pods_Naber.framework */; };
 		20D9DC0421025F4700D643FE /* FSPagerViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D9DBFD21025F4600D643FE /* FSPagerViewLayoutAttributes.swift */; };
@@ -82,6 +90,7 @@
 		20EF6E33211958B300787F4C /* FoodSubCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EF6E32211958B300787F4C /* FoodSubCell.swift */; };
 		20EF6E35211A934E00787F4C /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EF6E34211A934E00787F4C /* ImageHelper.swift */; };
 		20EF6E37211AA98E00787F4C /* UploadFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EF6E36211AA98E00787F4C /* UploadFile.swift */; };
+		20F1F9062165BC900015A1B3 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F1F9052165BC900015A1B3 /* Messages.swift */; };
 		77376C58210587510087F08E /* DateRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77376C57210587510087F08E /* DateRange.swift */; };
 		77376C5A21058F110087F08E /* RestaurantInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77376C5921058F110087F08E /* RestaurantInfo.swift */; };
 		77376C5C2105A2930087F08E /* SellerStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77376C5B2105A2930087F08E /* SellerStat.swift */; };
@@ -164,8 +173,12 @@
 /* Begin PBXFileReference section */
 		2010EF0A21558E2600FD3379 /* SubjectionRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectionRegion.swift; sourceTree = "<group>"; };
 		2012D76E2118460A00E7068D /* TableViewHeadControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeadControl.swift; sourceTree = "<group>"; };
+		201723082170509600936216 /* LoyaltyCardActionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoyaltyCardActionVC.swift; sourceTree = "<group>"; };
+		2017230A21705FF600936216 /* LoyaltyCardActionTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoyaltyCardActionTVCell.swift; sourceTree = "<group>"; };
+		2017230C217079C200936216 /* NaberUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaberUILabel.swift; sourceTree = "<group>"; };
 		2017D8E5210CC52B00E2376D /* OrderStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStatus.swift; sourceTree = "<group>"; };
 		2017D8E7210CF09100E2376D /* RecordInfoOrderTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordInfoOrderTVCell.swift; sourceTree = "<group>"; };
+		2032E8F7216BA9E900413ECC /* ActRESItemSubmitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActRESItemSubmitVC.swift; sourceTree = "<group>"; };
 		2036B844210760190081FE92 /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		2036B8462107621C0081FE92 /* DateTimeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeHelper.swift; sourceTree = "<group>"; };
 		20441B8C21429C24005D72AF /* StoreAreaList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAreaList.swift; sourceTree = "<group>"; };
@@ -177,6 +190,8 @@
 		205015F5210B8C8A00FDE2E8 /* StringsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsHelper.swift; sourceTree = "<group>"; };
 		205015F7210CB7B300FDE2E8 /* UIIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIdentifier.swift; sourceTree = "<group>"; };
 		20603EE9210A260E00F2BCAB /* RespStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespStatus.swift; sourceTree = "<group>"; };
+		20669A51216EE09100D712DE /* DailyOpenScheduleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyOpenScheduleVC.swift; sourceTree = "<group>"; };
+		20669A53216EE35F00D712DE /* DailyOpenScheduleCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyOpenScheduleCVCell.swift; sourceTree = "<group>"; };
 		206AECDD211028C2005E64E6 /* SubmitOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitOrderVC.swift; sourceTree = "<group>"; };
 		20758A1821188D1F007A3ABC /* Store.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Store.storyboard; sourceTree = "<group>"; };
 		20758A1A2118A1FC007A3ABC /* User.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
@@ -188,6 +203,7 @@
 		207CC06A2154BC65002BF83F /* Activities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activities.swift; sourceTree = "<group>"; };
 		207CC06D2154C69D002BF83F /* ActivitiesSendSubmitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesSendSubmitVC.swift; sourceTree = "<group>"; };
 		207F12C9215CB0C10081D85C /* ContactInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfo.swift; sourceTree = "<group>"; };
+		208071D321674CA500EA8093 /* SchoolDivided.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDivided.swift; sourceTree = "<group>"; };
 		20834B142114BFFA0031AC0A /* TrendOrderLogDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendOrderLogDetailVC.swift; sourceTree = "<group>"; };
 		209F05F1211B352800E66397 /* StoreDetailSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailSettingVC.swift; sourceTree = "<group>"; };
 		209F05F3211B420500E66397 /* StoreDetailSettingDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailSettingDateCell.swift; sourceTree = "<group>"; };
@@ -210,6 +226,7 @@
 		20BD64832108BFE600023033 /* LLCycleScrollViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLCycleScrollViewCell.swift; sourceTree = "<group>"; };
 		20BD64842108BFE600023033 /* LLPillPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLPillPageControl.swift; sourceTree = "<group>"; };
 		20BD648C2108E84000023033 /* CustomSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchTextField.swift; sourceTree = "<group>"; };
+		20C57292216C5012002C73ED /* ActRESItemSubmitTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActRESItemSubmitTVCell.swift; sourceTree = "<group>"; };
 		20D9DBD12102563D00D643FE /* HomeMainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMainVC.swift; sourceTree = "<group>"; };
 		20D9DBD521025AC700D643FE /* Pods_Naber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Naber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20D9DBFD21025F4600D643FE /* FSPagerViewLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerViewLayoutAttributes.swift; sourceTree = "<group>"; };
@@ -241,6 +258,7 @@
 		20EF6E32211958B300787F4C /* FoodSubCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSubCell.swift; sourceTree = "<group>"; };
 		20EF6E34211A934E00787F4C /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		20EF6E36211AA98E00787F4C /* UploadFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadFile.swift; sourceTree = "<group>"; };
+		20F1F9052165BC900015A1B3 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		710650FF7A33596557DF4B8D /* Pods-Naber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Naber/Pods-Naber.debug.xcconfig"; sourceTree = "<group>"; };
 		77376C57210587510087F08E /* DateRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRange.swift; sourceTree = "<group>"; };
 		77376C5921058F110087F08E /* RestaurantInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInfo.swift; sourceTree = "<group>"; };
@@ -341,10 +359,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20669A50216EE07400D712DE /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				20669A51216EE09100D712DE /* DailyOpenScheduleVC.swift */,
+				20669A53216EE35F00D712DE /* DailyOpenScheduleCVCell.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
 		207CC06C2154C665002BF83F /* Activities */ = {
 			isa = PBXGroup;
 			children = (
 				207CC06D2154C69D002BF83F /* ActivitiesSendSubmitVC.swift */,
+				2032E8F7216BA9E900413ECC /* ActRESItemSubmitVC.swift */,
+				20C57292216C5012002C73ED /* ActRESItemSubmitTVCell.swift */,
+				201723082170509600936216 /* LoyaltyCardActionVC.swift */,
+				2017230A21705FF600936216 /* LoyaltyCardActionTVCell.swift */,
 			);
 			path = Activities;
 			sourceTree = "<group>";
@@ -426,6 +457,7 @@
 				20BD648C2108E84000023033 /* CustomSearchTextField.swift */,
 				DD51D1F520C0A117002C5940 /* UIBorderRadius.swift */,
 				20E65E8120FF17F100F9A252 /* Loading.swift */,
+				2017230C217079C200936216 /* NaberUILabel.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -493,6 +525,8 @@
 				207CC06A2154BC65002BF83F /* Activities.swift */,
 				2010EF0A21558E2600FD3379 /* SubjectionRegion.swift */,
 				207F12C9215CB0C10081D85C /* ContactInfo.swift */,
+				20F1F9052165BC900015A1B3 /* Messages.swift */,
+				208071D321674CA500EA8093 /* SchoolDivided.swift */,
 			);
 			path = Vo;
 			sourceTree = "<group>";
@@ -523,6 +557,8 @@
 		DD3FA0AB20C77111006BAA51 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				20669A50216EE07400D712DE /* Schedule */,
+				DDF8C2B720B226E600BF8904 /* StorePageUITabBarController.swift */,
 				DD161D0520CAD6AA0080CFE2 /* Food */,
 				DDEA6EEA20CA1588008CC5D8 /* Search */,
 				DDEA6EE920CA1579008CC5D8 /* Order */,
@@ -685,7 +721,6 @@
 				DDF8C27E20B1CA4600BF8904 /* LaunchScreen.storyboard */,
 				DDF8C28120B1CA4600BF8904 /* Info.plist */,
 				20AF37262100447400D73F79 /* GoogleService-Info.plist */,
-				DDF8C2B720B226E600BF8904 /* StorePageUITabBarController.swift */,
 				20758A1821188D1F007A3ABC /* Store.storyboard */,
 				20758A1A2118A1FC007A3ABC /* User.storyboard */,
 			);
@@ -973,6 +1008,7 @@
 				DDFEA7D620B6D47300170222 /* UserSettingAboutUsTVC.swift in Sources */,
 				DD161CFF20CA2E320080CFE2 /* SearchMainTVCell.swift in Sources */,
 				20EA6308212BF5F6002E81C3 /* StoreCategoryList.swift in Sources */,
+				2017230B21705FF600936216 /* LoyaltyCardActionTVCell.swift in Sources */,
 				20BB18E221154825005B7E83 /* TrendOrderLogDetailTVCell.swift in Sources */,
 				DD161D0920CAD70B0080CFE2 /* CategoryRelTVCell.swift in Sources */,
 				DDFEA7D220B6BC4800170222 /* UserSettingAccountDetailTVC.swift in Sources */,
@@ -995,9 +1031,11 @@
 				2017D8E6210CC52B00E2376D /* OrderStatus.swift in Sources */,
 				20D9DBD22102563E00D643FE /* HomeMainVC.swift in Sources */,
 				204FF8A62122C5AD00F7ECA5 /* ApiUrl.swift in Sources */,
+				2017230D217079C200936216 /* NaberUILabel.swift in Sources */,
 				20AF3731210082A600D73F79 /* Advertisement.swift in Sources */,
 				20AF372520FF98BA00D73F79 /* NaberConstant.swift in Sources */,
 				DD3FA0C620C8A2DF006BAA51 /* LeftSideMenuTVCell.swift in Sources */,
+				20669A52216EE09100D712DE /* DailyOpenScheduleVC.swift in Sources */,
 				20D9DC2E2105814300D643FE /* ReqData.swift in Sources */,
 				20AF37332100BC1500D73F79 /* UserSstorage.swift in Sources */,
 				209F05F4211B420500E66397 /* StoreDetailSettingDateCell.swift in Sources */,
@@ -1006,6 +1044,7 @@
 				20EF6E35211A934E00787F4C /* ImageHelper.swift in Sources */,
 				DD51D1FE20C0CC75002C5940 /* RestaurantStoreItemTVCell.swift in Sources */,
 				DDCAE00920BB5F10005E65C4 /* RecordInfoDetailTVCell.swift in Sources */,
+				208071D421674CA500EA8093 /* SchoolDivided.swift in Sources */,
 				DD3FA0C420C8A23F006BAA51 /* LeftSideMenuVC.swift in Sources */,
 				20EF6E312119582800787F4C /* FoodMainCell.swift in Sources */,
 				2036B845210760190081FE92 /* BaseVC.swift in Sources */,
@@ -1035,8 +1074,10 @@
 				207CC06E2154C69D002BF83F /* ActivitiesSendSubmitVC.swift in Sources */,
 				DD161CFD20CA2C220080CFE2 /* SearchMainVC.swift in Sources */,
 				77376C5E2105B6E00087F08E /* RestaurantListResp.swift in Sources */,
+				20669A54216EE35F00D712DE /* DailyOpenScheduleCVCell.swift in Sources */,
 				20D9DC302105814300D643FE /* Order.swift in Sources */,
 				20D9DC2F2105814300D643FE /* FoodList.swift in Sources */,
+				20F1F9062165BC900015A1B3 /* Messages.swift in Sources */,
 				7777D1732112D23F0004CFCC /* BonusExchangeTVCell.swift in Sources */,
 				20D9DC0A21025F4700D643FE /* FSPagerCollectionView.swift in Sources */,
 				DDCAE00320B99E4B005E65C4 /* RestaurantStoreInfoVC.swift in Sources */,
@@ -1048,7 +1089,9 @@
 				206AECDE211028C2005E64E6 /* SubmitOrderVC.swift in Sources */,
 				20B4777B2101A7EE007F6EA8 /* Identity.swift in Sources */,
 				DDFEA7DA20B74A6400170222 /* UserSettingHelpTVC.swift in Sources */,
+				201723092170509600936216 /* LoyaltyCardActionVC.swift in Sources */,
 				DD161CFB20CA199A0080CFE2 /* LoginHomeRootUINC.swift in Sources */,
+				20C57293216C5012002C73ED /* ActRESItemSubmitTVCell.swift in Sources */,
 				20BD64852108BFE600023033 /* LLCycleScrollView.swift in Sources */,
 				20D9DC0421025F4700D643FE /* FSPagerViewLayoutAttributes.swift in Sources */,
 				DD3FA0B520C7B065006BAA51 /* TrendCompleteOrderVC.swift in Sources */,
@@ -1066,6 +1109,7 @@
 				20D9DC2B2105814300D643FE /* RestaurantTemplate.swift in Sources */,
 				DDCAE00520B9B76E005E65C4 /* RestaurantSearchUINC.swift in Sources */,
 				20DEC9D72107891000476917 /* Model.swift in Sources */,
+				2032E8F8216BA9E900413ECC /* ActRESItemSubmitVC.swift in Sources */,
 				DDF8C2C020B59B0500BF8904 /* RegisterStoreVC.swift in Sources */,
 				DDFEA7CE20B661E500170222 /* UserSettingPageVC.swift in Sources */,
 				20BD64862108BFE600023033 /* LLImagePageControl.swift in Sources */,

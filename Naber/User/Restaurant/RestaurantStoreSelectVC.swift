@@ -49,8 +49,7 @@ class RestaurantStoreSelectVC: UIViewController {
         }
 
         msg += "數量：" + self.orderNumber.text! + "\n"
-        msg += "金額：" + self.orderTotal.text! + "\n"
-        msg += "品項內容以規格為主！";
+        msg += "金額：" + self.orderTotal.text!
         
         let alert = UIAlertController(title: "已成功加入購物車", message: msg , preferredStyle: .alert)
         let message: UILabel = alert.view.subviews[0].subviews[0].subviews[0].subviews[0].subviews[0].subviews[1] as! UILabel
