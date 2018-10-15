@@ -50,7 +50,7 @@ class SailyOpenScheduleVC : UIViewController, UICollectionViewDelegate, UICollec
     
     func loadData(refresh: Bool, complete: @escaping () -> ()){
         self.threeBusinessDate.removeAll()
-        self.NOW_MONTH_DAY = Calendar.current.component(.month, from: Date())
+        self.NOW_MONTH_DAY = Calendar.current.component(.day, from: Date())
         self.NOW_MONTH_COUNT = Calendar(identifier: .gregorian).maximumRange(of: .day)!.count
         self.NOW_WEEK_DAY = (Calendar.current.component(.weekday, from: Date()) - 1)
         for _ in 0 ..< self.NOW_WEEK_DAY {
@@ -102,7 +102,7 @@ class SailyOpenScheduleVC : UIViewController, UICollectionViewDelegate, UICollec
             cell.backgroundColor = .white
 
             
-            if indexPath.row > (self.NOW_MONTH_COUNT - self.NOW_WEEK_DAY - self.NOW_WEEK_DAY + 1) {
+            if indexPath.row > (self.NOW_MONTH_COUNT - (self.NOW_MONTH_DAY - self.NOW_WEEK_DAY )) {
                 cell.backgroundColor = UIColor.lightGray
             }
             

@@ -42,15 +42,17 @@ class BaseVC: UIViewController{
         self.btn.isHidden = true
         ApiManager.appIntroBulletin(ui: self, onSuccess: { url in
             self.intro.setImage(with: URL(string: url), transformer: TransformerHelper.transformer(identifier: url),  completion: { image in
-                self.btn.isEnabled = true
-                self.btn.isHidden = false
-                complete()
+                if image == nil {
+                    complete()
+                } else {
+                    self.btn.isEnabled = true
+                    self.btn.isHidden = false
+                }
             })
         }) { err_msg in
             self.btn.isEnabled = true
             self.btn.isHidden = false
             complete()
-//            self.checkLoginAccount()
         }
     }
     
@@ -99,11 +101,11 @@ class BaseVC: UIViewController{
     // 判斷是否登入過無超過兩週，並判斷上次登入的帳號類別
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.checkAppVersion {
-            self.gatIntroBulletin {
-                self.checkLoginAccount()
-            }
-        }
+//        self.checkAppVersion {
+//            self.gatIntroBulletin {
+//                self.checkLoginAccount()
+//            }
+//        }
     }
     
     @IBAction func goToNext(_ sender: UIButton) {
