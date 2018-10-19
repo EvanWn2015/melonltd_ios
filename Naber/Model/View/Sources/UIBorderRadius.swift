@@ -32,6 +32,8 @@ class DesignableTextView: UITextView {
 @IBDesignable
 class DesignableTextField: UITextField {
 }
+
+
 extension UIView {
     
     @IBInspectable
@@ -118,3 +120,7 @@ extension UIView {
         }
     }
 }
+
+
+
+

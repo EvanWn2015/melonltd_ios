@@ -50,8 +50,8 @@ class BaseVC: UIViewController{
                 }
             })
         }) { err_msg in
-            self.btn.isEnabled = true
-            self.btn.isHidden = false
+//            self.btn.isEnabled = true
+//            self.btn.isHidden = false
             complete()
         }
     }

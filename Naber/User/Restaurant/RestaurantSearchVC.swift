@@ -169,6 +169,7 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     @IBAction func searchForDistance (_ sender: UIButton){
+            self.view.endEditing(true)
             self.enableBasicLocationServices()
             if self.LM.location != nil {
                 self.reqData.search_type = "DISTANCE";
@@ -217,6 +218,7 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
     // 依照選取區域名稱查找
     // 2018/10/05 改為查詢其它店家，店家為非學餐店家
     @IBAction func searchForOtherStore (_ sender: UIButton){
+        self.view.endEditing(true)
 //        let alert = UIAlertController(title: Optional.none, message: Optional.none, preferredStyle: .actionSheet)
 ////        alert.addAction(UIAlertAction(title: "請選擇區域", style: .destructive))
 //        NaberConstant.FILTER_AREAS.forEach{ name in
@@ -252,6 +254,7 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
     // 依照選取種類名稱查找
     // 2018/10/05 改為查詢選擇學校，二級列表搜尋
     @IBAction func searchForSchool (_ sender: UIButton){
+        self.view.endEditing(true)
         self.schoolText.inputView = self.schoolPicker
         self.DIVIDED_INDEX = 0
         self.SCHOOL_INDEX = 0
@@ -282,6 +285,7 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
     
     // 依照輸入店家名稱查找
     @IBAction func searchForStoreName (_ sender: UIButton){
+        self.view.endEditing(true)
         var foodName: UITextField!
         
         let alert = UIAlertController( title: Optional.none, message: "請輸入查詢店家名稱", preferredStyle: .alert)
@@ -327,6 +331,7 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.view.endEditing(true)
         if let vc = UIStoryboard(name: UIIdentifier.USER.rawValue, bundle: nil).instantiateViewController(withIdentifier: "RestaurantStoreInfo") as? RestaurantStoreInfoVC {
             vc.restaurantIndex = indexPath.row
             vc.pageType = .RESTAURANT
