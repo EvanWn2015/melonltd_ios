@@ -15,7 +15,7 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var orders: [OrderVo] = []
     var uiButtons: [UIButton] = []
     var timer: Timer!
-    var queryStatus: OrderStatus = OrderStatus.LIVE
+    var queryStatus: OrderStatus = OrderStatus.UNFINISH
     var reqData: ReqData = ReqData()
     
     var toolbar: UIToolbar {
@@ -50,7 +50,11 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         }
     }
     
-    @IBOutlet weak var liveBtn: UIButton!
+    @IBOutlet weak var liveBtn: UIButton!{
+        didSet {
+            self.liveBtn.isHidden = true
+        }
+    }
     @IBOutlet weak var unfinishBtn: UIButton!
     @IBOutlet weak var processingBtn: UIButton!
     @IBOutlet weak var canFetchBtn: UIButton!
@@ -99,7 +103,7 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         super.viewDidLoad()
         self.dateSelect.inputView = self.datePicker
         self.dateSelect.inputAccessoryView = self.toolbar
-        self.dateSelect.isHidden = true
+//        self.dateSelect.isHidden = true
         self.timeRangeLayout.constant = -200
         self.uiButtons.append(contentsOf: [self.liveBtn, self.unfinishBtn, self.processingBtn, self.canFetchBtn])
         // 第一次進入使用即時訂單
@@ -120,9 +124,7 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             self.table.reloadData()
         }
         
-        if self.queryStatus == OrderStatus.LIVE {
-            self.startTimer()
-        } else {
+        if self.queryStatus == OrderStatus.UNFINISH && !refresh {
             self.reqData.page = self.reqData.page + 1
             ApiManager.sellerOrderList(req: self.reqData, ui: self, onSuccess: { orders in
                 self.orders.append(contentsOf: orders.map({ o -> OrderVo in
@@ -134,13 +136,56 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             }) { err_msg in
                 // print(err_msg)
             }
+            return
+        } else if self.queryStatus == OrderStatus.UNFINISH {
+            self.startTimer()
+            return
         }
+        
+//        if self.queryStatus == OrderStatus.UNFINISH {
+//            self.startTimer()
+//            return
+//        }
+        
+        
+        
+        self.reqData.page = self.reqData.page + 1
+        ApiManager.sellerOrderList(req: self.reqData, ui: self, onSuccess: { orders in
+            self.orders.append(contentsOf: orders.map({ o -> OrderVo in
+                o.order_detail = OrderDetail.parse(src: o.order_data)!
+                return o
+            }))
+            self.reqData.loadingMore = orders.count % NaberConstant.PAGE == 0 && orders.count != 0
+            self.table.reloadData()
+        }) { err_msg in
+            // print(err_msg)
+        }
+        
+//        
+//        if self.queryStatus == OrderStatus.UNFINISH{
+//            self.startTimer()
+//        } else {
+//            self.reqData.page = self.reqData.page + 1
+//            ApiManager.sellerOrderList(req: self.reqData, ui: self, onSuccess: { orders in
+//                self.orders.append(contentsOf: orders.map({ o -> OrderVo in
+//                    o.order_detail = OrderDetail.parse(src: o.order_data)!
+//                    return o
+//                }))
+//                self.reqData.loadingMore = orders.count % NaberConstant.PAGE == 0 && orders.count != 0
+//                self.table.reloadData()
+//            }) { err_msg in
+//                // print(err_msg)
+//            }
+//        }
     }
     
     // 進入該畫面開始 Timer
     override func viewWillAppear(_ animated: Bool) {
         self.reTimeRange(picker: self.datePicker)
-        if queryStatus == OrderStatus.LIVE{
+//        if queryStatus == OrderStatus.LIVE{
+//            self.startTimer()
+//        }
+        if queryStatus == OrderStatus.UNFINISH {
             self.startTimer()
         }
     }
@@ -155,18 +200,40 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     
     func callLiveOrders(){
+        
+        self.queryStatus = OrderStatus.UNFINISH
+        self.reqData.page = 0
         self.orders.removeAll()
-        self.reqData.loadingMore = false
-        ApiManager.sellerOrderLive(ui: self, onSuccess: {orders in
+        self.reqData.loadingMore = true
+        self.table.reloadData()
+        self.reqData.search_type = OrderStatus.UNFINISH.rawValue
+        self.reqData.date = DateTimeHelper.formToString(date: self.dateSelect.text!, fromDate: "yyyy年 MM月 dd日")
+        
+        ApiManager.sellerOrderList(req: self.reqData, ui: self, onSuccess: { orders in
             self.orders.append(contentsOf: orders.map({ o -> OrderVo in
                 o.order_detail = OrderDetail.parse(src: o.order_data)!
                 return o
             }))
-            // print(Date())
+            self.reqData.loadingMore = orders.count % NaberConstant.PAGE == 0 && orders.count != 0
             self.table.reloadData()
         }) { err_msg in
             // print(err_msg)
         }
+
+        
+        
+//        self.orders.removeAll()
+//        self.reqData.loadingMore = false
+//        ApiManager.sellerOrderLive(ui: self, onSuccess: {orders in
+//            self.orders.append(contentsOf: orders.map({ o -> OrderVo in
+//                o.order_detail = OrderDetail.parse(src: o.order_data)!
+//                return o
+//            }))
+//            // print(Date())
+//            self.table.reloadData()
+//        }) { err_msg in
+//            // print(err_msg)
+//        }
     }
     
     // timer 排程
@@ -291,7 +358,8 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     @IBAction func liveSelect(_ sender: UIButton) {
         self.setButtonsDefaultColor(sender: sender)
         self.dateSelect.isHidden = true
-        self.queryStatus = OrderStatus.LIVE
+//        self.queryStatus = OrderStatus.LIVE
+        self.queryStatus = OrderStatus.UNFINISH
         self.loadData(refresh: true)
     }
 
@@ -355,7 +423,7 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     
     // 點擊 Button Tab 改變 Tab 焦點顏色
     func setButtonsDefaultColor(sender: UIButton){
-        if self.queryStatus != OrderStatus.LIVE {
+        if self.queryStatus != OrderStatus.UNFINISH {
             self.stopTimer()
         }
         self.dateSelect.isHidden = false
@@ -370,7 +438,10 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     
     // 更改訂單狀態取消
     @IBAction func changeToCancel (_ sender: UIButton ) {
-        if self.queryStatus == OrderStatus.LIVE {
+//        if self.queryStatus == OrderStatus.LIVE {
+//            self.stopTimer()
+//        }
+        if self.queryStatus == OrderStatus.UNFINISH {
             self.stopTimer()
         }
         var text: UITextField! = UITextField()
@@ -398,7 +469,11 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         }))
         
         alert.addAction(UIAlertAction(title: "取消", style: .destructive, handler:{ _ in
-            if self.queryStatus == OrderStatus.LIVE {
+//            if self.queryStatus == OrderStatus.LIVE {
+//                self.startTimer()
+//            }
+            
+            if self.queryStatus == OrderStatus.UNFINISH {
                 self.startTimer()
             }
         }))
@@ -411,13 +486,19 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         let alert = UIAlertController(title: message != "" ? "你要給客人的原因" : "", message: message != "" ? message : "至少選取一個原因，或自行輸入", preferredStyle: .alert)
         if message == "" {
             alert.addAction(UIAlertAction(title: "我知道了", style: .default, handler: { _ in
-                if self.queryStatus == OrderStatus.LIVE {
+//                if self.queryStatus == OrderStatus.LIVE {
+//                    self.startTimer()
+//                }
+                if self.queryStatus == OrderStatus.UNFINISH {
                     self.startTimer()
                 }
             }))
         }else {
             alert.addAction(UIAlertAction(title: "返回", style: .destructive, handler:{ _ in
-                if self.queryStatus == OrderStatus.LIVE {
+//                if self.queryStatus == OrderStatus.LIVE {
+//                    self.startTimer()
+//                }
+                if self.queryStatus == OrderStatus.UNFINISH {
                     self.startTimer()
                 }
             }))
@@ -435,12 +516,18 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     
     // 更改訂單狀態跑單
     @IBAction func changeToFailure (_ sender: UIButton ) {
-        if self.queryStatus == OrderStatus.LIVE {
+//        if self.queryStatus == OrderStatus.LIVE {
+//            self.stopTimer()
+//        }
+        if self.queryStatus == OrderStatus.UNFINISH {
             self.stopTimer()
         }
         let alert = UIAlertController(title: Optional.none, message:"確定客戶跑單嗎？\n會影響客戶點餐的權益以及紅利點數", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "返回", style: .destructive, handler:{ _ in
-            if self.queryStatus == OrderStatus.LIVE {
+//            if self.queryStatus == OrderStatus.LIVE {
+//                self.startTimer()
+//            }
+            if self.queryStatus == OrderStatus.UNFINISH {
                 self.startTimer()
             }
         }))
@@ -480,17 +567,23 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     
     func changeOrderStatus (status: OrderStatus, dataIndex: Int, alertMsg: String){
-        if self.queryStatus == OrderStatus.LIVE {
+//        if self.queryStatus == OrderStatus.LIVE {
+//            self.stopTimer()
+//        }
+
+        if self.queryStatus == OrderStatus.UNFINISH {
             self.stopTimer()
         }
-        
         let reqData: ReqData = ReqData()
         reqData.uuid = self.orders[dataIndex].order_uuid
         reqData.type = status.get().name
         
         let alert = UIAlertController(title: Optional.none, message: alertMsg, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "返回", style: .destructive, handler:{ _ in
-            if self.queryStatus == OrderStatus.LIVE {
+//            if self.queryStatus == OrderStatus.LIVE {
+//                self.startTimer()
+//            }
+            if self.queryStatus == OrderStatus.UNFINISH {
                 self.startTimer()
             }
         }))
@@ -527,7 +620,11 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         if let identity: Identity = Identity(rawValue: userInfo["identity"] as! String) {
             if identity == Identity.SELLERS  && currentId == Identity.SELLERS {
                 completionHandler( [.alert, .badge, .sound])
-                if self.queryStatus == OrderStatus.LIVE {
+//                if self.queryStatus == OrderStatus.LIVE {
+//                    self.stopTimer()
+//                    self.startTimer()
+//                }
+                if self.queryStatus == OrderStatus.UNFINISH {
                     self.stopTimer()
                     self.startTimer()
                 }

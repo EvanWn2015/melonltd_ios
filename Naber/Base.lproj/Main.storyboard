@@ -793,7 +793,7 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="J6E-q7-of3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="766"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoReverse" translatesAutoresizingMaskIntoConstraints="NO" id="Ifg-ka-To4">
@@ -806,7 +806,7 @@
                                             </constraints>
                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Naber" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YG0-3A-Zmp">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NABER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YG0-3A-Zmp">
                                             <rect key="frame" x="87.666666666666686" y="224" width="200" height="12"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="12" id="ZRG-pS-M72"/>
@@ -816,16 +816,16 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="你的好鄰居" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGr-Yo-Km2">
-                                            <rect key="frame" x="87.666666666666686" y="248" width="200" height="20"/>
+                                            <rect key="frame" x="87.666666666666686" y="248" width="200" height="0.0"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="20" id="MUg-Nq-la0"/>
+                                                <constraint firstAttribute="height" id="MUg-Nq-la0"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="手機號或帳號" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UDG-yd-0Uv">
-                                            <rect key="frame" x="16" y="276" width="343" height="32"/>
+                                            <rect key="frame" x="16" y="256" width="343" height="32"/>
                                             <color key="tintColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="32" id="fkn-UW-rWZ"/>
@@ -836,7 +836,7 @@
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc4-Kz-et6">
-                                            <rect key="frame" x="293" y="316" width="66" height="32"/>
+                                            <rect key="frame" x="293" y="296" width="66" height="32"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="66" id="4zH-Va-btI"/>
                                                 <constraint firstAttribute="height" constant="32" id="qa7-Ac-fpY"/>
@@ -850,7 +850,7 @@
                                             </connections>
                                         </button>
                                         <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密碼" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GbD-gl-OnQ">
-                                            <rect key="frame" x="16" y="358" width="343" height="32"/>
+                                            <rect key="frame" x="16" y="338" width="343" height="32"/>
                                             <color key="tintColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="32" id="g9u-Aq-QYA"/>
@@ -861,14 +861,14 @@
                                             <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCU-JY-Afh" customClass="DesignableButton" customModule="Naber" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="440" width="375" height="48"/>
-                                            <color key="backgroundColor" red="0.95686274510000002" green="0.90980392160000001" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <rect key="frame" x="16" y="420" width="343" height="40"/>
+                                            <color key="backgroundColor" red="0.94117647058823528" green="0.61568627450980395" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="48" id="qqu-At-3W3"/>
+                                                <constraint firstAttribute="height" constant="40" id="qqu-At-3W3"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <state key="normal" title="登入">
-                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
@@ -880,18 +880,27 @@
                                                 <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
                                                     <size key="value" width="0.0" height="0.0"/>
                                                 </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" red="0.94117647058823528" green="0.61568627450980395" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="goToNextPage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KLg-Sk-ceH"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O47-DX-ahO">
-                                            <rect key="frame" x="285" y="398" width="74" height="32"/>
+                                            <rect key="frame" x="329" y="378" width="30" height="0.0"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="32" id="YzJ-6h-iWy"/>
+                                                <constraint firstAttribute="height" id="YzJ-6h-iWy"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <state key="normal" title="忘記密碼?">
+                                            <state key="normal">
                                                 <color key="titleColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
@@ -899,7 +908,7 @@
                                             </connections>
                                         </button>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zfr-Q7-4KP" customClass="DesignableButton" customModule="Naber" customModuleProvider="target">
-                                            <rect key="frame" x="359" y="500" width="0.0" height="32"/>
+                                            <rect key="frame" x="359" y="484" width="0.0" height="32"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="32" id="8of-tI-Gaf"/>
                                                 <constraint firstAttribute="width" id="VFz-xD-RZR"/>
@@ -924,25 +933,26 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="irM-kq-hv6" customClass="DesignableButton" customModule="Naber" customModuleProvider="target">
-                                            <rect key="frame" x="261" y="500" width="90" height="32"/>
+                                            <rect key="frame" x="16" y="480" width="343" height="40"/>
+                                            <color key="backgroundColor" red="0.38823529411764707" green="0.50588235294117645" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="32" id="T6q-au-G5E"/>
+                                                <constraint firstAttribute="height" constant="40" id="T6q-au-G5E"/>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="fia-x2-U89"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
                                             <state key="normal" title="註冊">
-                                                <color key="titleColor" red="0.94117647058823528" green="0.43529411764705883" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" red="0.94117647058823528" green="0.43529411764705883" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="value" red="0.38823529411764707" green="0.50588235294117645" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                    <real key="value" value="0.5"/>
+                                                    <real key="value" value="1"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="2"/>
+                                                    <real key="value" value="20"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
@@ -950,7 +960,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8V-ng-RD9">
-                                            <rect key="frame" x="267" y="320" width="24" height="24"/>
+                                            <rect key="frame" x="267" y="300" width="24" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="6DC-rl-NaQ"/>
                                                 <constraint firstAttribute="width" constant="24" id="qul-ry-7lx"/>
@@ -958,6 +968,16 @@
                                             <state key="normal" image="cbNoSelect"/>
                                             <connections>
                                                 <action selector="rememberMeSwithOnImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yrx-fm-uIS"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PPg-Pn-PQN">
+                                            <rect key="frame" x="154.66666666666666" y="568" width="66" height="32"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <state key="normal" title="忘記密碼">
+                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <segue destination="MFZ-hB-ebg" kind="show" id="94o-AT-cKz"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -973,30 +993,32 @@
                                         <constraint firstItem="v8V-ng-RD9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="J6E-q7-of3" secondAttribute="leading" constant="8" id="4LB-Se-ff8"/>
                                         <constraint firstItem="O47-DX-ahO" firstAttribute="trailing" secondItem="Hc4-Kz-et6" secondAttribute="trailing" id="8V2-C7-C0d"/>
                                         <constraint firstItem="zfr-Q7-4KP" firstAttribute="centerY" secondItem="irM-kq-hv6" secondAttribute="centerY" id="9WY-pd-ox6"/>
+                                        <constraint firstItem="PPg-Pn-PQN" firstAttribute="top" secondItem="irM-kq-hv6" secondAttribute="bottom" constant="48" id="A46-Uv-5hB"/>
                                         <constraint firstItem="GbD-gl-OnQ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UDG-yd-0Uv" secondAttribute="trailing" id="EGi-3I-UPv"/>
-                                        <constraint firstAttribute="trailing" secondItem="HCU-JY-Afh" secondAttribute="trailing" id="Hh3-SC-Ohc"/>
+                                        <constraint firstAttribute="trailing" secondItem="HCU-JY-Afh" secondAttribute="trailing" constant="16" id="Hh3-SC-Ohc"/>
                                         <constraint firstAttribute="trailing" secondItem="zfr-Q7-4KP" secondAttribute="trailing" constant="16" id="Hsg-rh-sD3"/>
                                         <constraint firstItem="O47-DX-ahO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="J6E-q7-of3" secondAttribute="leading" constant="10" id="IFy-3q-cT0"/>
                                         <constraint firstItem="YG0-3A-Zmp" firstAttribute="trailing" secondItem="Ifg-ka-To4" secondAttribute="trailing" id="MOu-ue-DTS"/>
                                         <constraint firstItem="DGr-Yo-Km2" firstAttribute="leading" secondItem="Ifg-ka-To4" secondAttribute="leading" id="OMk-GW-jyO"/>
                                         <constraint firstAttribute="trailing" secondItem="GbD-gl-OnQ" secondAttribute="trailing" constant="16" id="OUJ-yp-Mr9"/>
                                         <constraint firstItem="DGr-Yo-Km2" firstAttribute="trailing" secondItem="Ifg-ka-To4" secondAttribute="trailing" id="R1f-MG-tgc"/>
-                                        <constraint firstItem="HCU-JY-Afh" firstAttribute="leading" secondItem="J6E-q7-of3" secondAttribute="leading" id="R9f-9M-nyP"/>
+                                        <constraint firstItem="HCU-JY-Afh" firstAttribute="leading" secondItem="J6E-q7-of3" secondAttribute="leading" constant="16" id="R9f-9M-nyP"/>
                                         <constraint firstItem="GbD-gl-OnQ" firstAttribute="leading" secondItem="J6E-q7-of3" secondAttribute="leading" constant="16" id="TNz-LH-tL6"/>
                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zfr-Q7-4KP" secondAttribute="bottom" constant="100" id="WwY-8O-keU"/>
+                                        <constraint firstItem="PPg-Pn-PQN" firstAttribute="centerX" secondItem="J6E-q7-of3" secondAttribute="centerX" id="XYc-EJ-8yJ"/>
                                         <constraint firstItem="Hc4-Kz-et6" firstAttribute="leading" secondItem="v8V-ng-RD9" secondAttribute="trailing" constant="2" id="YTw-k8-F9C"/>
                                         <constraint firstItem="UDG-yd-0Uv" firstAttribute="leading" secondItem="J6E-q7-of3" secondAttribute="leading" constant="16" id="cHL-lL-yHd"/>
                                         <constraint firstItem="YG0-3A-Zmp" firstAttribute="top" secondItem="Ifg-ka-To4" secondAttribute="bottom" constant="8" id="eea-0o-rsf"/>
                                         <constraint firstItem="Hc4-Kz-et6" firstAttribute="centerY" secondItem="v8V-ng-RD9" secondAttribute="centerY" id="gri-Uo-CGl"/>
                                         <constraint firstItem="Ifg-ka-To4" firstAttribute="top" secondItem="J6E-q7-of3" secondAttribute="top" constant="16" id="iJo-wq-tMO"/>
-                                        <constraint firstItem="zfr-Q7-4KP" firstAttribute="leading" secondItem="irM-kq-hv6" secondAttribute="trailing" constant="8" id="jkQ-9O-V4f"/>
+                                        <constraint firstItem="zfr-Q7-4KP" firstAttribute="leading" secondItem="irM-kq-hv6" secondAttribute="trailing" id="jkQ-9O-V4f"/>
                                         <constraint firstItem="GbD-gl-OnQ" firstAttribute="top" secondItem="UDG-yd-0Uv" secondAttribute="bottom" constant="50" id="lPI-dI-PVZ"/>
-                                        <constraint firstItem="irM-kq-hv6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="J6E-q7-of3" secondAttribute="leading" constant="10" id="lbA-bB-pXv"/>
+                                        <constraint firstItem="irM-kq-hv6" firstAttribute="leading" secondItem="J6E-q7-of3" secondAttribute="leading" constant="16" id="lbA-bB-pXv"/>
                                         <constraint firstItem="Hc4-Kz-et6" firstAttribute="trailing" secondItem="UDG-yd-0Uv" secondAttribute="trailing" id="mGC-5c-LXC"/>
                                         <constraint firstItem="DGr-Yo-Km2" firstAttribute="top" secondItem="YG0-3A-Zmp" secondAttribute="bottom" constant="12" id="oaD-su-VbC"/>
                                         <constraint firstItem="O47-DX-ahO" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GbD-gl-OnQ" secondAttribute="trailing" id="tin-ub-Xi2"/>
                                         <constraint firstItem="Ifg-ka-To4" firstAttribute="centerX" secondItem="J6E-q7-of3" secondAttribute="centerX" id="ym9-DS-plq"/>
-                                        <constraint firstItem="zfr-Q7-4KP" firstAttribute="top" secondItem="HCU-JY-Afh" secondAttribute="bottom" constant="12" id="zJg-i4-Zuu"/>
+                                        <constraint firstItem="zfr-Q7-4KP" firstAttribute="top" secondItem="HCU-JY-Afh" secondAttribute="bottom" constant="24" id="zJg-i4-Zuu"/>
                                     </constraints>
                                     <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                 </view>
@@ -1223,5 +1245,8 @@
         <image name="cbNoSelect" width="24" height="24"/>
         <image name="dropDownArraw" width="48" height="48"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="94o-AT-cKz"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

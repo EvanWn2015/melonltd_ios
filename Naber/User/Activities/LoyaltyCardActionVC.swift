@@ -10,7 +10,7 @@ import UIKit
 
 class LoyaltyCardActionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var IS_STORE_DETAIL: Bool = false
+    var IS_STORE_DETAIL: Bool = true
 
     @IBOutlet weak var storeName: UILabel! {
         didSet {

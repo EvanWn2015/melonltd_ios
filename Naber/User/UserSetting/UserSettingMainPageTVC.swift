@@ -79,6 +79,9 @@ class UserSettingMainPageTVC: UITableViewController {
         if let nvc: UserSettingAccountDetailTVC = vc as? UserSettingAccountDetailTVC {
             nvc.account = self.account
             self.navigationController?.pushViewController(nvc, animated: true)
+        } else if let lvc:LoyaltyCardActionVC = vc as? LoyaltyCardActionVC {
+            lvc.IS_STORE_DETAIL = false
+            self.navigationController?.pushViewController(lvc, animated: true)
         }else {
             self.navigationController?.pushViewController(vc, animated: true)
         }

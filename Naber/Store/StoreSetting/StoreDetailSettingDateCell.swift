@@ -14,6 +14,8 @@ class StoreDetailSettingDateCell: UITableViewCell {
     @IBOutlet weak var weekName: UILabel!
     @IBOutlet weak var status: UISwitch!
     
+    @IBOutlet weak var settingOpenDateBtn: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

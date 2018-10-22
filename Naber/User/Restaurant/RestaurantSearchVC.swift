@@ -394,6 +394,9 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
             LM.requestWhenInUseAuthorization()
             break
         case .restricted, .denied:
+            self.storeNameBtn.isEnabled = true
+            self.otherStoreBtn.isEnabled = true
+            self.schoolBtn.isEnabled = true
             break
         case .authorizedWhenInUse, .authorizedAlways:
             LM.startUpdatingLocation()
@@ -406,6 +409,9 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
         case .restricted:
             break
         case .denied:
+            self.storeNameBtn.isEnabled = true
+            self.otherStoreBtn.isEnabled = true
+            self.schoolBtn.isEnabled = true
             let alert = UIAlertController( title: "GPS權限已關閉", message: "我們無法幫您計算店家距離，\n如要開啟GPS權限，可以點\"前往設置\"，\n將位置權限開啟。", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "前往設置", style: .default) { _ in
                 let url = URL(string: UIApplicationOpenSettingsURLString)

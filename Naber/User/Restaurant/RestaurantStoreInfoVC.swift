@@ -20,13 +20,13 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var loyaltyBtn: UIButton! {
         didSet {
-            self.loyaltyBtn.alpha = 0.0
-            self.loyaltyBtn.isEnabled = false
+            self.loyaltyBtn.alpha = 1.0
+            self.loyaltyBtn.isEnabled = true
         }
     }
     @IBOutlet weak var loyaltyImage: UIImageView! {
         didSet{
-            self.loyaltyImage.alpha = 0.0
+            self.loyaltyImage.alpha = 1.0
         }
     }
     @IBOutlet weak var name: UILabel!

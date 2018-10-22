@@ -12,7 +12,7 @@ import UIKit
 class StoreDetailSettingVC : UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
  
     var restaurant: RestaurantInfoVo! = RestaurantInfoVo()
-    var threeBusinessDate: [String] = []
+//    var threeBusinessDate: [String] = []
     
     @IBOutlet weak var startDate: UITextField!
     @IBOutlet weak var endDate: UITextField!
@@ -89,10 +89,10 @@ class StoreDetailSettingVC : UIViewController, UIPickerViewDelegate, UIPickerVie
     
     func loadData(refresh: Bool){
         // 取得現在後三天的每日開始時間範圍
-        self.threeBusinessDate.removeAll()
-        for i in 0..<3 {
-            self.threeBusinessDate.append(DateTimeHelper.startOfDate(day: i))
-        }
+//        self.threeBusinessDate.removeAll()
+//        for i in 0..<3 {
+//            self.threeBusinessDate.append(DateTimeHelper.startOfDate(day: i))
+//        }
         
         ApiManager.sellerRestaurantInfo(ui: self, onSuccess: { restaurant in
             self.restaurant = restaurant
@@ -153,23 +153,23 @@ class StoreDetailSettingVC : UIViewController, UIPickerViewDelegate, UIPickerVie
     
     @IBAction func changeDateStatus(_ sender: UISwitch){
         
-        let req: ReqData = ReqData()
-        req.date = self.threeBusinessDate[sender.tag]
-        req.status = sender.isOn ? "OPEN" : "CLOSE"
-        
-        if !sender.isOn {
-            let alert = UIAlertController(title: Optional.none, message: "關閉營業時段，請先確認該日有無訂單，若有訂單請記得告知使用者。", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "確定", style: .default){ _ in
-                self.changeStoerOpenDate(sender: sender, req: req)
-            })
-            alert.addAction(UIAlertAction(title: "取消", style: .destructive){ _ in
-                sender.isOn = !sender.isOn
-            })
-            
-            self.present(alert, animated: false)
-        } else {
-            self.changeStoerOpenDate(sender: sender, req: req)
-        }
+//        let req: ReqData = ReqData()
+//        req.date = self.threeBusinessDate[sender.tag]
+//        req.status = sender.isOn ? "OPEN" : "CLOSE"
+//
+//        if !sender.isOn {
+//            let alert = UIAlertController(title: Optional.none, message: "關閉營業時段，請先確認該日有無訂單，若有訂單請記得告知使用者。", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "確定", style: .default){ _ in
+//                self.changeStoerOpenDate(sender: sender, req: req)
+//            })
+//            alert.addAction(UIAlertAction(title: "取消", style: .destructive){ _ in
+//                sender.isOn = !sender.isOn
+//            })
+//
+//            self.present(alert, animated: false)
+//        } else {
+//            self.changeStoerOpenDate(sender: sender, req: req)
+//        }
     }
     
     func changeStoerOpenDate (sender: UISwitch, req: ReqData){
@@ -190,16 +190,19 @@ class StoreDetailSettingVC : UIViewController, UIPickerViewDelegate, UIPickerVie
 
     // table View
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.threeBusinessDate.count
+//        return self.threeBusinessDate.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UIIdentifier.CELL.rawValue, for: indexPath) as! StoreDetailSettingDateCell
-        let status: Bool = self.restaurant.not_business.contains(self.threeBusinessDate[indexPath.row])
-        cell.weekName.text = "(" + DateTimeHelper.getWeekDate(date: self.threeBusinessDate[indexPath.row]) + ")"
-        cell.dateName.text = DateTimeHelper.formToString(date: self.threeBusinessDate[indexPath.row], from: "MM/dd")
-        cell.status.tag = indexPath.row
-        cell.status.isOn = !status
+//        let status: Bool = self.restaurant.not_business.contains(self.threeBusinessDate[indexPath.row])
+//        cell.weekName.text = "(" + DateTimeHelper.getWeekDate(date: self.threeBusinessDate[indexPath.row]) + ")"
+//        cell.dateName.text = DateTimeHelper.formToString(date: self.threeBusinessDate[indexPath.row], from: "MM/dd")
+//        cell.status.tag = indexPath.row
+        cell.weekName.text = ""
+        cell.dateName.text = "日接單開關設定"
+//        cell.status.isOn = !status
         return cell
     }
     
