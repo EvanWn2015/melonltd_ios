@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+
 
 class RegisterUserDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource  {
     
@@ -139,14 +141,57 @@ class RegisterUserDetailVC: UIViewController, UIPickerViewDelegate, UIPickerView
             account.birth_day = self.birthday.text
             account.gender = self.genderIndex == 0 ? "M" : "W"
            
-            ApiManager.userRegistered(structs: account, ui: self, onSuccess: {
-                let alert = UIAlertController(title: "註冊成功", message: "歡迎加入NABER！" , preferredStyle: .alert)
-                alert.addAction(UIAlertAction.init(title: "返回登入畫面", style: .default, handler: { _ in
-                    if let vc = UIStoryboard(name: UIIdentifier.MAIN.rawValue, bundle: nil).instantiateViewController(withIdentifier: "LoginHomeRoot") as? LoginHomeRootUINC {
-                        self.present(vc, animated: false, completion: nil)
+            ApiManager.userRegistered(structs: account, ui: self, onSuccess: { accountInfo in
+                accountInfo.device_category = "IOS"
+                accountInfo.device_token = Messaging.messaging().fcmToken
+                accountInfo.password = self.password.text
+                
+                ApiManager.login(structs: accountInfo, ui: self, onSuccess: { account in
+                    if account != nil {
+                        let now: Int = DateTimeHelper.getNowMilliseconds()
+                        account?.device_token = accountInfo.device_token
+                        account?.device_category = "IOS"
+                        UserSstorage.clearAccount()
+                        UserSstorage.setRememberMe(false)
+                        UserSstorage.setLoginTime(now)
+                        UserSstorage.setAccountInfo(account!)
+                        
+                        if Identity.getUserValues().contains(Identity.init(rawValue: (account?.identity.uppercased())!)!) {
+                            let alert = UIAlertController(title: "註冊成功", message: "歡迎加入NABER！" , preferredStyle: .alert)
+                            alert.addAction(UIAlertAction.init(title: "開始使用", style: .default, handler: { _ in
+                                // 使用者
+                                if let vc = UIStoryboard(name: UIIdentifier.USER.rawValue, bundle: nil).instantiateViewController(withIdentifier: "UserPage") as? UserPageUITabBarController {
+                                    self.present(vc, animated: false, completion: nil)
+                                }
+                            }))
+                            self.present(alert, animated: false)
+                        }
+                    }else {
+                        let alert = UIAlertController(title: "系統提示", message: "查無此帳號！", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "取消", style: .default))
+                        self.present(alert, animated: false)
                     }
-                }))
-                self.present(alert, animated: false)
+                }) { err_msg in
+                    let alert = UIAlertController(title: "系統提示", message: err_msg, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "取消", style: .default))
+                    self.present(alert, animated: false)
+                }
+                
+                
+                
+//                let alert = UIAlertController(title: "註冊成功", message: "歡迎加入NABER！" , preferredStyle: .alert)
+//                alert.addAction(UIAlertAction.init(title: "開始使用", style: .default, handler: { _ in
+//                    if let vc = UIStoryboard(name: UIIdentifier.MAIN.rawValue, bundle: nil).instantiateViewController(withIdentifier: "baseVC") as? BaseVC {
+//                        self.present(vc, animated: false, completion: nil)
+//                    }
+//                }))
+                
+//                alert.addAction(UIAlertAction.init(title: "返回登入畫面", style: .default, handler: { _ in
+//                    if let vc = UIStoryboard(name: UIIdentifier.MAIN.rawValue, bundle: nil).instantiateViewController(withIdentifier: "LoginHomeRoot") as? LoginHomeRootUINC {
+//                        self.present(vc, animated: false, completion: nil)
+//                    }
+//                }))
+//                self.present(alert, animated: false)
             }) { err_msg in
                 let alert = UIAlertController(title: Optional.none, message: err_msg , preferredStyle: .alert)
                 alert.addAction(UIAlertAction.init(title: "我知道了", style: .default))
