@@ -10,9 +10,9 @@ import UIKit
 
 class RestaurantStoreItemTVCell: UITableViewCell {
 
-    @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var price: UILabel!
+    @IBOutlet weak var foodContent: UILabel!
     
     
     override func awakeFromNib() {

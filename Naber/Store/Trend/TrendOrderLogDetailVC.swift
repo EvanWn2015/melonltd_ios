@@ -44,6 +44,7 @@ class TrendOrderLogDetailVC : UIViewController, UITableViewDelegate, UITableView
         }
         
         self.name.text = self.order.order_detail.user_name
+        self.phone.text = self.order.order_detail.user_phone
         self.fetchTime.text = DateTimeHelper.formToString(date: self.order.create_date, from: "dd日 HH時 mm分")
         self.userMessage.text = self.order.user_message
         

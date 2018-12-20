@@ -96,11 +96,13 @@ class FoodListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         let status: SwitchStatus = SwitchStatus.of(name: self.foods[indexPath.row].status)
         cell.switchBtn.isOn = status.status()
         
-        cell.photo.setImage(with: URL(string: self.foods[indexPath.row].photo ?? ""), transformer: TransformerHelper.transformer(identifier: self.foods[indexPath.row].photo ?? ""),  completion: { image in
-            if image == nil {
-                cell.photo.image = UIImage(named: "Logo")
-            }
-        })
+        
+        if self.foods[indexPath.row].food_content != nil {
+            cell.foodContent.text = self.foods[indexPath.row].food_content
+        } else {
+            cell.foodContent.text = "暫無介紹！\n"
+        }
+
         cell.sortNum.tag = indexPath.row
         cell.sortNum.text = self.foods[indexPath.row].top
         cell.sortNum.isEnabled = self.IS_SORT_FOOD

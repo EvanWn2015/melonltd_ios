@@ -36,6 +36,7 @@ class FoodVo: Codable {
     var food_uuid: String!
     var category_uuid: String!
     var food_name: String!
+    var food_content: String!
     var default_price: String!
     var photo: String!
     var photo_type: String!

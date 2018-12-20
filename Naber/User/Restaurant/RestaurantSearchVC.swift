@@ -458,6 +458,7 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 {
+            pickerView.reloadComponent(1)
             return self.schoolDivideds[row].area
         }else {
             return self.schoolDivideds[self.DIVIDED_INDEX].schools[row]
@@ -467,6 +468,8 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
             self.DIVIDED_INDEX = row
+            pickerView.reloadComponent(1)
+            pickerView.selectRow(0, inComponent: 1, animated: false)
         }else {
             self.SCHOOL_INDEX = row
         }

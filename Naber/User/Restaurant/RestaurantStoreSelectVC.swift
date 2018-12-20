@@ -170,10 +170,12 @@ extension RestaurantStoreSelectVC: UITableViewDelegate, UITableViewDataSource {
         switch (section) {
         case 0:
             return self.food.food_data.scopes.count
-        case 1:
+//        case 1:
+//            return self.food.food_data.opts.count
+        case 1...self.food.food_data.demands.count:
+            return self.food.food_data.demands[section - 1].datas.count
+        case self.food.food_data.demands.count + 1:
             return self.food.food_data.opts.count
-        case 2...:
-            return self.food.food_data.demands[section - 2].datas.count
         default:
             return 0
         }
@@ -193,11 +195,14 @@ extension RestaurantStoreSelectVC: UITableViewDelegate, UITableViewDataSource {
         switch (section) {
         case 0:
             cell.name.text = "規格(必選)"
-        case 1:
+//        case 1:
+//            cell.name.text = "追加項目";
+        case 1...self.food.food_data.demands.count:
+            cell.name.text = self.food.food_data.demands[section - 1].name
+        case self.food.food_data.demands.count + 1:
             cell.name.text = "追加項目";
-        case 2...:
-            cell.name.text = self.food.food_data.demands[section - 2].name
         default:
+//            cell.name.text = "追加項目";
             cell.name.text = ""
         }
         return cell
@@ -219,11 +224,14 @@ extension RestaurantStoreSelectVC: UITableViewDelegate, UITableViewDataSource {
             case 0:
                 c.item = self.food.food_data.scopes[indexPath.row]
                 c.tag = indexPath.row
-            case 1:
-                c.item = self.food.food_data.opts[indexPath.row]
+//            case 1:
+//                c.item = self.food.food_data.opts[indexPath.row]
+//                c.tag = indexPath.row
+            case 1...self.food.food_data.demands.count:
+                c.item = self.food.food_data.demands[indexPath.section - 1].datas[indexPath.row]
                 c.tag = indexPath.row
-            case 2...:
-                c.item = self.food.food_data.demands[indexPath.section - 2].datas[indexPath.row]
+            case self.food.food_data.demands.count + 1:
+                c.item = self.food.food_data.opts[indexPath.row]
                 c.tag = indexPath.row
             default:
                 break
@@ -238,12 +246,16 @@ extension RestaurantStoreSelectVC: UITableViewDelegate, UITableViewDataSource {
         switch (indexPath.section) {
         case 0:
             cell.radioButton.isSelected = self.itemVo.scopes[0].equal(item: self.food.food_data.scopes[indexPath.row])
-        case 1:
+//        case 1:
+//            cell.radioButton.isSelected = self.itemVo.opts.contains { opt -> Bool in
+//                return opt.equal(item: self.food.food_data.opts[indexPath.row])
+//            }
+        case 1...self.itemVo.demands.count:
+            cell.radioButton.isSelected = self.itemVo.demands[indexPath.section - 1].datas[0].equal(item: self.food.food_data.demands[indexPath.section - 1].datas[indexPath.row])
+        case self.itemVo.demands.count + 1:
             cell.radioButton.isSelected = self.itemVo.opts.contains { opt -> Bool in
                 return opt.equal(item: self.food.food_data.opts[indexPath.row])
             }
-        case 2...:
-            cell.radioButton.isSelected = self.itemVo.demands[indexPath.section - 2].datas[0].equal(item: self.food.food_data.demands[indexPath.section - 2].datas[indexPath.row])
         default:
             break
         }
@@ -262,7 +274,22 @@ extension RestaurantStoreSelectVC: UITableViewDelegate, UITableViewDataSource {
         case 0: // 必選 單選 規格
             self.itemVo.scopes.removeAll()
             self.itemVo.scopes.append(cell.item)
-        case 1: // 多選 追加項目
+//        case 1: // 多選 追加項目
+//            var index: Int!
+//            for i in 0..<self.itemVo.opts.count {
+//                if self.itemVo.opts[i].equal(item: cell.item) {
+//                    index = i
+//                }
+//            }
+//            if index != nil {
+//                self.itemVo.opts.remove(at: index)
+//            }else {
+//                self.itemVo.opts.append(cell.item)
+//            }
+        case 1...self.itemVo.demands.count: // 必選多需求
+            self.itemVo.demands[indexPath.section - 1].datas.removeAll()
+            self.itemVo.demands[indexPath.section - 1].datas.append(cell.item)
+        case self.itemVo.demands.count + 1:
             var index: Int!
             for i in 0..<self.itemVo.opts.count {
                 if self.itemVo.opts[i].equal(item: cell.item) {
@@ -274,9 +301,6 @@ extension RestaurantStoreSelectVC: UITableViewDelegate, UITableViewDataSource {
             }else {
                 self.itemVo.opts.append(cell.item)
             }
-        case 2...: // 必選多需求
-            self.itemVo.demands[indexPath.section - 2].datas.removeAll()
-            self.itemVo.demands[indexPath.section - 2].datas.append(cell.item)
         default:
             break
         }

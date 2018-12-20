@@ -76,11 +76,10 @@ class RestaurantStoreItemVC: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.name.text = self.foodList[indexPath.row]?.food_name
         cell.price.text = "$ " + (self.foodList[indexPath.row]?.default_price)!
-        cell.photo.image = UIImage(named: "Logo")
-        if self.foodList[indexPath.row]?.photo != nil {
-            cell.photo.setImage(with: URL(string: (self.foodList[indexPath.row]?.photo)!), transformer: TransformerHelper.transformer(identifier: (self.foodList[indexPath.row]?.photo)!))
+        if self.foodList[indexPath.row]?.food_content != nil {
+            cell.foodContent.text = self.foodList[indexPath.row]?.food_content
         }else {
-            cell.photo.image = UIImage(named: "Logo")
+            cell.foodContent.text = "暫無介紹！\n"
         }
         return cell
     }

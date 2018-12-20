@@ -11,12 +11,19 @@ import AVFoundation
 import Photos
 import Firebase
 
-class FoodEditVC : UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FoodEditVC : UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
     
     var food: FoodVo!
+    let maxFondContent: Int = 20
     
     @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var foodName: UITextField!
+    @IBOutlet weak var foodContent: UITextView!{
+        didSet{
+            self.foodContent.delegate = self
+        }
+    }
+    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             self.tableView.delegate = self
@@ -27,7 +34,12 @@ class FoodEditVC : UIViewController, UITableViewDelegate, UITableViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.foodName.text = self.food.food_name
-        // TODO
+        
+        if self.foodContent.text != nil {
+            self.foodContent.text = self.food.food_content
+        } else {
+            self.foodContent.text = ""
+        }
         
         self.photo.setImage(with: URL(string: self.food.photo ?? ""), transformer: TransformerHelper.transformer(identifier: self.food.photo ?? ""),  completion: { image in
             if image == nil {
@@ -197,6 +209,9 @@ class FoodEditVC : UIViewController, UITableViewDelegate, UITableViewDataSource,
     
     // 儲存編輯
     @IBAction func saveEdit(_ sender: UIButton) {
+        
+        self.food.food_content = StringsHelper.replace(str: self.foodContent.text, of: "\n", with: "")
+        
         let message: String = self.verifyData()
         if message != "" {
             let alert = UIAlertController(title: "", message: "NABER提示\n" + message, preferredStyle: .alert)
@@ -385,4 +400,12 @@ class FoodEditVC : UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         return msg
     }
+    
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let t = textView.text else { return true }
+        let newLength: Int = StringsHelper.replace(str: t, of: "\n", with: "").count + text.count - range.length
+        return newLength > self.maxFondContent ? false : true
+    }
+
 }

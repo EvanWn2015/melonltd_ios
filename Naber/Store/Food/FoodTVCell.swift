@@ -17,12 +17,9 @@ class FoodTVCell: UITableViewCell, UITextFieldDelegate {
         }
     }
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var foodContent: UILabel!
     @IBOutlet weak var price: UILabel!
-    @IBOutlet weak var photo: UIImageView!{
-        didSet {
-            self.photo.image = UIImage(named: "Logo")
-        }
-    }
+
     @IBOutlet weak var switchBtn: UISwitch!
     @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var editBtn: UIButton!
