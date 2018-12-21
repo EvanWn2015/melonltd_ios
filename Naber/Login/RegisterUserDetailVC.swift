@@ -13,8 +13,16 @@ import Firebase
 class RegisterUserDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource  {
     
     var phone: String! = Optional.none
+    
+    
+    var AREA_INDEX: Int = 0
+    var ID_INDEX: Int = 0
+    var SCHOOL_INDEX: Int = 0
+    var areaName: String = ""
     var identity: String = ""
     var schoolName: String = ""
+    var identityTables: [IdentityTableVo] = []
+    
     var identityPickerView: UIPickerView {
         get {
             let pickerView = UIPickerView()
@@ -22,6 +30,41 @@ class RegisterUserDetailVC: UIViewController, UIPickerViewDelegate, UIPickerView
             pickerView.delegate = self
             pickerView.backgroundColor = UIColor.white
             return pickerView
+        }
+    }
+    
+    // 身份選擇器
+    var identityToolbar: UIToolbar {
+        get {
+            let identityToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+            let doneBtn = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(doneTimePick))
+            let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            let cancelBtn = UIBarButtonItem(title:"取消", style: .plain,target: self,action: #selector(cancelTimePick))
+            identityToolbar.items = [cancelBtn, flexible, doneBtn]
+            identityToolbar.barTintColor = UIColor.white
+            return identityToolbar
+        }
+    }
+    
+    // 校園選擇器
+    var schoolPickerView: UIPickerView {
+        get {
+            let pickerView = UIPickerView()
+            pickerView.dataSource = self
+            pickerView.delegate = self
+            pickerView.backgroundColor = UIColor.white
+            return pickerView
+        }
+    }
+    var schooToolbar: UIToolbar {
+        get {
+            let schooToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+            let doneBtn = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(doneTimePick))
+            let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            let cancelBtn = UIBarButtonItem(title:"取消", style: .plain,target: self,action: #selector(cancelTimePick))
+            schooToolbar.items = [cancelBtn, flexible, doneBtn]
+            schooToolbar.barTintColor = UIColor.white
+            return schooToolbar
         }
     }
     
@@ -55,7 +98,24 @@ class RegisterUserDetailVC: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     @objc func doneTimePick(sender: UIBarButtonItem){
-        self.birthday.text = self.birthdayTmp
+        if self.identityText.isEditing {
+            self.areaName = self.identityTables[self.AREA_INDEX].area
+            self.identity = self.identityTables[self.AREA_INDEX].identitys[self.ID_INDEX].name
+            self.identityText.text = self.areaName + ", " + self.identity
+            self.schoolText.text = ""
+            if self.identityTables[self.AREA_INDEX].identitys[self.ID_INDEX].items.isEmpty {
+                self.schoolText.isEnabled = false
+                self.schoolText.placeholder = "該身份無須選擇校園"
+            }else {
+                self.schoolText.placeholder = "請選擇校園"
+                self.schoolText.isEnabled = true
+            }
+        } else if self.schoolText.isEditing {
+            self.schoolName = self.identityTables[self.AREA_INDEX].identitys[self.ID_INDEX].items[self.SCHOOL_INDEX]
+            self.schoolText.text = self.schoolName
+        }else if self.birthday.isEditing {
+            self.birthday.text = self.birthdayTmp
+        }
         self.view.endEditing(true)
     }
 
@@ -92,11 +152,10 @@ class RegisterUserDetailVC: UIViewController, UIPickerViewDelegate, UIPickerView
         self.view.endEditing(true)
     }
     
-    @IBOutlet weak var identityText : UITextField! {
-        didSet {
-            identityText.inputView = self.identityPickerView
-        }
-    }
+    @IBOutlet weak var identityText : UITextField!
+    
+    @IBOutlet weak var schoolText : UITextField!
+    
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -107,17 +166,32 @@ class RegisterUserDetailVC: UIViewController, UIPickerViewDelegate, UIPickerView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.identity = Array(NaberConstant.IDENTITY_OPTS_TEMP)[0].key
-        self.schoolName = NaberConstant.IDENTITY_OPTS_TEMP[identity]![0]
-        self.identityText.text =  self.identity + ", " + self.schoolName
         
+        // 身份選擇器
+        self.identityText.inputView = self.identityPickerView
+        self.identityText.inputAccessoryView = self.identityToolbar
+        
+        // 校園選擇器
+        self.schoolText.inputView = self.schoolPickerView
+        self.schoolText.inputAccessoryView = self.schooToolbar
+        
+        // 生日選擇器
         self.birthday.inputView = self.datePicker
         self.birthday.inputAccessoryView = self.dateToolbar
         
         // 性別選擇器
         self.gender.inputView = self.genderPicker
         self.gender.inputAccessoryView = self.genderToolbar
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ApiManager.getIdentityTable(ui: self, onSuccess: { identityTables in
+            self.identityTables.removeAll()
+            self.identityTables.append(contentsOf: identityTables)
+        }) { err_msg in
+            print(err_msg)
+        }
     }
     
     @IBAction func goBackHomePage(_ sender: Any) {
@@ -227,6 +301,14 @@ class RegisterUserDetailVC: UIViewController, UIPickerViewDelegate, UIPickerView
             msg = "姓名不可為空"
         }
         
+        if !self.identityTables[self.AREA_INDEX].identitys[self.ID_INDEX].items.isEmpty && self.schoolText.text == "" {
+            msg = "該身份請選擇校園"
+        }
+        
+        if self.identityText.text == "" {
+            msg = "請選擇身份"
+        }
+
         if msg != "" {
             let alert = UIAlertController(title: Optional.none, message: msg,   preferredStyle: .alert)
             alert.addAction(UIAlertAction.init(title: "我知道了", style: .default, handler: { _ in
@@ -241,61 +323,59 @@ class RegisterUserDetailVC: UIViewController, UIPickerViewDelegate, UIPickerView
     //身份選擇
     // MARK: - UIPickerView Methods
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        if self.gender.isEditing {
+        if self.gender.isEditing  || self.schoolText.isEditing {
             return 1
         }else {
             return 2
         }
     }
+
     
     // 身份類型 && 性別選擇器
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if self.gender.isEditing {
+        if self.schoolText.isEditing {
+            return self.identityTables[self.AREA_INDEX].identitys[self.ID_INDEX].items.count
+        } else if self.gender.isEditing {
             return self.genders.count
         }else {
             if component == 0 {
-                return NaberConstant.IDENTITY_OPTS_TEMP.count
+                return self.identityTables.count
             } else {
-                let array: [String] = Array(NaberConstant.IDENTITY_OPTS_TEMP)[pickerView.selectedRow(inComponent: 0)].value
-                return array.count
+                return self.identityTables[self.AREA_INDEX].identitys.count
             }
         }
     }
     
+   
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if self.gender.isEditing {
+        if self.schoolText.isEditing {
+            return self.identityTables[self.AREA_INDEX].identitys[self.ID_INDEX].items[row]
+        } else if self.gender.isEditing {
             return self.genders[row]
         }else {
             if component == 0 {
                 pickerView.reloadComponent(1)
-                return Array(NaberConstant.IDENTITY_OPTS_TEMP)[row].key
+                return self.identityTables[row].area
             } else {
-                let array: [String] =  Array(NaberConstant.IDENTITY_OPTS_TEMP)[pickerView.selectedRow(inComponent: 0)].value
-                if row > array.count {
-                    return ""
-                } else {
-                    return array[row]
-                }
+                return self.identityTables[self.AREA_INDEX].identitys[row].name
             }
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if self.gender.isEditing {
+        if self.schoolText.isEditing {
+            self.SCHOOL_INDEX = row
+        } else if self.gender.isEditing {
             self.genderIndex = row
         }else {
             //滑動左邊pick的時候
             if component == 0 {
-                self.identity = Array(NaberConstant.IDENTITY_OPTS_TEMP)[row].key
-                self.schoolName = NaberConstant.IDENTITY_OPTS_TEMP[self.identity]![0]
+                self.AREA_INDEX = row
                 pickerView.reloadComponent(1)
+                pickerView.selectRow(0, inComponent: 1, animated: false)
             } else {
-                let array: [String] =  Array(NaberConstant.IDENTITY_OPTS_TEMP)[pickerView.selectedRow(inComponent: 0)].value
-                if row < array.count {
-                    self.schoolName = array[row]
-                }
+                self.ID_INDEX = row
             }
-            self.identityText.text =  self.identity + ", " + self.schoolName
         }
     }
     

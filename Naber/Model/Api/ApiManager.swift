@@ -192,6 +192,19 @@ class ApiManager {
     }
     
     
+    // 8.取得身份選擇三級資料，區域，身份，學校
+    public static func getIdentityTable (ui: UIViewController, onSuccess: @escaping ([IdentityTableVo]) -> (), onFail: @escaping (String) -> ()) {
+        self.postData(url: ApiUrl.IDENTITY_TABLE, data: "", ui:ui, complete: { response in
+            let resp: IdentityTableResp = IdentityTableResp.parse(src: base64Decoding(decode: response.result.value!))!
+            if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
+                onSuccess(resp.data)
+            }else {
+                onFail(resp.err_msg)
+            }
+        })
+    }
+//    identity/table
+    
     
     /**
      * 以下為使用者是使用 API
@@ -681,6 +694,7 @@ class ApiManager {
             if response.result.isSuccess {
                 complete(response)
             }else if (response.result.error != nil) {
+                print(response.result.error)
                 let alert = UIAlertController(title: "系統提示", message: "請確認裝置有連結網路！", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "我知道了", style: .default))
                 ui.present(alert, animated: false)

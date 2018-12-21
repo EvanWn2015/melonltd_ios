@@ -210,7 +210,7 @@ class FoodEditVC : UIViewController, UITableViewDelegate, UITableViewDataSource,
     // 儲存編輯
     @IBAction func saveEdit(_ sender: UIButton) {
         
-        self.food.food_content = StringsHelper.replace(str: self.foodContent.text, of: "\n", with: "")
+        self.food.food_content = self.foodContent.text
         
         let message: String = self.verifyData()
         if message != "" {

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2010EF0B21558E2600FD3379 /* SubjectionRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2010EF0A21558E2600FD3379 /* SubjectionRegion.swift */; };
 		2012D76F2118460A00E7068D /* TableViewHeadControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012D76E2118460A00E7068D /* TableViewHeadControl.swift */; };
+		2016A40221CD089A00E59A66 /* IdentityTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2016A40121CD089A00E59A66 /* IdentityTable.swift */; };
 		201723092170509600936216 /* LoyaltyCardActionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201723082170509600936216 /* LoyaltyCardActionVC.swift */; };
 		2017230B21705FF600936216 /* LoyaltyCardActionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2017230A21705FF600936216 /* LoyaltyCardActionTVCell.swift */; };
 		2017230D217079C200936216 /* NaberUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2017230C217079C200936216 /* NaberUILabel.swift */; };
@@ -173,6 +174,7 @@
 /* Begin PBXFileReference section */
 		2010EF0A21558E2600FD3379 /* SubjectionRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectionRegion.swift; sourceTree = "<group>"; };
 		2012D76E2118460A00E7068D /* TableViewHeadControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeadControl.swift; sourceTree = "<group>"; };
+		2016A40121CD089A00E59A66 /* IdentityTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityTable.swift; sourceTree = "<group>"; };
 		201723082170509600936216 /* LoyaltyCardActionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoyaltyCardActionVC.swift; sourceTree = "<group>"; };
 		2017230A21705FF600936216 /* LoyaltyCardActionTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoyaltyCardActionTVCell.swift; sourceTree = "<group>"; };
 		2017230C217079C200936216 /* NaberUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaberUILabel.swift; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 				207F12C9215CB0C10081D85C /* ContactInfo.swift */,
 				20F1F9052165BC900015A1B3 /* Messages.swift */,
 				208071D321674CA500EA8093 /* SchoolDivided.swift */,
+				2016A40121CD089A00E59A66 /* IdentityTable.swift */,
 			);
 			path = Vo;
 			sourceTree = "<group>";
@@ -994,6 +997,7 @@
 				20BD64882108BFE600023033 /* LLSnakePageControl.swift in Sources */,
 				DD51D1FA20C0B17B002C5940 /* RestaurantStoreInfoTVCell.swift in Sources */,
 				2010EF0B21558E2600FD3379 /* SubjectionRegion.swift in Sources */,
+				2016A40221CD089A00E59A66 /* IdentityTable.swift in Sources */,
 				20D9DC0821025F4700D643FE /* FSPagerViewCell.swift in Sources */,
 				20AF372F21007E7600D73F79 /* SellerRegistered.swift in Sources */,
 				20603EEA210A260E00F2BCAB /* RespStatus.swift in Sources */,
