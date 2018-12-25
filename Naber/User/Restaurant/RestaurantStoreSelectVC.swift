@@ -132,7 +132,9 @@ class RestaurantStoreSelectVC: UIViewController {
         self.numberStepper.value = 1
         
         self.itemVo = FoodItemVo();
+        
         for i in 0..<self.food.food_data.scopes.count {
+            
             if self.food.food_data.scopes[i].price == self.food.default_price {
                 if self.itemVo.scopes.isEmpty {
                     self.itemVo.scopes.append(ItemVo.init(name: self.food.food_data.scopes[i].name, price: self.food.food_data.scopes[i].price, tag: i))
@@ -142,10 +144,12 @@ class RestaurantStoreSelectVC: UIViewController {
         }
         
         for i in 0..<self.food.food_data.opts.count {
+            
             self.food.food_data.opts[i].tag = i
         }
         
         for i in 0..<self.food.food_data.demands.count {
+            
             self.itemVo.demands.append(DemandsItemVo.init(name: self.food.food_data.demands[i].name))
             for j in 0..<self.food.food_data.demands[i].datas.count {
                 if self.itemVo.demands[i].datas.isEmpty {
@@ -154,6 +158,8 @@ class RestaurantStoreSelectVC: UIViewController {
                 self.food.food_data.demands[i].datas[j].tag = j
             }
         }
+        
+        
         self.calculatMoney()
     }
 

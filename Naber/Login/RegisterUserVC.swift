@@ -21,6 +21,13 @@ class RegisterUserVC: UIViewController, UIAlertViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.smsCode = SMSCodeVo()
+        
+//        // TODO debug
+//        if let vc = UIStoryboard(name: UIIdentifier.MAIN.rawValue, bundle: nil).instantiateViewController(withIdentifier: "RegisterUserDetail") as? RegisterUserDetailVC {
+//            vc.phone = "12132423"
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            return
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -122,12 +129,7 @@ class RegisterUserVC: UIViewController, UIAlertViewDelegate {
 
     @IBAction func nextRegister (_ sender: UIButton){
         
-        // TODO debug
-//        if let vc = UIStoryboard(name: UIIdentifier.MAIN.rawValue, bundle: nil).instantiateViewController(withIdentifier: "RegisterUserDetail") as? RegisterUserDetailVC {
-//            vc.phone = "12132423"
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            return
-//        }
+       
         
         self.smsCode.phone = self.phone.text
         self.smsCode.code = self.verifyCode.text

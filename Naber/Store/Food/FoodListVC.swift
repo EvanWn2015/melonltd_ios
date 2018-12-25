@@ -97,10 +97,10 @@ class FoodListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         cell.switchBtn.isOn = status.status()
         
         
-        if self.foods[indexPath.row].food_content != nil {
-            cell.foodContent.text = self.foods[indexPath.row].food_content
+        if self.foods[indexPath.row].food_content == nil  || self.foods[indexPath.row].food_content.isEmpty {
+           cell.foodContent.text = "\n\n"
         } else {
-            cell.foodContent.text = "暫無介紹！\n"
+            cell.foodContent.text = self.foods[indexPath.row].food_content
         }
 
         cell.sortNum.tag = indexPath.row

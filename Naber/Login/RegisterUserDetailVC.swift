@@ -174,6 +174,7 @@ class RegisterUserDetailVC: UIViewController, UIPickerViewDelegate, UIPickerView
         // 校園選擇器
         self.schoolText.inputView = self.schoolPickerView
         self.schoolText.inputAccessoryView = self.schooToolbar
+        self.schoolText.isEnabled = false
         
         // 生日選擇器
         self.birthday.inputView = self.datePicker

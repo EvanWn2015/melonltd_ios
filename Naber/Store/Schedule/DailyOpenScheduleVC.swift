@@ -9,7 +9,7 @@
 import UIKit
 
 
-class SailyOpenScheduleVC : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+class DailyOpenScheduleVC : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     
     var threeBusinessDate: [String] = []

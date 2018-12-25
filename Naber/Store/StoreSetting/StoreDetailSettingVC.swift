@@ -191,7 +191,7 @@ class StoreDetailSettingVC : UIViewController, UIPickerViewDelegate, UIPickerVie
     // table View
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return self.threeBusinessDate.count
-        return 1
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -200,8 +200,8 @@ class StoreDetailSettingVC : UIViewController, UIPickerViewDelegate, UIPickerVie
 //        cell.weekName.text = "(" + DateTimeHelper.getWeekDate(date: self.threeBusinessDate[indexPath.row]) + ")"
 //        cell.dateName.text = DateTimeHelper.formToString(date: self.threeBusinessDate[indexPath.row], from: "MM/dd")
 //        cell.status.tag = indexPath.row
-        cell.weekName.text = ""
-        cell.dateName.text = "日接單開關設定"
+//        cell.weekName.text = ""
+//        cell.dateName.text = "日接單開關設定"
 //        cell.status.isOn = !status
         return cell
     }

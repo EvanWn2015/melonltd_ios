@@ -203,7 +203,6 @@ class ApiManager {
             }
         })
     }
-//    identity/table
     
     
     /**
@@ -694,7 +693,6 @@ class ApiManager {
             if response.result.isSuccess {
                 complete(response)
             }else if (response.result.error != nil) {
-                print(response.result.error)
                 let alert = UIAlertController(title: "系統提示", message: "請確認裝置有連結網路！", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "我知道了", style: .default))
                 ui.present(alert, animated: false)

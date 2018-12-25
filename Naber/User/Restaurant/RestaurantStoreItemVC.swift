@@ -76,10 +76,11 @@ class RestaurantStoreItemVC: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.name.text = self.foodList[indexPath.row]?.food_name
         cell.price.text = "$ " + (self.foodList[indexPath.row]?.default_price)!
-        if self.foodList[indexPath.row]?.food_content != nil {
-            cell.foodContent.text = self.foodList[indexPath.row]?.food_content
+        
+        if self.foodList[indexPath.row]?.food_content == nil  || (self.foodList[indexPath.row]?.food_content.isEmpty)! {
+            cell.foodContent.text = "\n\n"
         }else {
-            cell.foodContent.text = "暫無介紹！\n"
+            cell.foodContent.text = self.foodList[indexPath.row]?.food_content
         }
         return cell
     }
