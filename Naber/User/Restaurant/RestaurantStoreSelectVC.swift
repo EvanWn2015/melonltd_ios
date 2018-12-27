@@ -38,6 +38,12 @@ class RestaurantStoreSelectVC: UIViewController {
         self.itemVo.demands.forEach{ demand in
             msg += demand.name + ": "
             msg += demand.datas[0].name + "\n"
+            
+            demand.datas.forEach { d in
+                if d.price == nil || d.price.isEmpty {
+                    d.price = "0"
+                }
+            }
         }
         
         if !self.itemVo.opts.isEmpty {
@@ -382,6 +388,15 @@ extension RestaurantStoreSelectVC: UITableViewDelegate, UITableViewDataSource {
         }
         for opt in self.itemVo.opts {
             selectMoney += Int(opt.price)!
+        }
+        for demands in self.itemVo.demands {
+            for d in demands.datas {
+                if d.price == nil || d.price.isEmpty {
+                    selectMoney += 0
+                } else {
+                    selectMoney += Int(d.price)!
+                }
+            }
         }
         
         selectMoney = selectMoney * number

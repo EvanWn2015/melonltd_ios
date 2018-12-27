@@ -219,25 +219,25 @@ class RestaurantSearchVC: UIViewController, UITableViewDataSource, UITableViewDe
     // 2018/10/05 改為查詢其它店家，店家為非學餐店家
     @IBAction func searchForOtherStore (_ sender: UIButton){
         self.view.endEditing(true)
-//        let alert = UIAlertController(title: Optional.none, message: Optional.none, preferredStyle: .actionSheet)
-////        alert.addAction(UIAlertAction(title: "請選擇區域", style: .destructive))
-//        NaberConstant.FILTER_AREAS.forEach{ name in
-//            let itemAction = UIAlertAction(title: name, style: .default) { itemAction in
-//                self.setButtonsDefaultColor(sender: sender)
-//                self.reqData.search_type = "AREA"
-//                self.reqData.area = name
-//                self.reqData.name = ""
-//                self.reqData.category = ""
-//                self.reqData.uuids = []
-//                self.loadData(refresh: true)
-//            }
-//            alert.addAction(itemAction)
-//        }
-//        alert.addAction(UIAlertAction(title: "取消", style: .destructive))
-//        alert.popoverPresentationController?.sourceView = self.view
-//        alert.popoverPresentationController?.sourceRect = CGRect.init(x: self.view.bounds.width/2 ,y: self.view.bounds.height , width: 1.0, height: 1.0)
-//
-//        self.present(alert, animated: false, completion: nil)
+        let alert = UIAlertController(title: Optional.none, message: Optional.none, preferredStyle: .actionSheet)
+//        alert.addAction(UIAlertAction(title: "請選擇區域", style: .destructive))
+        NaberConstant.FILTER_AREAS.forEach{ name in
+            let itemAction = UIAlertAction(title: name, style: .default) { itemAction in
+                self.setButtonsDefaultColor(sender: sender)
+                self.reqData.search_type = "AREA"
+                self.reqData.area = name
+                self.reqData.name = ""
+                self.reqData.category = ""
+                self.reqData.uuids = []
+                self.loadData(refresh: true)
+            }
+            alert.addAction(itemAction)
+        }
+        alert.addAction(UIAlertAction(title: "取消", style: .destructive))
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRect.init(x: self.view.bounds.width/2 ,y: self.view.bounds.height , width: 1.0, height: 1.0)
+
+        self.present(alert, animated: false, completion: nil)
         
         
         

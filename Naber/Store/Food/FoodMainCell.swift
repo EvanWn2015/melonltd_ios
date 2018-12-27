@@ -55,15 +55,21 @@ class FoodMainCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource 
         
         cell.deleteBtn.tag = self.rootIndex
         cell.deleteBtn.imageView?.tag = indexPath.row
-        cell.price.isHidden = true
-        cell.priceText.isHidden = true
+        cell.price.isHidden = false
+        cell.priceText.isHidden = false
         
-        // 非需求選項顯示價格 input
-        if self.demandsName.isHidden {
-            cell.price.isHidden = false
-            cell.priceText.isHidden = false
+        if self.items[indexPath.row].price == nil {
+            cell.price.text = "0"
+        } else {
             cell.price.text = self.items[indexPath.row].price
         }
+//        cell.price.text = self.items[indexPath.row].price
+        // 非需求選項顯示價格 input
+//        if self.demandsName.isHidden {
+//            cell.price.isHidden = false
+//            cell.priceText.isHidden = false
+//            cell.price.text = self.items[indexPath.row].price
+//        }
         
         return cell
     }    

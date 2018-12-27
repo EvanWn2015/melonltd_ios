@@ -27,7 +27,11 @@ class RestaurantStoreSelectTVCell: UITableViewCell {
     
     func cellWillAppear() {
         self.name.text = self.item.name
-        self.price.text = self.item.price
+        if self.item.price == nil || self.item.price.isEmpty {
+            self.price.text = "0"
+        } else {
+            self.price.text = self.item.price
+        }
     }
     
     override func awakeFromNib() {

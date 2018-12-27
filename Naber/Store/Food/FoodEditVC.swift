@@ -129,7 +129,7 @@ class FoodEditVC : UIViewController, UITableViewDelegate, UITableViewDataSource,
             self.food.food_data.opts.append(ItemVo.init(name: "", price: "0", tag: 0))
             break
         case 2...:
-            self.food.food_data.demands[sender.tag - 2].datas.append(ItemVo.init(name: "", price: Optional.none, tag: 0))
+            self.food.food_data.demands[sender.tag - 2].datas.append(ItemVo.init(name: "", price: "0", tag: 0))
             break
         default:
             break
@@ -203,6 +203,7 @@ class FoodEditVC : UIViewController, UITableViewDelegate, UITableViewDataSource,
             self.food.food_data.opts[sender.tag].price = sender.text
             break
         default:
+            self.food.food_data.demands[(sender.leftView?.tag)! - 2].datas[sender.tag].price = sender.text
             break
         }
     }
@@ -231,6 +232,7 @@ class FoodEditVC : UIViewController, UITableViewDelegate, UITableViewDataSource,
                 dItem.name = StringsHelper.replace(str: dItem.name, of: " ", with: "")
                 dItem.datas.forEach { item in
                     item.name = StringsHelper.replace(str: item.name, of: " ", with: "")
+                    item.price = (item.price as NSString).integerValue.description
                 }
             }
             
