@@ -14,7 +14,7 @@ import Firebase
 class FoodEditVC : UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
     
     var food: FoodVo!
-    let maxFondContent: Int = 20
+    let maxFondContent: Int = 40
     
     @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var foodName: UITextField!
