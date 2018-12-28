@@ -685,9 +685,12 @@ class ApiManager {
     //主要的POST Method
     private static func post(url: String, parameter: Parameters, header: HTTPHeaders, ui: UIViewController, complete: @escaping (DataResponse<String>) -> ()) {
         Loading.show()
-        print(url)
-        print(header)
-        print(parameter)
+        if NaberConstant.IS_DEBUG {
+            print(url)
+            print(header)
+            print(parameter)
+        }
+
         SESSION_MANAGER.request(url, method: HTTPMethod.post, parameters:parameter, headers:header).validate().responseString{ response in
             
             if response.result.isSuccess {
