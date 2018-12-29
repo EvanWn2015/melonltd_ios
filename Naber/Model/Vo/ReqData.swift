@@ -10,6 +10,8 @@ import Foundation
 
 
 class ReqData : Codable {
+    
+    var id: String!
     var uuid: String!
     var page: Int! = 0
     var top: Int! = 0

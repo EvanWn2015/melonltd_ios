@@ -408,8 +408,17 @@ class ApiManager {
         })
     }
     
-    
-    
+    // 亂序取得餐館圖片集
+    public static func getRestaurantPhotoList (req: ReqData, ui: UIViewController, onSuccess: @escaping ([RestaurantPhotoVo]) -> (), onFail: @escaping (String) -> ()) {
+        self.postAutho(url: ApiUrl.RESTAURANT_PHOTO_LIST, data: ReqData.toJson(structs: req) , ui:ui, complete: { response in
+            let resp: RestaurantPhotoResp = RestaurantPhotoResp.parse(src: base64Decoding(decode: response.result.value!))!
+            if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
+                onSuccess(resp.data)
+            }else {
+                onFail(resp.err_msg)
+            }
+        })
+    }
     
     
     
@@ -662,6 +671,41 @@ class ApiManager {
         })
     }
     
+    // 取得餐館圖片集
+    public static func getSellerPhotoList (ui: UIViewController, onSuccess: @escaping ([RestaurantPhotoRelVo]) -> (), onFail: @escaping (String) -> ()) {
+        self.postAutho(url: ApiUrl.SELLER_SETTING_PHOTO_LIST, data: "" , ui:ui, complete: { response in
+            let resp: RestaurantPhotoRelListResp = RestaurantPhotoRelListResp.parse(src: base64Decoding(decode: response.result.value!))!
+            if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
+                onSuccess(resp.data)
+            }else {
+                onFail(resp.err_msg)
+            }
+        })
+    }
+    
+    // 上傳餐館圖片集
+    public static func uploadSellerPhoto (req: RestaurantPhotoRelVo, ui: UIViewController, onSuccess: @escaping (RestaurantPhotoRelVo) -> (), onFail: @escaping (String) -> ()) {
+        self.postAutho(url: ApiUrl.SELLER_SETTING_PHOTO_UPLOAD, data: RestaurantPhotoRelVo.toJson(structs: req) , ui:ui, complete: { response in
+            let resp: RestaurantPhotoRelResp = RestaurantPhotoRelResp.parse(src: base64Decoding(decode: response.result.value!))!
+            if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
+                onSuccess(resp.data)
+            }else {
+                onFail(resp.err_msg)
+            }
+        })
+    }
+    
+    // 刪除餐館圖片
+    public static func deleteSellerPhoto (req: ReqData, ui: UIViewController, onSuccess: @escaping (String) -> (), onFail: @escaping (String) -> ()) {
+        self.postAutho(url: ApiUrl.SELLER_SETTING_PHOTO_DELETE, data: ReqData.toJson(structs: req) , ui:ui, complete: { response in
+            let resp: UploadFileResp = UploadFileResp.parse(src: base64Decoding(decode: response.result.value!))!
+            if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
+                onSuccess(resp.data)
+            }else {
+                onFail(resp.err_msg)
+            }
+        })
+    }
     
     //要 Data的,但是沒有header
     private static func postData(url: String, data: String, ui: UIViewController, complete: @escaping (DataResponse<String>) -> ()) {

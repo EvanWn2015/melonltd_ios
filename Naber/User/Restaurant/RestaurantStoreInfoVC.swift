@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableViewDelegate , CLLocationManagerDelegate{
+class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableViewDelegate , CLLocationManagerDelegate, FSPagerViewDataSource, FSPagerViewDelegate {
     
     var categoryList: [CategoryRelVo?] = []
     var LM : CLLocationManager!; //座標管理元件
@@ -17,6 +17,9 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
     var pageType: PageType = .NONE
 //    var username: String = ""
     var restaurantInfo: RestaurantInfoVo! = Optional.none
+    
+    
+    var restaurantPhotos: [RestaurantPhotoVo] = []
     
     @IBOutlet weak var loyaltyBtn: UIButton! {
         didSet {
@@ -38,6 +41,20 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var photo: UIImageView!
 //    @IBOutlet weak var bulletin: UILabel!
     @IBOutlet weak var bulletin: UITextView!
+    
+    @IBOutlet weak var adPagerView: FSPagerView! {
+        didSet {
+            self.adPagerView.dataSource = self
+            self.adPagerView.delegate = self
+            self.adPagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
+//            self.adPagerView.itemSize = .zero
+            self.adPagerView.automaticSlidingInterval = 3.0
+//            self.adPagerView
+            self.adPagerView.isInfinite = true
+            self.adPagerView.itemSize = CGSize(width: 147, height: 110)
+            self.adPagerView.transformer = FSPagerViewTransformer(type: .overlap)
+        }
+    }
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -139,6 +156,9 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
             if self.restaurantInfo.isShowOne == nil {
                 self.setWarning()
             }
+            
+            
+//            getRestaurantPhotoList
         }
     }
 
@@ -167,6 +187,7 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
         if refresh {
             self.categoryList.removeAll()
             self.tableView.reloadData()
+            self.restaurantPhotos.removeAll()
         }
         if self.restaurantInfo != nil {
             let uuid: String = self.restaurantInfo.restaurant_uuid
@@ -180,9 +201,20 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
             }, onFail: { err_msg in
 
             })
+            
+            let req: ReqData = ReqData()
+            req.uuid = uuid
+            ApiManager.getRestaurantPhotoList(req: req, ui: self, onSuccess: { restaurantPhotos in
+                self.restaurantPhotos.removeAll()
+                self.restaurantPhotos.append(contentsOf: restaurantPhotos)
+                self.adPagerView.reloadData()
+            }) { err_msg in
+                print(err_msg)
+            }
         }
     }
 
+    
     override func show(_ vc: UIViewController, sender: Any?) {
         
     }
@@ -253,6 +285,71 @@ class RestaurantStoreInfoVC: UIViewController, UITableViewDataSource, UITableVie
         case .notDetermined, .authorizedAlways:
             break
         }
+    }
+    
+    
+    // 餐館輪播圖
+    // MARK:- FSPagerView DataSource
+    public func numberOfItems(in pagerView: FSPagerView) -> Int {
+        return self.restaurantPhotos.count
+    }
+    
+    public func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
+        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index)
+        
+        cell.imageView?.setImage(with: URL(string: self.restaurantPhotos[index].photo ?? ""), transformer: TransformerHelper.transformer(identifier: self.restaurantPhotos[index].photo ?? ""),  completion: { image in
+            if image == nil {
+                cell.imageView?.image = UIImage(named: "naber_default_image.png")
+            }
+        })
+        
+        cell.imageView?.contentMode = .scaleAspectFill
+        cell.imageView?.clipsToBounds = true
+        cell.textLabel?.text = ""
+        if let name: String = self.restaurantPhotos[index].name {
+            cell.textLabel?.text = name
+        }
+
+        return cell
+    }
+    
+    // MARK:- FSPagerView Delegate
+    func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
+        pagerView.deselectItem(at: index, animated: true)
+        pagerView.scrollToItem(at: index, animated: true)
+
+        if let type: String = self.restaurantPhotos[index].type {
+            switch type {
+            case "FOOD":
+                let storyBoard: UIStoryboard = UIStoryboard(name: UIIdentifier.USER.rawValue, bundle: nil)
+                let vc = storyBoard.instantiateViewController(withIdentifier: "RestaurantStoreSelect") as! RestaurantStoreSelectVC
+                ApiManager.restaurantFoodDetail(uuid: self.restaurantPhotos[index].uuid , ui: self, onSuccess: { food in
+                    vc.food = food
+                    vc.restaurantInfo = self.restaurantInfo
+                    self.categoryList.forEach({ cat in
+                        if cat?.category_uuid == food?.category_uuid {
+                            vc.categoryRel = cat
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    })
+                }) { err_msg in
+                    
+                }
+                break
+            case "STORE":
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    func pagerViewDidScroll(_ pagerView: FSPagerView) {
+//        guard self.adPageControl.currentPage != pagerView.currentIndex else {
+//            return
+//        }
+//        // Or Use KVO with property "currentIndex"
+//        self.adPageControl.currentPage = pagerView.currentIndex
     }
     
 }

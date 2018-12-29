@@ -10,9 +10,9 @@ import Foundation
 
 class ApiUrl{   
 
-//    public static var DOMAIN: String = "http://192.168.31.14:8081/melonltd-ap"
+    public static var DOMAIN: String = "http://192.168.31.14:8081/melonltd-ap"
 //    public static var DOMAIN: String = "http://test.melonltd.com.tw"
-    public static var DOMAIN: String = "https://ap.melonltd.com.tw"
+//    public static var DOMAIN: String = "https://ap.melonltd.com.tw"
     
     public static var LOGIN: String = DOMAIN + "/login"
     public static var LOGOUT: String = DOMAIN + "/logout"
@@ -50,7 +50,7 @@ class ApiUrl{
     public static var ACT_SUBMIT: String = DOMAIN + "/activities/submit"
     public static var SERIAL_SUBMIT: String = DOMAIN + "/serial/number/submit"
     public static var RES_EVENT_SUBMIT: String = DOMAIN + "/serial/res/event/submit"
-    
+    public static var RESTAURANT_PHOTO_LIST: String = DOMAIN + "/restaurant/photo/list"
     
     
     
@@ -79,5 +79,9 @@ class ApiUrl{
     public static var SELLER_RESTAURANT_INFO: String = DOMAIN + "/seller/setting/find/restaurant"
     public static var SELLER_RESTAURANT_SETTING: String = DOMAIN + "/seller/setting"
     public static var SELLER_RESTAURANT_SETTING_BUSINESS: String = DOMAIN + "/seller/setting/business"
+    
+    public static var SELLER_SETTING_PHOTO_LIST: String = DOMAIN + "/seller/setting/photo/list"
+    public static var SELLER_SETTING_PHOTO_UPLOAD: String = DOMAIN + "/seller/setting/photo/upload"
+    public static var SELLER_SETTING_PHOTO_DELETE: String = DOMAIN + "/seller/setting/photo/delete"
     
 }
