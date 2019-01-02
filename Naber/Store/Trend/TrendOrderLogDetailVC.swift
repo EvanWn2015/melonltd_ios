@@ -46,13 +46,30 @@ class TrendOrderLogDetailVC : UIViewController, UITableViewDelegate, UITableView
         self.name.text = self.order.order_detail.user_name
         self.phone.text = self.order.order_detail.user_phone
         self.fetchTime.text = DateTimeHelper.formToString(date: self.order.create_date, from: "dd日 HH時 mm分")
-        self.userMessage.text = self.order.user_message
+//        self.userMessage.text = self.order.user_message
         
         if OrderStatus.CANCEL == OrderStatus.of(name: self.order.status) {
           self.finishBtn.isHidden = true
         } else {
           self.cancelBtn.isHidden = true
         }
+        
+        if self.order.order_options != nil {
+            self.order.order_detail.order_options = []
+            self.order.order_detail.order_options = RestaurantOrderOptionVo.parse(src: self.order.order_options)
+        }else {
+            self.order.order_detail.order_options = []
+        }
+        
+//        self.userMessage.text = self.order.user_message
+        // 訂單需求
+        var opts: String = ""
+        if self.order.order_detail.order_options != nil {
+            for opt in self.order.order_detail.order_options {
+                opts += opt.option_name + ": " + opt.options[0] + "\n"
+            }
+        }
+        self.userMessage.text = self.order.user_message + "\n\n訂單需求：\n" + opts
     }
     
     
@@ -84,9 +101,17 @@ class TrendOrderLogDetailVC : UIViewController, UITableViewDelegate, UITableView
                 return s + "\n" + StringsHelper.padEnd(str:"- " + i.name, minLength: 20 , of: " ") +
                     StringsHelper.padEnd(str: "  ", minLength: 10 , of: " ") + "$ " + i.price
             }) + (o.item.opts.count == 0 ? " - 無\n" : "\n") +
-        "需求: "
+//        "需求: "
+//        for d in o.item.demands {
+//            content += d.name + ": " + d.datas[0].name + ", "
+//        }
+//        content += "\n------------------------------------------\n\n"
+            
+        "需求: \n"
         for d in o.item.demands {
-            content += d.name + ": " + d.datas[0].name + ", "
+            content += StringsHelper.padEnd(str:"- " + d.name, minLength: 4 , of: " ") +
+                ":" + d.datas[0].name +
+                StringsHelper.padEnd(str: "  ", minLength: 10 , of: " ") + "$ " + d.datas[0].price + "\n"
         }
         content += "\n------------------------------------------\n\n"
         cell.foodData.text = content

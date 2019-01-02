@@ -52,6 +52,8 @@ class ApiUrl{
     public static var RES_EVENT_SUBMIT: String = DOMAIN + "/serial/res/event/submit"
     public static var RESTAURANT_PHOTO_LIST: String = DOMAIN + "/restaurant/photo/list"
     
+    public static var RESTAURANT_ORDER_OPTS: String = DOMAIN + "/restaurant/order/options"
+    
     
     
     
@@ -83,5 +85,10 @@ class ApiUrl{
     public static var SELLER_SETTING_PHOTO_LIST: String = DOMAIN + "/seller/setting/photo/list"
     public static var SELLER_SETTING_PHOTO_UPLOAD: String = DOMAIN + "/seller/setting/photo/upload"
     public static var SELLER_SETTING_PHOTO_DELETE: String = DOMAIN + "/seller/setting/photo/delete"
+    
+    public static var SELLER_SETTING_ORDER_OPT_LIST: String = DOMAIN + "/seller/setting/option/list"
+    public static var SELLER_SETTING_ORDER_OPT_ADD_OR_UPDATE: String = DOMAIN + "/seller/setting/option/addorupdate"
+    public static var SELLER_SETTING_ORDER_OPT_STATUS: String = DOMAIN + "/seller/setting/option/status"
+    public static var SELLER_SETTING_ORDER_OPT_DELETE: String = DOMAIN + "/seller/setting/option/delete"
     
 }

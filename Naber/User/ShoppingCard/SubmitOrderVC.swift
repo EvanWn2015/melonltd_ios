@@ -6,20 +6,55 @@
 //  Copyright © 2018年 Melone.L.T.D. All rights reserved.
 //
 
+//UIPickerViewDelegate, UIPickerViewDataSource ,
+
 import UIKit
-class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource ,UITextFieldDelegate {
+class SubmitOrderVC : UIViewController, UITextViewDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
 
     var orderIndex: Int!
     var orderDetail: OrderDetail!
+    var deliveryDates: [String] = ["外帶", "內用"]
+//    var deliveryDate: Int = 0
+    var orderOptions: [RestaurantOrderOptionVo] = []
+    var selectedOpts: [RestaurantOrderOptionVo] = []
     
-    @IBOutlet weak var table: UITableView! {
+    @IBOutlet weak var delivery: UITextField!
+    @IBOutlet weak var tableView: UITableView! {
         didSet {
-            let gestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(hideKeyboard))
-            gestureRecognizer.numberOfTapsRequired = 1
-            gestureRecognizer.cancelsTouchesInView = false
-            self.table.addGestureRecognizer(gestureRecognizer)
+            tableView.delegate = self
+            tableView.dataSource = self
+            let refreshControl: UIRefreshControl = UIRefreshControl()
+            refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0)])
+            refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged )
+            refreshControl.tintColor = UIColor.clear
+            self.tableView.addSubview(refreshControl)
         }
     }
+    
+    @objc func refresh(sender: UIRefreshControl){
+        sender.endRefreshing()
+        self.loadData(refresh: true)
+    }
+    
+    func loadData(refresh: Bool){
+        if (refresh){
+            self.orderOptions.removeAll()
+            self.selectedOpts.removeAll()
+            self.tableView.reloadData()
+        }
+        let req: ReqData = ReqData()
+        req.uuid = UserSstorage.getShoppingCartDatas()[self.orderIndex].restaurant_uuid
+        ApiManager.getRestaurantOrderOpts(req: req, ui: self, onSuccess: { resp in
+            self.orderOptions.append(contentsOf: resp.filter({!$0.options.isEmpty}))
+            self.orderOptions.forEach({ opt in
+                self.selectedOpts.append(RestaurantOrderOptionVo.of(name: opt.option_name, opt: opt.options[0]))
+            })
+            self.tableView.reloadData()
+        }) { err_msg in
+            print(err_msg)
+        }
+    }
+    
     // UITableView click bk hide keyboard
     @objc func hideKeyboard(sender: Any){
         self.view.endEditing(true)
@@ -81,28 +116,28 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
 //            self.selectBnonus.isEnabled = false
 //        }
 //    }
-    var nonusToolbar: UIToolbar {
-        get {
-            let nonusToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-            let doneBtn = UIBarButtonItem(title: "選擇紅利" , style: .done, target: self, action: #selector(onDoneBtn))
-            let cancelBtn = UIBarButtonItem(title: "取消折抵" , style: .plain, target: self, action: #selector(onCancelBtn))
-            let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-            nonusToolbar.items = [cancelBtn, space, doneBtn]
-            nonusToolbar.barTintColor = UIColor.white
-            return nonusToolbar
-        }
-    }
-    var nonusPicker: UIPickerView {
-        get {
-            let pickerView = UIPickerView()
-            pickerView.dataSource = self
-            pickerView.delegate = self
-            pickerView.backgroundColor = UIColor.white
-            return pickerView
-        }
-    }
+//    var nonusToolbar: UIToolbar {
+//        get {
+//            let nonusToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+//            let doneBtn = UIBarButtonItem(title: "選擇紅利" , style: .done, target: self, action: #selector(onDoneBtn))
+//            let cancelBtn = UIBarButtonItem(title: "取消折抵" , style: .plain, target: self, action: #selector(onCancelBtn))
+//            let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//            nonusToolbar.items = [cancelBtn, space, doneBtn]
+//            nonusToolbar.barTintColor = UIColor.white
+//            return nonusToolbar
+//        }
+//    }
+//    var nonusPicker: UIPickerView {
+//        get {
+//            let pickerView = UIPickerView()
+//            pickerView.dataSource = self
+//            pickerView.delegate = self
+//            pickerView.backgroundColor = UIColor.white
+//            return pickerView
+//        }
+//    }
     
-    @objc func onDoneBtn(sender: UIBarButtonItem) {
+//    @objc func onDoneBtn(sender: UIBarButtonItem) {
 //        if self.selectBnonus.isEditing && self.bnonusDate >= 0 {
 //            self.selectBnonus.text = self.canBnonusDates[self.bnonusDate]
 //            // 訂單總金額 與紅利 重新計算
@@ -111,10 +146,10 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
 //            })
 //            self.calculatePrice(price: price - (Double(self.bnonusDate + 1) * 3.0))
 //        }
-        self.view.endEditing(true)
-    }
+//        self.view.endEditing(true)
+//    }
     
-    @objc func onCancelBtn(sender: UIBarButtonItem) {
+//    @objc func onCancelBtn(sender: UIBarButtonItem) {
         // 取消折抵
         // 訂單總金額 與紅利 重新計算
 //        self.bnonusDate = -1
@@ -124,42 +159,41 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
 //            return sum + Double(num.item.price)!
 //        })
 //        self.calculatePrice(price: price)
-        self.view.endEditing(true)
-    }
+//        self.view.endEditing(true)
+//    }
     
     ///
-    @IBOutlet weak var delivery: UITextField!
-    var deliveryDates: [String] = ["外帶", "內用"]
-    var deliveryDate: Int = 0
-    var deliveryToolbar: UIToolbar {
-        get {
-            let deliveryToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-            let doneBtn = UIBarButtonItem(title: "確定" , style: .done, target: self, action: #selector(onDeliveryDoneBtn))
-            let cancelBtn = UIBarButtonItem(title: "取消" , style: .plain, target: self, action: #selector(onDeliveryCancelBtn))
-            let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-            deliveryToolbar.items = [cancelBtn, space, doneBtn]
-            deliveryToolbar.barTintColor = UIColor.white
-            return deliveryToolbar
-        }
-    }
-    var deliveryPicker: UIPickerView {
-        get {
-            let pickerView = UIPickerView()
-            pickerView.dataSource = self
-            pickerView.delegate = self
-            pickerView.backgroundColor = UIColor.white
-            return pickerView
-        }
-    }
     
-    @objc func onDeliveryDoneBtn(sender: UIBarButtonItem) {
-        self.delivery.text = self.deliveryDates[self.deliveryDate]
-        self.view.endEditing(true)
-    }
     
-    @objc func onDeliveryCancelBtn(sender: UIBarButtonItem) {
-        self.view.endEditing(true)
-    }
+//    var deliveryToolbar: UIToolbar {
+//        get {
+//            let deliveryToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+//            let doneBtn = UIBarButtonItem(title: "確定" , style: .done, target: self, action: #selector(onDeliveryDoneBtn))
+//            let cancelBtn = UIBarButtonItem(title: "取消" , style: .plain, target: self, action: #selector(onDeliveryCancelBtn))
+//            let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//            deliveryToolbar.items = [cancelBtn, space, doneBtn]
+//            deliveryToolbar.barTintColor = UIColor.white
+//            return deliveryToolbar
+//        }
+//    }
+//    var deliveryPicker: UIPickerView {
+//        get {
+//            let pickerView = UIPickerView()
+//            pickerView.dataSource = self
+//            pickerView.delegate = self
+//            pickerView.backgroundColor = UIColor.white
+//            return pickerView
+//        }
+//    }
+//
+//    @objc func onDeliveryDoneBtn(sender: UIBarButtonItem) {
+//        self.delivery.text = self.deliveryDates[self.deliveryDate]
+//        self.view.endEditing(true)
+//    }
+//
+//    @objc func onDeliveryCancelBtn(sender: UIBarButtonItem) {
+//        self.view.endEditing(true)
+//    }
     
     @IBOutlet weak var readRuleBtn: UIButton!
     
@@ -168,13 +202,16 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
         super.viewDidLoad()
         self.dateSelect.inputView = self.datePicker
         self.dateSelect.inputAccessoryView = self.toolbar
+        
+        self.loadData(refresh: true)
+        
         // 紅利選單
 //        self.selectBnonus.inputView = self.nonusPicker
 //        self.selectBnonus.inputAccessoryView = self.nonusToolbar
         
         //取餐方式
-        self.delivery.inputView = self.deliveryPicker
-        self.delivery.inputAccessoryView = self.deliveryToolbar
+//        self.delivery.inputView = self.deliveryPicker
+//        self.delivery.inputAccessoryView = self.deliveryToolbar
         self.delivery.text = self.deliveryDates[0]
     }
 
@@ -308,7 +345,16 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
 //                    self.orderDetail.use_bonus = ((self.bnonusDate + 1) * 10).description
 //                }
                 // 判斷外帶或內送
-                self.orderDetail.order_type.delivery = self.deliveryDate == 0 ? "OUT" : "IN"
+//                self.orderDetail.order_type.delivery = self.deliveryDate == 0 ? "OUT" : "IN"
+                self.orderDetail.order_type.delivery = (self.delivery.text?.elementsEqual("外帶"))! ? "OUT" : "IN"
+                // 訂單選項資訊
+                if self.orderDetail.order_options != nil {
+                    self.orderDetail.order_options.removeAll()
+                } else {
+                    self.orderDetail.order_options = []
+                }
+                
+                self.orderDetail.order_options.append(contentsOf: self.selectedOpts)
                 
                 ApiManager.userOrderSubmit(req: self.orderDetail, ui: self, onSuccess: {
                     // 提交訂單成功 把該筆訂單從手機記憶中移除
@@ -387,36 +433,82 @@ class SubmitOrderVC : UIViewController, UITextViewDelegate, UIPickerViewDelegate
         return 1
     }
 
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.deliveryDates.count
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return self.deliveryDates.count
 //        if self.delivery.isEditing {
 //            return self.deliveryDates.count
 //        }else {
 //            return self.canBnonusDates.count
 //        }
-    }
+//    }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.deliveryDates[row]
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return self.deliveryDates[row]
 //        if self.delivery.isEditing {
 //            return self.deliveryDates[row]
 //        }else {
 //            return self.canBnonusDates[row]
 //        }
-    }
+//    }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.deliveryDate = row
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        self.deliveryDate = row
 //        if self.delivery.isEditing {
 //            self.deliveryDate = row
 //        }else {
 //            self.bnonusDate = row
 //        }
+//    }
+    
+    // 選擇領餐方式
+    @IBAction func deliveryAction (_ sender: UIButton){
+        let alert = UIAlertController.init(title: Optional.none, message: Optional.none, preferredStyle: .actionSheet)
+        
+        self.deliveryDates.forEach { delivery in
+            alert.addAction(UIAlertAction(title: delivery, style: .default){ _ in
+                self.delivery.text = delivery
+            })
+        }
+        
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRect.init(x: self.view.bounds.width/2 ,y: self.view.bounds.height , width: 1.0, height: 1.0)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // 選擇訂單選項
+    @IBAction func selectOptsAction (_ sender: UIButton){
+        let alert = UIAlertController.init(title: Optional.none, message: Optional.none, preferredStyle: .actionSheet)
+        
+        self.orderOptions[sender.tag].options.forEach { opt in
+            alert.addAction(UIAlertAction(title: opt, style: .default){ _ in
+                self.selectedOpts[sender.tag].options.removeAll()
+                self.selectedOpts[sender.tag].options.append(opt)
+                self.tableView.reloadData()
+            })
+        }
+        
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRect.init(x: self.view.bounds.width/2 ,y: self.view.bounds.height , width: 1.0, height: 1.0)
+        self.present(alert, animated: true, completion: nil)
     }
     
     // 鍵盤點擊背景縮放
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.orderOptions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: UIIdentifier.CELL.rawValue, for: indexPath) as! RestaurantOrderOptionsCell
+        cell.optionName.text = self.orderOptions[indexPath.row].option_name
+        cell.optionSelect.text = self.selectedOpts[indexPath.row].options[0]
+        cell.optionBtn.tag = indexPath.row
+        return cell
+    }
+    
+  
     
 }

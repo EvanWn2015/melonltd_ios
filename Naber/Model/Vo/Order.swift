@@ -43,6 +43,7 @@ class OrderVo : Codable {
     var fetch_date: String!
     var order_data : String!
     var status : String!
+    var order_options: String!
     
     var order_detail: OrderDetail!
 
@@ -76,6 +77,7 @@ class OrderDetail : Codable {
     var fetch_date: String!
     var user_message: String!
     var order_type: OrderType!
+    var order_options: [RestaurantOrderOptionVo]! = []
     var orders: [OrderData]! = []
 
     public static func toJson(structs : OrderDetail) -> String {

@@ -129,6 +129,12 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             ApiManager.sellerOrderList(req: self.reqData, ui: self, onSuccess: { orders in
                 self.orders.append(contentsOf: orders.map({ o -> OrderVo in
                     o.order_detail = OrderDetail.parse(src: o.order_data)!
+                    if o.order_options != nil {
+                        o.order_detail.order_options = []
+                        o.order_detail.order_options = RestaurantOrderOptionVo.parse(src: o.order_options)
+                    }else {
+                        o.order_detail.order_options = []
+                    }
                     return o
                 }))
                 self.reqData.loadingMore = orders.count % NaberConstant.PAGE == 0 && orders.count != 0
@@ -153,6 +159,12 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         ApiManager.sellerOrderList(req: self.reqData, ui: self, onSuccess: { orders in
             self.orders.append(contentsOf: orders.map({ o -> OrderVo in
                 o.order_detail = OrderDetail.parse(src: o.order_data)!
+                if o.order_options != nil {
+                    o.order_detail.order_options = []
+                    o.order_detail.order_options = RestaurantOrderOptionVo.parse(src: o.order_options)
+                }else {
+                    o.order_detail.order_options = []
+                }
                 return o
             }))
             self.reqData.loadingMore = orders.count % NaberConstant.PAGE == 0 && orders.count != 0
@@ -212,6 +224,12 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         ApiManager.sellerOrderList(req: self.reqData, ui: self, onSuccess: { orders in
             self.orders.append(contentsOf: orders.map({ o -> OrderVo in
                 o.order_detail = OrderDetail.parse(src: o.order_data)!
+                if o.order_options != nil {
+                    o.order_detail.order_options = []
+                    o.order_detail.order_options = RestaurantOrderOptionVo.parse(src: o.order_options)
+                }else {
+                    o.order_detail.order_options = []
+                }
                 return o
             }))
             self.reqData.loadingMore = orders.count % NaberConstant.PAGE == 0 && orders.count != 0
@@ -297,7 +315,18 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         cell.name.text = self.orders[indexPath.row].order_detail.user_name
         cell.phone.text = self.orders[indexPath.row].order_detail.user_phone
         cell.fetchTime.text = DateTimeHelper.formToString(date: self.orders[indexPath.row].fetch_date, from: "dd日 HH時 mm分")
-        cell.userMessage.text = self.orders[indexPath.row].user_message
+//        cell.userMessage.text = self.orders[indexPath.row].user_message
+        
+        
+        // 訂單需求
+        var opts: String = ""
+        if self.orders[indexPath.row].order_detail.order_options != nil {
+            for opt in self.orders[indexPath.row].order_detail.order_options {
+                opts += opt.option_name + ": " + opt.options[0] + "\n"
+            }
+        }
+        cell.userMessage.text = self.orders[indexPath.row].user_message + "\n\n訂單需求：\n" + opts
+        
         
         var content: String = ""
         for o in self.orders[indexPath.row].order_detail.orders {
@@ -312,9 +341,11 @@ class OrderMainVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 return s + "\n" + StringsHelper.padEnd(str:"- " + i.name, minLength: 20 , of: " ") +
                     StringsHelper.padEnd(str: "  ", minLength: 10 , of: " ") + "$ " + i.price
             }) + (o.item.opts.count == 0 ? "- 無\n" : "\n") +
-            "需求: "
+            "需求: \n"
             for d in o.item.demands {
-                content += d.name + ": " + d.datas[0].name + ", "
+                content += StringsHelper.padEnd(str:"- " + d.name, minLength:4 , of: " ") +
+                    ":" + d.datas[0].name +
+                    StringsHelper.padEnd(str: "  ", minLength: 10 , of: " ") + "$ " + d.datas[0].price + "\n"
             }
             content += "\n------------------------------------------\n\n"
         }

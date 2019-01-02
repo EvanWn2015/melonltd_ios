@@ -145,7 +145,7 @@ class UserSstorage {
     
     public static func getShoppingCartDatas() -> [OrderDetail] {
         if let remember = getValue(forKey: SHOPPING_CART) as? String {
-//            print("json : ", remember)
+            print("json : ", remember)
             let datas: [OrderDetail] = OrderDetail.parseArray(src: remember)!
             return datas
         } else {

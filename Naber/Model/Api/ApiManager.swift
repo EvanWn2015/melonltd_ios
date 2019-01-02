@@ -420,6 +420,17 @@ class ApiManager {
         })
     }
     
+    // 取得餐館訂單選項列表
+    public static func getRestaurantOrderOpts (req: ReqData, ui: UIViewController, onSuccess: @escaping ([RestaurantOrderOptionVo]) -> (), onFail: @escaping (String) -> ()) {
+        self.postAutho(url: ApiUrl.RESTAURANT_ORDER_OPTS, data: ReqData.toJson(structs: req), ui:ui, complete: { response in
+            let resp: RestaurantOrderOptionListResp = RestaurantOrderOptionListResp.parse(src: base64Decoding(decode: response.result.value!))!
+            if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
+                onSuccess(resp.data)
+            }else {
+                onFail(resp.err_msg)
+            }
+        })
+    }
     
     
     
@@ -706,6 +717,65 @@ class ApiManager {
             }
         })
     }
+    
+    
+    // 取得餐館訂單選項列表
+    public static func getSellerOrderOpts (ui: UIViewController, onSuccess: @escaping ([RestaurantOrderOptionVo]) -> (), onFail: @escaping (String) -> ()) {
+        self.postAutho(url: ApiUrl.SELLER_SETTING_ORDER_OPT_LIST, data:"", ui:ui, complete: { response in
+            let resp: RestaurantOrderOptionListResp = RestaurantOrderOptionListResp.parse(src: base64Decoding(decode: response.result.value!))!
+            if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
+                onSuccess(resp.data)
+            }else {
+                onFail(resp.err_msg)
+            }
+        })
+    }
+    
+    
+    // 新增或更新餐館訂單選項
+    public static func addSellerOrderOpts (req: RestaurantOrderOptionVo, ui: UIViewController, onSuccess: @escaping (RestaurantOrderOptionVo) -> (), onFail: @escaping (String) -> ()) {
+        self.postAutho(url: ApiUrl.SELLER_SETTING_ORDER_OPT_ADD_OR_UPDATE, data: RestaurantOrderOptionVo.toJson(structs: req), ui:ui, complete: { response in
+            let resp: RestaurantOrderOptionResp = RestaurantOrderOptionResp.parse(src: base64Decoding(decode: response.result.value!))!
+            if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
+                onSuccess(resp.data)
+            }else {
+                onFail(resp.err_msg)
+            }
+        })
+    }
+    
+    
+    // 刪除餐館訂單選項
+    public static func statusSellerOrderOpts (req: ReqData, ui: UIViewController, onSuccess: @escaping (String) -> (), onFail: @escaping (String) -> ()) {
+        self.postAutho(url: ApiUrl.SELLER_SETTING_ORDER_OPT_STATUS, data: ReqData.toJson(structs: req), ui:ui, complete: { response in
+            let resp: UploadFileResp = UploadFileResp.parse(src: base64Decoding(decode: response.result.value!))!
+            if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
+                onSuccess(resp.data)
+            }else {
+                onFail(resp.err_msg)
+            }
+        })
+    }
+    
+    // 刪除餐館訂單選項
+    public static func deleteSellerOrderOpts (req: ReqData, ui: UIViewController, onSuccess: @escaping (String) -> (), onFail: @escaping (String) -> ()) {
+        self.postAutho(url: ApiUrl.SELLER_SETTING_ORDER_OPT_DELETE, data: ReqData.toJson(structs: req), ui:ui, complete: { response in
+            let resp: UploadFileResp = UploadFileResp.parse(src: base64Decoding(decode: response.result.value!))!
+            if resp.status.uppercased().elementsEqual(RespStatus.TRUE.rawValue) {
+                onSuccess(resp.data)
+            }else {
+                onFail(resp.err_msg)
+            }
+        })
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     //要 Data的,但是沒有header
     private static func postData(url: String, data: String, ui: UIViewController, complete: @escaping (DataResponse<String>) -> ()) {
